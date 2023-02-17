@@ -1,4 +1,4 @@
-# Sanity Clean Content Studio
+# sanity-performance-plugin
 
 Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
 

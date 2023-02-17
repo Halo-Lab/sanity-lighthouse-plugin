@@ -7,6 +7,7 @@ import {structure, singletonPlugin} from './plugins/desk'
 import {SINGLETON_TYPES_LIST} from './helpers/constants'
 import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
+import {performancePlugin} from './plugins/performance-plugin'
 
 export default defineConfig({
   name: 'default',
@@ -19,8 +20,11 @@ export default defineConfig({
   plugins: [
     deskTool(structure),
     visionTool(),
-    dashboardTool(projectInfoWidget(), projectUsersWidget()),
+    dashboardTool({
+      widgets: [projectInfoWidget(), projectUsersWidget()],
+    }),
     singletonPlugin(SINGLETON_TYPES_LIST),
+    performancePlugin(),
   ],
 
   schema: {
