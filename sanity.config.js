@@ -9,12 +9,15 @@ import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
 import {performancePlugin} from './plugins/performance-plugin'
 
+export const projectId = import.meta.env.SANITY_STUDIO_PROJECT_ID
+export const dataset = import.meta.env.SANITY_STUDIO_DATASET
+
 export default defineConfig({
   name: 'default',
 
   title: 'Sanity Performance plugin',
-  projectId: import.meta.env.SANITY_STUDIO_PROJECT_ID,
-  dataset: import.meta.env.SANITY_STUDIO_DATASET,
+  projectId: projectId,
+  dataset: dataset,
   theme,
 
   plugins: [
