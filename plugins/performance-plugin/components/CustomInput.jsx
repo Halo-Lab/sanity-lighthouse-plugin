@@ -18,30 +18,35 @@ export const CustomInput = ({handleSubmit, setUrl}) => {
 
   return (
     <Stack>
-      <Flex gap={5} justify={'space-between'}>
+      <Flex gap={1} justify={'space-between'} direction={'column'}>
         <Flex direction={'column'}>
-          <TextInput onChange={({target}) => validate(target.value)} />
+          <TextInput
+            onChange={({target}) => validate(target.value)}
+            onBlur={({target}) =>
+              target.value === '' ? setErrorMessage('') : validate(target.value)
+            }
+          />
           <span
             style={{
               fontWeight: 'bold',
-              color: 'red',
+              color: errorMessage === 'Is Valid URL' ? 'green' : 'red',
               minHeight: '22px',
             }}
           >
             {errorMessage}
           </span>
         </Flex>
-        <Inline space={[3, 3, 4]}>
+        <Flex justify={'flex-end'}>
           <Button
             fontSize={[2, 2, 3]}
             icon={PublishIcon}
             padding={[1, 1, 3]}
-            text="Publish"
+            text="Analyze"
             tone="primary"
             onClick={handleSubmit}
-            disabled={errorMessage === 'Is Not Valid URL'}
+            disabled={errorMessage === 'Is Not Valid URL' || errorMessage === ''}
           />
-        </Inline>
+        </Flex>
       </Flex>
     </Stack>
   )

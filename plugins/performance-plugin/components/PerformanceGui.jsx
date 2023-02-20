@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react'
-import {Container, Card, Grid, Flex, Heading, Box} from '@sanity/ui'
-import {CustomInput} from '../../../components/CustomInput'
-import {apiRequest} from '../../../helpers/api-request'
+import React, {useState} from 'react'
+import {Container, Card, Flex, Heading, Box} from '@sanity/ui'
+import {CustomInput} from './CustomInput'
+import {apiRequest} from '../helpers/api-request'
 import styled from 'styled-components'
 import {SearchMenu} from './SearchMenu'
 import {CustomSpinner} from './CustomSpinner'
+import {parseDate} from '../helpers/RenderContent'
+
 const CustomGrid = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 1fr;
@@ -13,28 +15,6 @@ const CustomGrid = styled.div`
 `
 const stateType = {idle: 'idle', loading: 'loading', success: 'success', error: 'error'}
 
-const showInitialContent = (id) => (
-  <div>
-    <h1>PageSpeed Insights API Demo</h1>
-    <p>Page tested: ${id}</p>
-  </div>
-)
-
-const showCruxContent = (cruxMetrics) => {
-  let newItems = []
-
-  for (let key in cruxMetrics) {
-    newItems.push(`${key}: ${cruxMetrics[key]}`)
-  }
-
-  const renderMetrics = (items) => items.map((item, i) => <p key={`${item}`}>{item}</p>)
-  return (
-    <div>
-      <h2>Chrome User Experience Report Results</h2>
-      {renderMetrics(newItems)}
-    </div>
-  )
-}
 export const PerformanceGui = (props) => {
   const [state, setState] = useState(stateType.idle)
   const [url, setUrl] = useState('')
@@ -54,19 +34,7 @@ export const PerformanceGui = (props) => {
       setState(stateType.error)
     }
   }
-  const parseDate = (data) => {
-    const {loadingExperience, lighthouseResult, id} = data
-    const cruxMetrics = {
-      'First Contentful Paint': loadingExperience.metrics.FIRST_CONTENTFUL_PAINT_MS.category,
-      'First Input Delay': loadingExperience.metrics.FIRST_INPUT_DELAY_MS.category,
-    }
-    return (
-      <div>
-        {showInitialContent(id)}
-        {showCruxContent(cruxMetrics)}
-      </div>
-    )
-  }
+
   return (
     <Container width={3}>
       <CustomGrid>
@@ -74,10 +42,10 @@ export const PerformanceGui = (props) => {
           <CustomInput handleSubmit={handleSubmit} setUrl={setUrl} />
           <Box>
             <Heading>Search Request:</Heading>
-            {state === stateType.loading ? (
-              <CustomSpinner />
+            {!Boolean(listReq?.length) ? (
+              <div>Empty</div>
             ) : (
-              <SearchMenu items={listReq} setActiveResult={setActiveResult} />
+              <SearchMenu items={listReq} setActiveResult={setActiveResult} state={state} />
             )}
           </Box>
         </Flex>
