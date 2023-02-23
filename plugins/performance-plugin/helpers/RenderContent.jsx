@@ -29,24 +29,3 @@ export const showLighthouseContent = (lighthouseMetrics) => {
     </>
   )
 }
-
-export const parseDate = (data) => {
-  const {lighthouseResult, id} = data
-  // console.log(lighthouseResult.audits)
-  const lighthouseMetrics = {
-    'First Contentful Paint': lighthouseResult.audits['first-contentful-paint'].displayValue,
-    'Speed Index': lighthouseResult.audits['speed-index'].displayValue,
-    'Time To Interactive': lighthouseResult.audits['interactive'].displayValue,
-    'First Meaningful Paint':
-      lighthouseResult?.audits['first-meaningful-paint']?.displayValue ?? '',
-    'First CPU Idle': lighthouseResult?.audits['first-cpu-idle']?.displayValue ?? '',
-    'Estimated Input Latency':
-      lighthouseResult?.audits['estimated-input-latency']?.displayValue ?? '',
-  }
-  return (
-    <div>
-      {showInitialContent(id)}
-      {showLighthouseContent(lighthouseMetrics)}
-    </div>
-  )
-}

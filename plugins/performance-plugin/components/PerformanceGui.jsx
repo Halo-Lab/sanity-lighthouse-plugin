@@ -5,7 +5,8 @@ import {apiRequest} from '../helpers/api-request'
 import styled from 'styled-components'
 import {SearchMenu} from './SearchMenu'
 import {CustomSpinner} from './CustomSpinner'
-import {parseDate} from '../helpers/RenderContent'
+import {formatData} from '../helpers/formatDate'
+import {RenderCoreData} from './RenderCoreData'
 
 const CustomGrid = styled.div`
   display: grid;
@@ -20,15 +21,16 @@ export const PerformanceGui = (props) => {
   const [url, setUrl] = useState('')
   const [device, setDevice] = useState('Desktop')
   const [data, setData] = useState([])
-  const [listReq, setListReq] = useState([])
   const [activeResult, setActiveResult] = useState(0)
 
   const handleSubmit = async (e) => {
     try {
       setState(stateType.loading)
-      setListReq([...listReq, url])
+      //api request (url: string from input, device = Mobile or Desktop)
       const result = await apiRequest(url, device.toLowerCase())
-      setData([...data, result])
+      //add to array formatted data from result
+      setData([...data, formatData(result)])
+      setUrl('')
       setState(stateType.success)
     } catch (error) {
       console.log(error)
@@ -37,7 +39,7 @@ export const PerformanceGui = (props) => {
   }
 
   return (
-    <Container width={3} padding={2} height="fill">
+    <Container width={3} padding={2}>
       <CustomGrid>
         <Flex direction={'column'} gap={5}>
           <CustomInput
@@ -45,14 +47,15 @@ export const PerformanceGui = (props) => {
             setUrl={setUrl}
             setDevice={setDevice}
             device={device}
+            state={state}
+            url={url}
           />
           <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
             <Heading>History:</Heading>
-            {!Boolean(listReq?.length) ? (
-              <Text>Empty</Text>
-            ) : (
-              <SearchMenu items={listReq} setActiveResult={setActiveResult} state={state} />
+            {Boolean(data?.length) && (
+              <SearchMenu items={data} setActiveResult={setActiveResult} state={state} />
             )}
+            {state === 'loading' && <CustomSpinner />}
           </Box>
         </Flex>
         <Card>
@@ -60,7 +63,10 @@ export const PerformanceGui = (props) => {
             <CustomSpinner />
           ) : (
             <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
-              <Heading>Result: {data?.length ? parseDate(data[activeResult]) : ''}</Heading>
+              {/* <Heading>Result: {data?.length ? parseDate(data[activeResult]) : ''}</Heading> */}
+
+              {/* {RenderCoreData(data.length ? data[activeResult].core : [])} */}
+              {RenderCoreData()}
             </Box>
           )}
         </Card>

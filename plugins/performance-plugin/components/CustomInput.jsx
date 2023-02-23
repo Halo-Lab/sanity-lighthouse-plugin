@@ -3,7 +3,7 @@ import {Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/
 import {LinkIcon} from '@sanity/icons'
 import validator from 'validator'
 
-export const CustomInput = ({handleSubmit, setUrl, device, setDevice}) => {
+export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url = ''}) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
@@ -12,14 +12,14 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice}) => {
     },
     [setDevice]
   )
+
   const validate = (value) => {
     if (validator.isURL(value)) {
       setErrorMessage('Is Valid URL')
-
-      setUrl(value)
     } else {
       setErrorMessage('Is Not Valid URL')
     }
+    setUrl(value)
   }
 
   return (
@@ -33,7 +33,9 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice}) => {
                 target.value === '' ? setErrorMessage('') : validate(target.value)
               }
               icon={LinkIcon}
+              value={url}
             />
+
             <span
               style={{
                 fontWeight: 'bold',
@@ -41,7 +43,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice}) => {
                 minHeight: '22px',
               }}
             >
-              {errorMessage}
+              {url !== '' && errorMessage}
             </span>
           </Flex>
           <Flex justify={'flex-end'} align={'center'} gap={6}>
@@ -69,7 +71,9 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice}) => {
               text="Analyze"
               tone="primary"
               onClick={handleSubmit}
-              disabled={errorMessage === 'Is Not Valid URL' || errorMessage === ''}
+              disabled={
+                errorMessage === 'Is Not Valid URL' || errorMessage === '' || state === 'loading'
+              }
             />
           </Flex>
         </Flex>
