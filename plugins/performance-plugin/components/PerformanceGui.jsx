@@ -5,8 +5,9 @@ import {apiRequest} from '../helpers/api-request'
 import styled from 'styled-components'
 import {SearchMenu} from './SearchMenu'
 import {CustomSpinner} from './CustomSpinner'
-import {formatData} from '../helpers/formatDate'
+import {formatData} from '../helpers/formatData'
 import {RenderCoreData} from './RenderCoreData'
+import {RenderCategoriesData} from './RenderCategoriesData'
 
 const CustomGrid = styled.div`
   display: grid;
@@ -29,7 +30,7 @@ export const PerformanceGui = (props) => {
       //api request (url: string from input, device = Mobile or Desktop)
       const result = await apiRequest(url, device.toLowerCase())
       //add to array formatted data from result
-      setData([...data, formatData(result)])
+      setData([formatData(result), ...data])
       setUrl('')
       setState(stateType.success)
     } catch (error) {
@@ -37,7 +38,7 @@ export const PerformanceGui = (props) => {
       setState(stateType.error)
     }
   }
-
+  console.log(data)
   return (
     <Container width={3} padding={2}>
       <CustomGrid>
@@ -49,6 +50,7 @@ export const PerformanceGui = (props) => {
             device={device}
             state={state}
             url={url}
+            data={data}
           />
           <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
             <Heading>History:</Heading>
@@ -63,10 +65,12 @@ export const PerformanceGui = (props) => {
             <CustomSpinner />
           ) : (
             <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
-              {/* <Heading>Result: {data?.length ? parseDate(data[activeResult]) : ''}</Heading> */}
-
-              {/* {RenderCoreData(data.length ? data[activeResult].core : [])} */}
-              {RenderCoreData()}
+              {Boolean(data.length) && (
+                <div>
+                  <RenderCoreData data={data[activeResult].core} />
+                  {/* <RenderCategoriesData data={data[activeResult].performance} /> */}
+                </div>
+              )}
             </Box>
           )}
         </Card>

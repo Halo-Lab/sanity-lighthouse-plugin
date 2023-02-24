@@ -12,6 +12,7 @@ export const SearchMenu = ({items, setActiveResult, state}) => {
               console.dir(e)
               setActiveResult(i)
             }}
+            disabled={state === 'loading' && true}
           >
             <Box padding={3}>
               <Stack space={3}>

@@ -3,7 +3,7 @@ import {Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/
 import {LinkIcon} from '@sanity/icons'
 import validator from 'validator'
 
-export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url = ''}) => {
+export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url, data}) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
@@ -18,6 +18,14 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
       setErrorMessage('Is Valid URL')
     } else {
       setErrorMessage('Is Not Valid URL')
+    }
+    if (data.length) {
+      data.map((item) => {
+        console.log(item)
+        return item.mainInfo.linkReq.includes(value)
+          ? setErrorMessage('This link already exist')
+          : null
+      })
     }
     setUrl(value)
   }
@@ -72,7 +80,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
               tone="primary"
               onClick={handleSubmit}
               disabled={
-                errorMessage === 'Is Not Valid URL' || errorMessage === '' || state === 'loading'
+                errorMessage !== 'Is Valid URL' || errorMessage === '' || state === 'loading'
               }
             />
           </Flex>

@@ -3,7 +3,7 @@ export const formatData = (data) => {
     id,
     loadingExperience: {metrics},
     lighthouseResult: {
-      categories: {performance: auditRefs},
+      categories,
       audits,
       configSettings: {formFactor},
     },
@@ -150,8 +150,27 @@ export const formatData = (data) => {
       ],
     },
   ]
+  const performanceMetricsId = categories?.performance?.auditRefs.reduce((acc, {id, weight}) => {
+    if (weight > 0) {
+      acc.push(id)
+    }
+    return acc
+  }, [])
 
-  return {core: coreWebVitalsAssessment, mainInfo: mainInfo}
+  const performance = {
+    title: categories?.performance.title ?? '',
+    score: categories?.performance.score * 100 ?? '',
+    categories: Object.entries(audits).reduce((acc, item) => {
+      if (performanceMetricsId.includes(item[0])) {
+        acc.push({
+          name: item[1].title,
+          value: item[1].displayValue ? item[1].displayValue : item[1].score,
+        })
+      }
+      return acc
+    }, []),
+  }
+  return {core: coreWebVitalsAssessment, mainInfo: mainInfo, performance}
 }
 
 const roundNumber = (num) => Math.round(num * 10) / 10
