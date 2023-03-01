@@ -1,6 +1,7 @@
 import React from 'react'
 import {useClient} from 'sanity'
 import PerformanceContainer from './containers/PerformanceContainer'
+import './styles/global.css'
 
 function PerformancePlugin(props) {
   const client = useClient({apiVersion: '1'})

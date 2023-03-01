@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {formatData} from './formatData'
 
 const endpoint = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed'
 // API Key (https://developers.google.com/speed/docs/insights/v5/get-started)
@@ -8,6 +9,14 @@ export const apiRequest = async (url, device = 'desktop', category = 'PERFORMANC
   const {data} = await axios(
     `${endpoint}?url=${url}&strategy=${device}&key=${key}&category=${category}`
   )
-
+  console.log(data)
   return data
+}
+
+export const apiRequestByDevice = async (url, device = 'desktop', category = 'PERFORMANCE') => {
+  const {data} = await axios(
+    `${endpoint}?url=${url}&strategy=${device}&key=${key}&category=${category}`
+  )
+  const formattedData = formatData(data)
+  return device === 'desktop' ? formattedData.desktop : formattedData.mobile
 }

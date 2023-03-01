@@ -22,6 +22,7 @@
     "axios": "^1.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-google-charts": "^4.0.0",
     "react-is": "^18.2.0",
     "recharts": "^2.4.3",
     "sanity": "^3.5.0",

@@ -9,7 +9,9 @@ export const formatData = (data) => {
     },
     analysisUTCTimestamp,
   } = data
-  console.log(data)
+  let mobile = [],
+    desktop = []
+
   const mainInfo = {
     linkReq: id,
     date: formatDate(analysisUTCTimestamp),
@@ -170,7 +172,12 @@ export const formatData = (data) => {
       return acc
     }, []),
   }
-  return {core: coreWebVitalsAssessment, mainInfo: mainInfo, performance}
+  if (formFactor === 'mobile') {
+    mobile.unshift({core: coreWebVitalsAssessment, performance})
+  } else {
+    desktop.unshift({core: coreWebVitalsAssessment, performance})
+  }
+  return {mainInfo: mainInfo, desktop, mobile}
 }
 
 const roundNumber = (num) => Math.round(num * 10) / 10

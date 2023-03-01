@@ -42,6 +42,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
               }
               icon={LinkIcon}
               value={url}
+              disabled={state === 'loading'}
             />
 
             <span
@@ -62,6 +63,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
                   name="foo"
                   onChange={handleChange}
                   value="Desktop"
+                  disabled={state === 'loading'}
                 />
                 <Text>Desktop</Text>
                 <Radio
@@ -69,6 +71,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
                   name="foo"
                   onChange={handleChange}
                   value="Mobile"
+                  disabled={state === 'loading'}
                 />
                 <Text>Mobile</Text>
               </Inline>
