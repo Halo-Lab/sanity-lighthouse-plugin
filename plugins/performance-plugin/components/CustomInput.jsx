@@ -3,7 +3,16 @@ import {Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/
 import {LinkIcon} from '@sanity/icons'
 import validator from 'validator'
 
-export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url, data}) => {
+export const CustomInput = ({
+  handleSubmit,
+  setUrl,
+  device,
+  setDevice,
+  state,
+  url,
+  data,
+  stateTabs,
+}) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
@@ -29,7 +38,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
     }
     setUrl(value)
   }
-
+  const isDisable = state === 'loading' || stateTabs === 'loading'
   return (
     <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
       <Stack>
@@ -42,7 +51,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
               }
               icon={LinkIcon}
               value={url}
-              disabled={state === 'loading'}
+              disabled={isDisable}
             />
 
             <span
@@ -63,7 +72,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
                   name="foo"
                   onChange={handleChange}
                   value="Desktop"
-                  disabled={state === 'loading'}
+                  disabled={isDisable}
                 />
                 <Text>Desktop</Text>
                 <Radio
@@ -71,7 +80,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
                   name="foo"
                   onChange={handleChange}
                   value="Mobile"
-                  disabled={state === 'loading'}
+                  disabled={isDisable}
                 />
                 <Text>Mobile</Text>
               </Inline>
@@ -82,9 +91,7 @@ export const CustomInput = ({handleSubmit, setUrl, device, setDevice, state, url
               text="Analyze"
               tone="primary"
               onClick={handleSubmit}
-              disabled={
-                errorMessage !== 'Is Valid URL' || errorMessage === '' || state === 'loading'
-              }
+              disabled={errorMessage !== 'Is Valid URL' || errorMessage === '' || isDisable}
             />
           </Flex>
         </Flex>

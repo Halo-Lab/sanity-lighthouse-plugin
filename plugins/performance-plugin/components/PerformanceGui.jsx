@@ -7,7 +7,7 @@ import {SearchMenu} from './SearchMenu'
 import {CustomSpinner} from './CustomSpinner'
 import {formatData} from '../helpers/formatData'
 import {TabContainers} from '../containers/TabContainers'
-import {STATE_TYPE} from '../helpers/constants'
+import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import {SyncIcon} from '@sanity/icons'
 
 const CustomGrid = styled.div`
@@ -19,12 +19,14 @@ const CustomGrid = styled.div`
 
 export const PerformanceGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
+  const [stateTabs, setStateTabs] = useState(STATE_TYPE.idle)
   const [url, setUrl] = useState('')
   const [device, setDevice] = useState('Desktop')
   const [data, setData] = useState([])
   const [activeResult, setActiveResult] = useState(0)
-  const [isRefresh, setIsRefresh] = useState(false)
+  const [isRefreshForDevice, setIsRefreshForDevice] = useState(null)
   const [id, setId] = useState('desktop')
+
   const handleSubmit = async (e) => {
     try {
       setState(STATE_TYPE.loading)
@@ -46,7 +48,9 @@ export const PerformanceGui = (props) => {
 
   const handleRefresh = async (e) => {
     try {
-      setIsRefresh(true)
+      setStateTabs(STATE_TYPE.loading)
+      console.log(LIST_DEVICES[id])
+      setIsRefreshForDevice(LIST_DEVICES[id])
       const result = await apiRequestByDevice(data[activeResult]?.mainInfo?.linkReq, id)
       const newData = [...data].map((item, i) => {
         if (i === activeResult) {
@@ -56,11 +60,14 @@ export const PerformanceGui = (props) => {
       })
 
       setData(newData)
-      setIsRefresh(false)
+      // setIsRefresh(false)
+      setIsRefreshForDevice(null)
+      setStateTabs(STATE_TYPE.success)
     } catch (error) {
       setState(STATE_TYPE.error)
     }
   }
+
   return (
     <Container width={3} padding={2}>
       <CustomGrid>
@@ -72,6 +79,7 @@ export const PerformanceGui = (props) => {
             setDevice={setDevice}
             device={device}
             state={state}
+            stateTabs={stateTabs}
             url={url}
             data={data}
           />
@@ -84,6 +92,7 @@ export const PerformanceGui = (props) => {
                 setActiveResult={setActiveResult}
                 state={state}
                 deleteCardByID={deleteCardByID}
+                stateTabs={stateTabs}
               />
             )}
           </Box>
@@ -103,6 +112,7 @@ export const PerformanceGui = (props) => {
                       text="Refresh"
                       tone="caution"
                       onClick={handleRefresh}
+                      disabled={stateTabs === 'loading'}
                     />
                   </div>
                 )}
@@ -110,9 +120,11 @@ export const PerformanceGui = (props) => {
                   data={data}
                   activeResult={activeResult}
                   setData={setData}
-                  isRefresh={isRefresh}
+                  isRefreshForDevice={isRefreshForDevice}
                   setId={setId}
                   id={id}
+                  setStateTabs={setStateTabs}
+                  stateTabs={stateTabs}
                 />
               </Box>
             )

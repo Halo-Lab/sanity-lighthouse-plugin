@@ -4,15 +4,25 @@ import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import {RenderCoreData} from '../components/RenderCoreData'
 import {RenderCategoriesData} from '../components/RenderCategoriesData'
 import {apiRequestByDevice} from '../helpers/api-request'
-import {STATE_TYPE} from '../helpers/constants'
+import {STATE_TYPE, LIST_DEVICES} from '../helpers/constants'
 import {CustomSpinner} from '../components/CustomSpinner'
 
-export const TabContainers = ({data, activeResult, setData, isRefresh, id, setId}) => {
-  const [state, setState] = useState(STATE_TYPE.idle)
+export const TabContainers = ({
+  data,
+  activeResult,
+  setData,
+  isRefreshForDevice,
+  id,
+  setId,
+  setStateTabs,
+  stateTabs,
+}) => {
+  const mobileData = data[activeResult]?.mobile[0]
+  const desktopData = data[activeResult]?.desktop[0]
 
   const handelData = async (e) => {
     try {
-      setState(STATE_TYPE.loading)
+      setStateTabs(STATE_TYPE.loading)
       const result = await apiRequestByDevice(data[activeResult]?.mainInfo?.linkReq, id)
 
       const newData = [...data].map((item, i) => {
@@ -23,14 +33,14 @@ export const TabContainers = ({data, activeResult, setData, isRefresh, id, setId
       })
 
       setData(newData)
-      setState(STATE_TYPE.success)
+      setStateTabs(STATE_TYPE.success)
     } catch (error) {
-      setState(STATE_TYPE.error)
+      setStateTabs(STATE_TYPE.error)
     }
   }
 
   const renderContainerForRequest = () => {
-    return state === STATE_TYPE.loading ? (
+    return stateTabs === STATE_TYPE.loading ? (
       <CustomSpinner />
     ) : (
       <div>
@@ -40,11 +50,27 @@ export const TabContainers = ({data, activeResult, setData, isRefresh, id, setId
           text="Request data"
           tone="primary"
           onClick={handelData}
-          // disabled={errorMessage !== 'Is Valid URL' || errorMessage === '' || state === 'loading'}
         />
       </div>
     )
   }
+
+  const renderTabPanelData = (data, device) => {
+    const listLength = Boolean(data[activeResult][`${device}`]?.length)
+    return listLength ? (
+      <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
+        <RenderCoreData
+          data={device === LIST_DEVICES.desktop ? desktopData.core : mobileData.core}
+        />
+        <RenderCategoriesData
+          data={device === LIST_DEVICES.desktop ? desktopData.performance : mobileData.performance}
+        />
+      </div>
+    ) : (
+      renderContainerForRequest()
+    )
+  }
+
   return (
     <Card padding={4}>
       <TabList space={2}>
@@ -52,47 +78,61 @@ export const TabContainers = ({data, activeResult, setData, isRefresh, id, setId
           icon={DesktopIcon}
           id="desktop-tab"
           label="Desktop"
-          onClick={() => setId('desktop')}
-          selected={id === 'desktop'}
+          onClick={() => setId(LIST_DEVICES.desktop)}
+          selected={id === LIST_DEVICES.desktop}
           space={2}
         />
         <Tab
           icon={MobileDeviceIcon}
           id="mobile-tab"
           label="Mobile"
-          onClick={() => setId('mobile')}
-          selected={id === 'mobile'}
+          onClick={() => setId(LIST_DEVICES.mobile)}
+          selected={id === LIST_DEVICES.mobile}
           space={2}
         />
       </TabList>
 
-      <TabPanel hidden={id !== 'desktop'} id="desktop-panel">
+      <TabPanel hidden={id !== LIST_DEVICES.desktop} id="desktop-panel">
         <Card border marginTop={2} padding={4} radius={2}>
-          {isRefresh && id === 'desktop' ? (
+          {isRefreshForDevice === LIST_DEVICES.desktop ? (
+            <CustomSpinner />
+          ) : (
+            renderTabPanelData(data, 'desktop')
+          )}
+          {/* {isRefresh &&
+          Boolean(data[activeResult]?.desktop?.length) &&
+          id === LIST_DEVICES.desktop ? (
             <CustomSpinner />
           ) : Boolean(data[activeResult]?.desktop?.length) ? (
             <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
-              <RenderCoreData data={data[activeResult]?.desktop[0]?.core} />
-              <RenderCategoriesData data={data[activeResult]?.desktop[0]?.performance} />
+              <RenderCoreData data={desktopData.core} />
+              <RenderCategoriesData data={desktopData.performance} />
             </div>
           ) : (
             renderContainerForRequest()
-          )}
+          )} */}
         </Card>
       </TabPanel>
 
-      <TabPanel hidden={id !== 'mobile'} id="mobile-panel">
+      <TabPanel hidden={id !== LIST_DEVICES.mobile} id="mobile-panel">
         <Card border marginTop={2} padding={4}>
-          {isRefresh && id !== 'mobile' ? (
+          {isRefreshForDevice === LIST_DEVICES.mobile ? (
+            <CustomSpinner />
+          ) : (
+            renderTabPanelData(data, 'mobile')
+          )}
+          {/* {isRefresh &&
+          Boolean(data[activeResult]?.desktop?.length) &&
+          id === LIST_DEVICES.desktop ? (
             <CustomSpinner />
           ) : Boolean(data[activeResult]?.mobile?.length) ? (
             <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
-              <RenderCoreData data={data[activeResult]?.mobile[0]?.core} />
-              <RenderCategoriesData data={data[activeResult]?.mobile[0]?.performance} />
+              <RenderCoreData data={mobileData.core} />
+              <RenderCategoriesData data={mobileData.performance} />
             </div>
           ) : (
             renderContainerForRequest()
-          )}
+          )} */}
         </Card>
       </TabPanel>
     </Card>
