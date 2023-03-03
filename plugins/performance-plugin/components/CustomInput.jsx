@@ -30,7 +30,6 @@ export const CustomInput = ({
     }
     if (data.length) {
       data.map((item) => {
-        console.log(item)
         return item.mainInfo.linkReq.includes(value)
           ? setErrorMessage('This link already exist')
           : null

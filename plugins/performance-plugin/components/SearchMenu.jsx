@@ -23,7 +23,7 @@ export const SearchMenu = ({items, setActiveResult, state, deleteCardByID, state
                   <Text weight="semibold">{mainInfo.linkReq.substring(0, 30)}</Text>
 
                   <CustomButton
-                    onClick={() => (isDisable ? null : deleteCardByID(mainInfo.linkReq))}
+                    onClick={() => (isDisable ? null : deleteCardByID(mainInfo.linkReq, i))}
                     id="deleteButton"
                     style={{borderColor: isDisable && 'grey'}}
                   >

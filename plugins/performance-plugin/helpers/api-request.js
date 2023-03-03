@@ -9,7 +9,7 @@ export const apiRequest = async (url, device = 'desktop', category = 'PERFORMANC
   const {data} = await axios(
     `${endpoint}?url=${url}&strategy=${device}&key=${key}&category=${category}`
   )
-  console.log(data)
+
   return data
 }
 

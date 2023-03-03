@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Container, Card, Flex, Heading, Box, Text, Button} from '@sanity/ui'
 import {CustomInput} from './CustomInput'
 import {apiRequest, apiRequestByDevice} from '../helpers/api-request'
@@ -32,6 +32,16 @@ export const PerformanceGui = (props) => {
   const [isRefreshForDevice, setIsRefreshForDevice] = useState(null)
   const [id, setId] = useState(LIST_DEVICES.desktop)
 
+  useEffect(() => {
+    const getDocumentById = async () => {
+      const doc = await props.client.getDocument('performance')
+      if (Boolean(doc.data.length)) {
+        setData(doc.data)
+      }
+    }
+    getDocumentById()
+  }, [])
+
   const handleSubmit = async (e) => {
     try {
       setState(STATE_TYPE.loading)
@@ -39,16 +49,38 @@ export const PerformanceGui = (props) => {
       const result = await apiRequest(url, device.toLowerCase())
       //add to array formatted data from result
       setData([formatData(result), ...data])
+      //update sanity document
+
+      patchSanityDocument([formatData(result), ...data])
       setUrl('')
-      setState(STATE_TYPE.success)
+      setState(STATE_TYPE.loading)
     } catch (error) {
       console.log(error)
       setState(STATE_TYPE.error)
     }
   }
-  const deleteCardByID = (id) => {
+  const deleteCardByID = (id, idx) => {
+    setState(STATE_TYPE.loading)
     setData([...data].filter((item) => item.mainInfo.linkReq !== id))
+    props.client
+      .patch('performance')
+      .unset([`data[${idx}]`])
+      .commit()
     setActiveResult(0)
+    setState(STATE_TYPE.loading)
+  }
+  const patchSanityDocument = (newData) => {
+    if (!Boolean(newData.length)) return
+    props.client
+      .patch('performance')
+      .set({data: newData})
+      .commit()
+      .then((updated) => {
+        console.log('New document:', updated)
+      })
+      .catch((err) => {
+        console.error('Oh no, the update failed: ', err.message)
+      })
   }
 
   const handleRefresh = async (e) => {
@@ -67,6 +99,7 @@ export const PerformanceGui = (props) => {
       })
 
       setData(newData)
+      patchSanityDocument(newData)
       setIsRefreshForDevice(null)
       setStateTabs(STATE_TYPE.success)
     } catch (error) {
@@ -78,8 +111,6 @@ export const PerformanceGui = (props) => {
     <Container width={3} padding={2}>
       <CustomGrid>
         <Flex direction={'column'} gap={5}>
-          <Text>https://www.pinterest.com/ https://felyx.com/</Text>
-
           <CustomInput
             handleSubmit={handleSubmit}
             setUrl={setUrl}
@@ -128,12 +159,11 @@ export const PerformanceGui = (props) => {
                 <TabContainers
                   data={data}
                   activeResult={activeResult}
-                  setData={setData}
                   isRefreshForDevice={isRefreshForDevice}
                   setId={setId}
                   id={id}
-                  setStateTabs={setStateTabs}
                   stateTabs={stateTabs}
+                  handleRefresh={handleRefresh}
                 />
               </Box>
             )

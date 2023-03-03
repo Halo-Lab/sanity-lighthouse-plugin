@@ -16,37 +16,17 @@ const DivContainer = styled.div`
 export const TabContainers = ({
   data,
   activeResult,
-  setData,
   isRefreshForDevice,
   id,
   setId,
-  setStateTabs,
   stateTabs,
+  handleRefresh,
 }) => {
   const mobileData = data[activeResult]?.mobile[0]
   const desktopData = data[activeResult]?.desktop[0]
 
-  const handelData = async (e) => {
-    try {
-      setStateTabs(STATE_TYPE.loading)
-      const result = await apiRequestByDevice(data[activeResult]?.mainInfo?.linkReq, id)
-
-      const newData = [...data].map((item, i) => {
-        if (i === activeResult) {
-          item[`${id}`] = result
-        }
-        return item
-      })
-
-      setData(newData)
-      setStateTabs(STATE_TYPE.success)
-    } catch (error) {
-      setStateTabs(STATE_TYPE.error)
-    }
-  }
-
   const renderContainerForRequest = (device) =>
-    stateTabs === STATE_TYPE.loading && device === isRefreshForDevice ? (
+    stateTabs === STATE_TYPE.loading || device === isRefreshForDevice ? (
       <CustomSpinner />
     ) : (
       <Button
@@ -54,7 +34,7 @@ export const TabContainers = ({
         padding={[1, 1, 3]}
         text="Request data"
         tone="primary"
-        onClick={handelData}
+        onClick={handleRefresh}
         disabled={stateTabs === STATE_TYPE.loading}
       />
     )
