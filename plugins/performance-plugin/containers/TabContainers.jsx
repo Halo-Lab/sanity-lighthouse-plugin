@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {TabList, Card, Tab, TabPanel, Button} from '@sanity/ui'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import {RenderCoreData} from '../components/RenderCoreData'
@@ -6,7 +6,13 @@ import {RenderCategoriesData} from '../components/RenderCategoriesData'
 import {apiRequestByDevice} from '../helpers/api-request'
 import {STATE_TYPE, LIST_DEVICES} from '../helpers/constants'
 import {CustomSpinner} from '../components/CustomSpinner'
+import styled from 'styled-components'
 
+const DivContainer = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+`
 export const TabContainers = ({
   data,
   activeResult,
@@ -39,37 +45,33 @@ export const TabContainers = ({
     }
   }
 
-  const renderContainerForRequest = () => {
-    return stateTabs === STATE_TYPE.loading ? (
+  const renderContainerForRequest = (device) =>
+    stateTabs === STATE_TYPE.loading && device === isRefreshForDevice ? (
       <CustomSpinner />
     ) : (
-      <div>
-        <Button
-          fontSize={[2, 2, 3]}
-          padding={[1, 1, 3]}
-          text="Request data"
-          tone="primary"
-          onClick={handelData}
-        />
-      </div>
+      <Button
+        fontSize={[2, 2, 3]}
+        padding={[1, 1, 3]}
+        text="Request data"
+        tone="primary"
+        onClick={handelData}
+        disabled={stateTabs === STATE_TYPE.loading}
+      />
     )
-  }
 
-  const renderTabPanelData = (data, device) => {
-    const listLength = Boolean(data[activeResult][`${device}`]?.length)
-    return listLength ? (
-      <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
+  const renderTabPanelData = (data, device) =>
+    Boolean(data[activeResult][`${device}`]?.length) ? (
+      <DivContainer>
         <RenderCoreData
           data={device === LIST_DEVICES.desktop ? desktopData.core : mobileData.core}
         />
         <RenderCategoriesData
           data={device === LIST_DEVICES.desktop ? desktopData.performance : mobileData.performance}
         />
-      </div>
+      </DivContainer>
     ) : (
-      renderContainerForRequest()
+      renderContainerForRequest(device)
     )
-  }
 
   return (
     <Card padding={4}>
@@ -97,20 +99,8 @@ export const TabContainers = ({
           {isRefreshForDevice === LIST_DEVICES.desktop ? (
             <CustomSpinner />
           ) : (
-            renderTabPanelData(data, 'desktop')
+            renderTabPanelData(data, LIST_DEVICES.desktop)
           )}
-          {/* {isRefresh &&
-          Boolean(data[activeResult]?.desktop?.length) &&
-          id === LIST_DEVICES.desktop ? (
-            <CustomSpinner />
-          ) : Boolean(data[activeResult]?.desktop?.length) ? (
-            <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
-              <RenderCoreData data={desktopData.core} />
-              <RenderCategoriesData data={desktopData.performance} />
-            </div>
-          ) : (
-            renderContainerForRequest()
-          )} */}
         </Card>
       </TabPanel>
 
@@ -119,20 +109,8 @@ export const TabContainers = ({
           {isRefreshForDevice === LIST_DEVICES.mobile ? (
             <CustomSpinner />
           ) : (
-            renderTabPanelData(data, 'mobile')
+            renderTabPanelData(data, LIST_DEVICES.mobile)
           )}
-          {/* {isRefresh &&
-          Boolean(data[activeResult]?.desktop?.length) &&
-          id === LIST_DEVICES.desktop ? (
-            <CustomSpinner />
-          ) : Boolean(data[activeResult]?.mobile?.length) ? (
-            <div style={{display: 'flex', gap: '24px', flexDirection: 'column'}}>
-              <RenderCoreData data={mobileData.core} />
-              <RenderCategoriesData data={mobileData.performance} />
-            </div>
-          ) : (
-            renderContainerForRequest()
-          )} */}
         </Card>
       </TabPanel>
     </Card>

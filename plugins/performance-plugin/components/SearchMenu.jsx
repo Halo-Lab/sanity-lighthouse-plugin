@@ -1,5 +1,5 @@
 import React from 'react'
-import {Menu, Card, Text, Stack, MenuItem, Box, MenuDivider, Badge, Flex, Button} from '@sanity/ui'
+import {Menu, Card, Text, Stack, MenuItem, Box, MenuDivider, Badge, Flex} from '@sanity/ui'
 import {TrashIcon} from '@sanity/icons'
 import styled from 'styled-components'
 

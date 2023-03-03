@@ -16,7 +16,12 @@ const CustomGrid = styled.div`
   gap: 40px;
   padding: 40px 0;
 `
-
+const RefreshContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2rem 2rem 0 0;
+`
 export const PerformanceGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
   const [stateTabs, setStateTabs] = useState(STATE_TYPE.idle)
@@ -25,7 +30,7 @@ export const PerformanceGui = (props) => {
   const [data, setData] = useState([])
   const [activeResult, setActiveResult] = useState(0)
   const [isRefreshForDevice, setIsRefreshForDevice] = useState(null)
-  const [id, setId] = useState('desktop')
+  const [id, setId] = useState(LIST_DEVICES.desktop)
 
   const handleSubmit = async (e) => {
     try {
@@ -49,9 +54,11 @@ export const PerformanceGui = (props) => {
   const handleRefresh = async (e) => {
     try {
       setStateTabs(STATE_TYPE.loading)
-      console.log(LIST_DEVICES[id])
+
       setIsRefreshForDevice(LIST_DEVICES[id])
+
       const result = await apiRequestByDevice(data[activeResult]?.mainInfo?.linkReq, id)
+
       const newData = [...data].map((item, i) => {
         if (i === activeResult) {
           item[`${id}`] = result
@@ -60,7 +67,6 @@ export const PerformanceGui = (props) => {
       })
 
       setData(newData)
-      // setIsRefresh(false)
       setIsRefreshForDevice(null)
       setStateTabs(STATE_TYPE.success)
     } catch (error) {
@@ -73,6 +79,7 @@ export const PerformanceGui = (props) => {
       <CustomGrid>
         <Flex direction={'column'} gap={5}>
           <Text>https://www.pinterest.com/ https://felyx.com/</Text>
+
           <CustomInput
             handleSubmit={handleSubmit}
             setUrl={setUrl}
@@ -85,7 +92,9 @@ export const PerformanceGui = (props) => {
           />
           <Box style={{outline: '2px solid gray'}} padding={[2, 3]}>
             <Heading>History:</Heading>
+
             {state === 'loading' && <CustomSpinner />}
+
             {Boolean(data?.length) && (
               <SearchMenu
                 items={data}
@@ -104,7 +113,7 @@ export const PerformanceGui = (props) => {
             Boolean(data.length) && (
               <Box style={{outline: '2px solid gray', position: 'relative'}} padding={[2, 3]}>
                 {Boolean(data[activeResult][`${id}`].length) && (
-                  <div style={{position: 'absolute', top: 0, right: 0, padding: '2rem 2rem 0 0'}}>
+                  <RefreshContainer>
                     <Button
                       fontSize={[2]}
                       icon={SyncIcon}
@@ -114,7 +123,7 @@ export const PerformanceGui = (props) => {
                       onClick={handleRefresh}
                       disabled={stateTabs === 'loading'}
                     />
-                  </div>
+                  </RefreshContainer>
                 )}
                 <TabContainers
                   data={data}

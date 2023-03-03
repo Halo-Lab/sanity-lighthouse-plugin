@@ -20,6 +20,7 @@ export const RenderCategoriesData = ({data = []}) => {
           : COLORS[2]
         : COLORS[0]
       : COLORS[0]
+
   const options = {
     legend: 'none',
     pieSliceText: 'none',
@@ -38,6 +39,7 @@ export const RenderCategoriesData = ({data = []}) => {
     chartArea: {width: '90%', height: '90%'},
     enableInteractivity: false,
   }
+
   return (
     <Grid column={[3]} gap={[1, 2, 3]} autoFlow={'column'}>
       <Flex direction={'column'} style={{position: 'relative'}} align="center" gap={2}>
