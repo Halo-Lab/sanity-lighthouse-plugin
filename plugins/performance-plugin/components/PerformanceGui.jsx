@@ -53,31 +53,31 @@ export const PerformanceGui = (props) => {
 
       patchSanityDocument([formatData(result), ...data])
       setUrl('')
-      setState(STATE_TYPE.loading)
+      setState(STATE_TYPE.success)
     } catch (error) {
       console.log(error)
       setState(STATE_TYPE.error)
     }
   }
+
   const deleteCardByID = (id, idx) => {
     setState(STATE_TYPE.loading)
+    setActiveResult(0)
     setData([...data].filter((item) => item.mainInfo.linkReq !== id))
     props.client
       .patch('performance')
       .unset([`data[${idx}]`])
       .commit()
-    setActiveResult(0)
-    setState(STATE_TYPE.loading)
+
+    setState(STATE_TYPE.success)
   }
+
   const patchSanityDocument = (newData) => {
     if (!Boolean(newData.length)) return
     props.client
       .patch('performance')
       .set({data: newData})
       .commit()
-      .then((updated) => {
-        console.log('New document:', updated)
-      })
       .catch((err) => {
         console.error('Oh no, the update failed: ', err.message)
       })

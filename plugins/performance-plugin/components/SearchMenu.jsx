@@ -12,22 +12,30 @@ const CustomButton = styled.div`
 `
 export const SearchMenu = ({items, setActiveResult, state, deleteCardByID, stateTabs}) => {
   const isDisable = state === 'loading' || stateTabs === 'loading'
+
   const renderCards = (items) =>
     items.map(({mainInfo}, i) => {
       return (
         <div key={`${mainInfo.linkReq.slice(0, 10)}`}>
-          <MenuItem onClick={(e) => setActiveResult(i)} disabled={isDisable && true}>
+          <MenuItem
+            onClick={({target}) =>
+              target.id === 'deleteButton'
+                ? deleteCardByID(mainInfo.linkReq, i)
+                : setActiveResult(i)
+            }
+            disabled={isDisable}
+          >
             <Box padding={3}>
               <Stack space={3}>
                 <Flex gap={2} justify="space-between" align={'center'}>
                   <Text weight="semibold">{mainInfo.linkReq.substring(0, 30)}</Text>
 
                   <CustomButton
-                    onClick={() => (isDisable ? null : deleteCardByID(mainInfo.linkReq, i))}
+                    disabled={isDisable}
                     id="deleteButton"
                     style={{borderColor: isDisable && 'grey'}}
                   >
-                    <TrashIcon color="red" style={{color: isDisable && 'grey'}} />
+                    <TrashIcon id="deleteButton" color="red" style={{color: isDisable && 'grey'}} />
                   </CustomButton>
                 </Flex>
                 <Flex gap={2} justify="space-between" align={'center'}>
