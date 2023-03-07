@@ -47,6 +47,7 @@ export const PerformanceGui = (props) => {
       setState(STATE_TYPE.loading)
       //api request (url: string from input, device = Mobile or Desktop)
       const result = await apiRequest(url, device.toLowerCase())
+      console.log(result)
       //add to array formatted data from result
       setData([formatData(result), ...data])
       //update sanity document
@@ -108,7 +109,7 @@ export const PerformanceGui = (props) => {
   }
 
   return (
-    <Container width={3} padding={2}>
+    <Container height={'fill'} width={3} padding={2}>
       <CustomGrid>
         <Flex direction={'column'} gap={5}>
           <CustomInput

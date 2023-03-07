@@ -1,4 +1,9 @@
-import {METRICS_LINK_LIST, METRICS_LIST, METRICS_TITLE_LIST} from './constants'
+import {
+  METRICS_DESCRIPTION_LIST,
+  METRICS_LINK_LIST,
+  METRICS_LIST,
+  METRICS_TITLE_LIST,
+} from './constants'
 
 export const formatData = (data) => {
   const {
@@ -35,6 +40,7 @@ export const formatData = (data) => {
         acc.push({
           name: item[1].title,
           value: item[1].displayValue ? item[1].displayValue : item[1].score,
+          description: item[1].description,
         })
       }
       return acc
@@ -92,6 +98,7 @@ const createObjMetrics = (metrics) => {
           name: 'Poor',
         },
       ],
+      description: METRICS_DESCRIPTION_LIST[indexMetric],
     }
   })
   return result

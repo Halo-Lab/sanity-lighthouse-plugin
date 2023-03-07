@@ -1,15 +1,32 @@
 import React from 'react'
-import {Grid, Flex, Heading, Text} from '@sanity/ui'
+import {Grid, Flex, Heading, Text, Tooltip, Box} from '@sanity/ui'
 import {GoogleChart} from './shared/GoogleChart'
 import {COLORS} from '../helpers/constants'
 import styled from 'styled-components'
 
 const ScoreContainer = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 55%;
+  left: 51%;
   transform: translate(-50%, -50%);
 `
+const Link = styled.a`
+  text-decoration: underline;
+  color: #3c4043;
+  :hover {
+    color: #1a73e8;
+  }
+`
+
+// export const descriptionFormatted = (string) => {
+//   if (string === '') return
+
+//   return (
+//     <p>
+//       {newString[0]} <a href={`${newString[1].replace('(', '').replace(')', '')}`}>Learn More</a>
+//     </p>
+//   )
+// }
 
 export const RenderCategoriesData = ({data = []}) => {
   const colorChart =
@@ -63,14 +80,40 @@ export const RenderCategoriesData = ({data = []}) => {
 
       {Boolean(data?.categories?.length) && (
         <Grid columns={[1, 2]}>
-          {data.categories.map((item) => (
-            <Flex direction={'column'} gap={3} key={`${item.name}-${item.value}`}>
-              <Text>{item.name}</Text>
-              <Text size={4} weight={'medium'}>
-                {item.value}
-              </Text>
-            </Flex>
-          ))}
+          {data.categories.map((item) => {
+            let newDescription = []
+            if (Boolean(item?.description)) {
+              newDescription = item.description.split('[Learn more]')
+            }
+            return (
+              <Tooltip
+                key={`${item.name}-${item.value}`}
+                content={
+                  <Box padding={2}>
+                    <Text muted size={1}>
+                      {newDescription[0] ? newDescription[0] : ''}
+                    </Text>
+                  </Box>
+                }
+                placement="top"
+                portal
+              >
+                <Flex direction={'column'} gap={3}>
+                  <Link
+                    href={
+                      newDescription[1] ? newDescription[1].replace('(', '').replace(')', '') : ''
+                    }
+                  >
+                    {item.name}
+                  </Link>
+
+                  <Text size={4} weight={'medium'}>
+                    {item.value}
+                  </Text>
+                </Flex>
+              </Tooltip>
+            )
+          })}
         </Grid>
       )}
     </Grid>
