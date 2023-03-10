@@ -13,8 +13,9 @@ import {SyncIcon} from '@sanity/icons'
 const CustomGrid = styled.div`
   display: grid;
   grid-template-columns: 0.5fr 1fr;
-  gap: 40px;
+  gap: 32px;
   padding: 40px 0;
+  background-color: white;
 `
 const RefreshContainer = styled.div`
   position: absolute;
@@ -94,11 +95,12 @@ export const PerformanceGui = (props) => {
 
       const newData = [...data].map((item, i) => {
         if (i === activeResult) {
-          item[`${id}`] = result
+          item[`${id}`] = result[0]
+          item.mainInfo.date = result[1]
         }
         return item
       })
-
+      console.log(newData)
       setData(newData)
       patchSanityDocument(newData)
       setIsRefreshForDevice(null)
@@ -109,7 +111,7 @@ export const PerformanceGui = (props) => {
   }
 
   return (
-    <Container height={'fill'} width={3} padding={2}>
+    <Container width={3} padding={2}>
       <CustomGrid>
         <Flex direction={'column'} gap={5}>
           <CustomInput

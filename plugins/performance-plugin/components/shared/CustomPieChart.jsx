@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react'
-import {PieChart, Pie, Cell, Sector} from 'recharts'
+import {PieChart, Pie, Cell} from 'recharts'
 
 export const COLORS = ['#0cce6a', '#ffa400', '#ff4e43']
 

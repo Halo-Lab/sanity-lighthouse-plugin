@@ -21,7 +21,7 @@ const AccordionHeader = styled.div`
 
   span {
     font-size: 24px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.5s ease-in-out;
   }
 
   :hover {
@@ -37,6 +37,7 @@ const AccordionContent = styled.div`
 
   &.open {
     max-height: 1000px;
+    transition: max-height 0.25s ease-in;
   }
   div {
     padding: 10px;
@@ -44,28 +45,29 @@ const AccordionContent = styled.div`
 `
 
 function Accordion({data = []}) {
-  const [isOpen, setIsOpen] = useState(false)
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(null)
 
   const handleToggle = useCallback(
     (idx) => {
-      setIsOpen(!isOpen)
-      setIndex(idx)
+      if (index === idx) {
+        // if clicked item is already active, then close it
+        setIndex(null)
+      } else {
+        // otherwise open it
+        setIndex(idx)
+      }
     },
-    [isOpen]
+    [index]
   )
 
   return data?.length
     ? data.map(({title, text, link}, i) => (
         <AccordionContainer key={`${title}`}>
-          <AccordionHeader
-            className={isOpen && index === i ? 'open' : ''}
-            onClick={() => handleToggle(i)}
-          >
+          <AccordionHeader className={index === i ? 'open' : ''} onClick={() => handleToggle(i)}>
             <h3>{title}</h3>
-            <span>{isOpen && index === i ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>
+            <span>{index === i ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>
           </AccordionHeader>
-          <AccordionContent className={isOpen && index === i ? 'open' : ''}>
+          <AccordionContent className={index === i ? 'open' : ''}>
             <div>
               {text}
               {link && <img src={link} alt={title} />}

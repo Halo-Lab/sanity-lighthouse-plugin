@@ -1,9 +1,8 @@
 import React from 'react'
-import {TabList, Card, Tab, TabPanel, Button} from '@sanity/ui'
+import {TabList, Card, Tab, TabPanel, Button, Heading, Flex} from '@sanity/ui'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import {RenderCoreData} from '../components/RenderCoreData'
 import {RenderCategoriesData} from '../components/RenderCategoriesData'
-import {apiRequestByDevice} from '../helpers/api-request'
 import {STATE_TYPE, LIST_DEVICES} from '../helpers/constants'
 import {CustomSpinner} from '../components/CustomSpinner'
 import styled from 'styled-components'
@@ -12,6 +11,14 @@ const DivContainer = styled.div`
   display: flex;
   gap: 24px;
   flex-direction: column;
+`
+const Link = styled.a`
+  text-decoration: underline;
+  color: #3c4043;
+  font-size: 21px;
+  :hover {
+    color: #1a73e8;
+  }
 `
 export const TabContainers = ({
   data,
@@ -38,10 +45,16 @@ export const TabContainers = ({
         disabled={stateTabs === STATE_TYPE.loading}
       />
     )
-
+  console.log(data)
   const renderTabPanelData = (data, device) =>
     Boolean(data[activeResult][`${device}`]?.length) ? (
       <DivContainer>
+        <Flex align={'center'} gap={1}>
+          <Heading>Page tested:</Heading>
+          <Link href={data[activeResult].mainInfo.linkReq} target="_blank" rel="noreferrer">
+            {data[activeResult].mainInfo.linkReq}
+          </Link>
+        </Flex>
         <RenderCoreData
           data={device === LIST_DEVICES.desktop ? desktopData.core : mobileData.core}
         />

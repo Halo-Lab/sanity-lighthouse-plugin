@@ -18,5 +18,7 @@ export const apiRequestByDevice = async (url, device = 'desktop', category = 'PE
     `${endpoint}?url=${url}&strategy=${device}&key=${key}&category=${category}`
   )
   const formattedData = formatData(data)
-  return device === 'desktop' ? formattedData.desktop : formattedData.mobile
+  return device === 'desktop'
+    ? [formattedData.desktop, formattedData.mainInfo.date]
+    : [formattedData.mobile, formattedData.mainInfo.date]
 }

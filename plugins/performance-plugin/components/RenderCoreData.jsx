@@ -40,6 +40,8 @@ const TooltipContainerItems = styled.div`
 const Link = styled.a`
   text-decoration: underline;
   color: #3c4043;
+  font-size: 21px;
+  font-weight: bold;
   :hover {
     color: #1a73e8;
   }
@@ -72,7 +74,7 @@ export const RenderCoreData = ({data = []}) => {
       return (
         <Container key={`${name}-${value}`}>
           <InfoContainer>
-            <Link href={link ? link : ''} as="h3">
+            <Link href={link ? link : ''} target="_blank" rel="noreferrer">
               {name}
             </Link>
             <Flex direction={'column'}>

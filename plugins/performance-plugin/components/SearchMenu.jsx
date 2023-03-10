@@ -14,9 +14,11 @@ export const SearchMenu = ({items, setActiveResult, state, deleteCardByID, state
   const isDisable = state === 'loading' || stateTabs === 'loading'
 
   const renderCards = (items) =>
-    items.map(({mainInfo}, i) => {
+    items.map(({mainInfo, mobile, desktop}, i) => {
+      const showSecondTag = Boolean(mobile?.length) && Boolean(desktop?.length)
+
       return (
-        <div key={`${mainInfo.linkReq.slice(0, 10)}`}>
+        <div key={`${mainInfo.linkReq.slice(0, 10)}-${Math.random()}`}>
           <MenuItem
             onClick={({target}) =>
               target.id === 'deleteButton'
@@ -28,7 +30,10 @@ export const SearchMenu = ({items, setActiveResult, state, deleteCardByID, state
             <Box padding={3}>
               <Stack space={3}>
                 <Flex gap={2} justify="space-between" align={'center'}>
-                  <Text weight="semibold">{mainInfo.linkReq.substring(0, 30)}</Text>
+                  <Text weight="semibold">
+                    {mainInfo.linkReq.slice(0, 22)}
+                    {mainInfo.linkReq.length > 22 && '...'}
+                  </Text>
 
                   <CustomButton
                     disabled={isDisable}
@@ -42,16 +47,30 @@ export const SearchMenu = ({items, setActiveResult, state, deleteCardByID, state
                   <Text muted size={1}>
                     {mainInfo.date}
                   </Text>
-                  <Badge
-                    tone={mainInfo.device === 'desktop' ? 'positive' : 'caution'}
-                    style={{
-                      backgroundColor: isDisable && 'grey',
-                      borderColor: isDisable && 'grey',
-                      boxShadow: isDisable && 'inset 0 0 0 1px grey',
-                    }}
-                  >
-                    {mainInfo.device}
-                  </Badge>
+                  <Flex gap={1}>
+                    <Badge
+                      tone={mainInfo.device === 'desktop' ? 'positive' : 'caution'}
+                      style={{
+                        backgroundColor: isDisable && 'grey',
+                        borderColor: isDisable && 'grey',
+                        boxShadow: isDisable && 'inset 0 0 0 1px grey',
+                      }}
+                    >
+                      {mainInfo.device}
+                    </Badge>
+                    {showSecondTag && (
+                      <Badge
+                        tone={mainInfo.device === 'desktop' ? 'caution' : 'positive'}
+                        style={{
+                          backgroundColor: isDisable && 'grey',
+                          borderColor: isDisable && 'grey',
+                          boxShadow: isDisable && 'inset 0 0 0 1px grey',
+                        }}
+                      >
+                        {mainInfo.device === 'desktop' ? 'mobile' : 'desktop'}
+                      </Badge>
+                    )}
+                  </Flex>
                 </Flex>
               </Stack>
             </Box>

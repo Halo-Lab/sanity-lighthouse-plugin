@@ -13,20 +13,11 @@ const ScoreContainer = styled.div`
 const Link = styled.a`
   text-decoration: underline;
   color: #3c4043;
+  font-weight: bold;
   :hover {
     color: #1a73e8;
   }
 `
-
-// export const descriptionFormatted = (string) => {
-//   if (string === '') return
-
-//   return (
-//     <p>
-//       {newString[0]} <a href={`${newString[1].replace('(', '').replace(')', '')}`}>Learn More</a>
-//     </p>
-//   )
-// }
 
 export const RenderCategoriesData = ({data = []}) => {
   const colorChart =
@@ -103,6 +94,8 @@ export const RenderCategoriesData = ({data = []}) => {
                     href={
                       newDescription[1] ? newDescription[1].replace('(', '').replace(')', '') : ''
                     }
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     {item.name}
                   </Link>
