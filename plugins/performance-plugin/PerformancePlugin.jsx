@@ -9,6 +9,7 @@ function PerformancePlugin(props) {
     defaultApiVersion: 'v2021-10-21',
     // ...props.tool.options,
   }
+  // client.delete('performance')
   const doc = {
     _id: 'performance',
     _type: 'document',
