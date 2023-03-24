@@ -7,13 +7,15 @@ export const Container = styled.div`
   padding: 10px 0;
   gap: 20px;
 `
-export const CustomButton = styled.div`
+export const CustomButton = styled.button`
   display: flex;
 
   align-items: center;
   padding: 4px;
   border: 1px solid red;
   border-radius: 5px;
+  background-color: transparent;
+  cursor: 'pointer',
   :hover {
     background-color: ${(props) => (props.disabled ? 'transparent' : 'red')};
     svg {

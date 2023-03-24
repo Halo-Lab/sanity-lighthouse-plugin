@@ -31,7 +31,16 @@ const formatDate = (data) => {
 export const formatDataList = (dataList) => {
   const mainInfo = formatData(dataList[0].data).mainInfo
   const result = dataList.map((value) => formatMetrics(value.data))
-  return {mainInfo, categoryList: result}
+  let mob = []
+  let desk = []
+  if (result[0]?.mobile?.length) {
+    mob.push([mainInfo.date, ...result.map((it) => it.mobile[0].score)])
+  } else {
+    desk.push([mainInfo.date, ...result.map((it) => it.desktop[0].score)])
+  }
+
+  const history = {mobile: mob, desktop: desk}
+  return {mainInfo, categoryList: result, history}
 }
 
 const formatMetrics = (data) => {

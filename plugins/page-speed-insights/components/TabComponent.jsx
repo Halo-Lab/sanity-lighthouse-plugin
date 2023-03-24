@@ -1,7 +1,12 @@
 import React, {useState, useCallback} from 'react'
 import styled, {keyframes} from 'styled-components'
-import {Flex} from '@sanity/ui'
+import {Flex, Heading, Button} from '@sanity/ui'
 import {LIST_DEVICES} from '../helpers/constants'
+import RenderCategories from './RenderCategories'
+import {SyncIcon} from '@sanity/icons'
+import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
+import ComboChartComponent from './shared/ComboChartComponent'
+
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -28,6 +33,9 @@ const TabContainer = styled.div`
 `
 
 const TabButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   background-color: ${({active}) => (active ? 'gray' : '#dddddd')};
   color: ${({active}) => (active ? '#fff' : '#666666')};
   border: 1px solid gray;
@@ -47,24 +55,62 @@ const TabContent = styled.div`
   animation: ${fadeIn} 0.5s ease-in-out;
 `
 
+const RenderContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5 rem;
+`
+
+const RefreshContainer = styled.div`
+  display: flex;
+  align-items: center;
+`
+const Link = styled.a`
+  text-decoration: underline;
+  color: #3c4043;
+  font-size: 21px;
+  :hover {
+    color: #1a73e8;
+  }
+`
+
 const tabs = [
   {id: LIST_DEVICES.desktop, label: LIST_DEVICES.desktop.toUpperCase()},
   {id: LIST_DEVICES.mobile, label: LIST_DEVICES.mobile.toUpperCase()},
 ]
 
-const Tab = ({data}) => {
-  const [activeTab, setActiveTab] = useState(data.mainInfo.device)
-  console.log(activeTab, data)
+const Tab = ({data, handleRefresh, setActiveTab, activeTab, state}) => {
   const renderDataByDevice = useCallback(
     (data) => {
-      return data.categoryList.map((item) => {
+      if (!Boolean(data.categoryList[0][activeTab]?.length)) {
         return (
-          <div key={`${item[activeTab].score}-${Math.random()}`}>{item[activeTab][0].score}</div>
+          <div style={{padding: '20px'}}>
+            {' '}
+            <Button
+              fontSize={[2, 2, 3]}
+              padding={[1, 1, 3]}
+              text="Request data"
+              tone="primary"
+              onClick={(e) => handleRefresh(e)}
+              // disabled={stateTabs === STATE_TYPE.loading}
+            />
+          </div>
+        )
+      }
+      return data.categoryList.map((item, i) => {
+        return (
+          <div key={`${item[activeTab].score}-${Math.random()}`}>
+            <RenderCategories item={item[activeTab][0]} />
+          </div>
         )
       })
     },
     [activeTab]
   )
+
   return (
     <Container>
       <TabContainer>
@@ -75,14 +121,37 @@ const Tab = ({data}) => {
               active={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
             >
-              {tab.label}
+              {tab.label === 'DESKTOP' ? <DesktopIcon /> : <MobileDeviceIcon />} {tab.label}
             </TabButton>
           ))}
         </Flex>
+        <Flex align={'center'} gap={1}>
+          <Heading>Page tested:</Heading>
+          <Link href={data.mainInfo.linkReq} target="_blank" rel="noreferrer">
+            {data.mainInfo.linkReq}
+          </Link>
+        </Flex>
+
+        <RefreshContainer>
+          <Button
+            fontSize={[2]}
+            icon={SyncIcon}
+            padding={[3]}
+            text="Refresh"
+            tone="caution"
+            onClick={handleRefresh}
+            disabled={state === 'loading'}
+          />
+        </RefreshContainer>
       </TabContainer>
       {tabs.map((tab) => (
         <TabContent key={tab.id} active={activeTab === tab.id}>
-          {Boolean(data?.categoryList?.length) && <div>{renderDataByDevice(data)}</div>}
+          {Boolean(data?.categoryList?.length) && (
+            <RenderContainer>{renderDataByDevice(data)}</RenderContainer>
+          )}
+          {Boolean(data?.history[activeTab]?.length) && (
+            <ComboChartComponent history={data.history[activeTab]} />
+          )}
         </TabContent>
       ))}
     </Container>

@@ -6,7 +6,7 @@ import {Menu, Card, Text, Stack, MenuItem, Box, MenuDivider, Badge} from '@sanit
 import Loading from './shared/LoadingComponent'
 import {STATE_TYPE} from '../helpers/constants.js'
 
-const HistoryMenu = ({data, activeItem, setActiveItem, state}) => {
+const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) => {
   const isDisable = state === STATE_TYPE.loading
 
   const handelItem = ({target}, i) => {
@@ -17,8 +17,10 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state}) => {
   }
 
   const renderItems = (items) =>
-    items.map(({mainInfo, mobile, desktop}, i) => {
-      const showSecondTag = Boolean(mobile?.length) && Boolean(desktop?.length)
+    items.map(({mainInfo, categoryList}, i) => {
+      const showSecondTag =
+        Boolean(categoryList[0]?.mobile?.length) && Boolean(categoryList[0]?.desktop?.length)
+
       return (
         <Item
           key={`${mainInfo.linkReq.slice(0, 10)}-${Math.random()}`}
@@ -37,6 +39,8 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state}) => {
               disabled={isDisable}
               id="deleteButton"
               style={{borderColor: isDisable && 'grey'}}
+              type="button"
+              onClick={(e) => deleteCardByID(mainInfo.linkReq, i)}
             >
               <TrashIcon id="deleteButton" color="red" style={{color: isDisable && 'gray'}} />
             </CustomButton>
