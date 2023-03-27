@@ -22,6 +22,7 @@ const Title = styled.h3`
 
 const RenderCategories = ({item}) => {
   const {categories, score, title} = item
+
   return (
     <PieContainer>
       <Title>{title}</Title>

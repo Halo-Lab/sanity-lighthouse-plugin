@@ -27,7 +27,7 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
     }
     setUrl(value)
   }
-  const isDisable = state === 'loading'
+  const isDisable = state === STATE_TYPE.loading
   return (
     <Box style={{borderBottom: '1px solid gray', padding: '1rem 0'}}>
       <Stack>

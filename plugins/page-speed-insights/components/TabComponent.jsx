@@ -1,11 +1,12 @@
-import React, {useState, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {Flex, Heading, Button} from '@sanity/ui'
-import {LIST_DEVICES} from '../helpers/constants'
+import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import RenderCategories from './RenderCategories'
 import {SyncIcon} from '@sanity/icons'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import ComboChartComponent from './shared/ComboChartComponent'
+import {CustomSpinner} from './shared/CustomSpinner'
 
 const fadeIn = keyframes`
   from {
@@ -51,8 +52,11 @@ const TabButton = styled.button`
 `
 
 const TabContent = styled.div`
-  display: ${({active}) => (active ? 'block' : 'none')};
+  height: 100%;
+  width: 100%;
+  display: ${({active}) => (active ? 'flex' : 'none')};
   animation: ${fadeIn} 0.5s ease-in-out;
+  flex-direction: column;
 `
 
 const RenderContainer = styled.div`
@@ -82,11 +86,23 @@ const tabs = [
   {id: LIST_DEVICES.mobile, label: LIST_DEVICES.mobile.toUpperCase()},
 ]
 
-const Tab = ({data, handleRefresh, setActiveTab, activeTab, state}) => {
+const Tab = ({
+  data,
+  handleRefresh,
+  setActiveTab,
+  activeTab,
+  state,
+  activeRefreshID,
+  activeRefreshDevice,
+}) => {
+  const isRefreshCurrent = activeRefreshID === data.mainInfo.linkReq && state === STATE_TYPE.loading
+
   const renderDataByDevice = useCallback(
     (data) => {
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
-        return (
+        return isRefreshCurrent ? (
+          <CustomSpinner />
+        ) : (
           <div style={{padding: '20px'}}>
             {' '}
             <Button
@@ -95,7 +111,7 @@ const Tab = ({data, handleRefresh, setActiveTab, activeTab, state}) => {
               text="Request data"
               tone="primary"
               onClick={(e) => handleRefresh(e)}
-              // disabled={stateTabs === STATE_TYPE.loading}
+              disabled={state === STATE_TYPE.loading}
             />
           </div>
         )
@@ -108,7 +124,7 @@ const Tab = ({data, handleRefresh, setActiveTab, activeTab, state}) => {
         )
       })
     },
-    [activeTab]
+    [activeTab, state]
   )
 
   return (
@@ -144,16 +160,21 @@ const Tab = ({data, handleRefresh, setActiveTab, activeTab, state}) => {
           />
         </RefreshContainer>
       </TabContainer>
-      {tabs.map((tab) => (
-        <TabContent key={tab.id} active={activeTab === tab.id}>
-          {Boolean(data?.categoryList?.length) && (
-            <RenderContainer>{renderDataByDevice(data)}</RenderContainer>
-          )}
-          {Boolean(data?.history[activeTab]?.length) && (
-            <ComboChartComponent history={data.history[activeTab]} />
-          )}
-        </TabContent>
-      ))}
+
+      {isRefreshCurrent && activeRefreshDevice === activeTab ? (
+        <CustomSpinner />
+      ) : (
+        tabs.map((tab) => (
+          <TabContent key={tab.id} active={activeTab === tab.id}>
+            {Boolean(data?.categoryList?.length) && (
+              <RenderContainer>{renderDataByDevice(data)}</RenderContainer>
+            )}
+            {Boolean(data?.history[activeTab]?.length) && (
+              <ComboChartComponent history={data.history[activeTab]} />
+            )}
+          </TabContent>
+        ))
+      )}
     </Container>
   )
 }

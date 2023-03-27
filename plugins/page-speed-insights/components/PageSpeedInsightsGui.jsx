@@ -3,11 +3,12 @@ import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import {Container} from '../styles/PageSpeedInsightsGuiStyles'
 import {InputComponent} from './InputComponent'
 import HistoryMenu from './HistoryMenu'
-import {Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
+import {Flex, Text, Box} from '@sanity/ui'
 import {apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
 import {formatDataList} from '../helpers/formatedData'
 import Tab from './TabComponent'
 import Loading from './shared/LoadingComponent'
+import {CustomSpinner} from './shared/CustomSpinner'
 
 const PageSpeedInsightsGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
@@ -16,6 +17,8 @@ const PageSpeedInsightsGui = (props) => {
   const [data, setData] = useState([])
   const [activeItem, setActiveItem] = useState(0)
   const [activeTab, setActiveTab] = useState(LIST_DEVICES.desktop)
+  const [activeRefreshID, setActiveRefreshID] = useState('')
+  const [activeRefreshDevice, setActiveRefreshDevice] = useState('')
 
   useEffect(() => {
     const getDocumentById = async () => {
@@ -33,8 +36,10 @@ const PageSpeedInsightsGui = (props) => {
       const result = await apiRequestByDeviceAllCategories(url, device)
       const newData = [formatDataList(result), ...data]
       setData(newData)
-      setActiveTab(device)
+      setActiveTab(device.toLowerCase())
+      setActiveItem(0)
       patchSanityDocument(newData)
+      setUrl('')
       setState(STATE_TYPE.success)
     } catch (error) {
       console.log(error)
@@ -45,6 +50,8 @@ const PageSpeedInsightsGui = (props) => {
   const handleRefresh = async (e) => {
     try {
       setState(STATE_TYPE.loading)
+      setActiveRefreshID(data[activeItem].mainInfo.linkReq)
+      setActiveRefreshDevice(device.toLowerCase())
       const result = await apiRequestByDeviceAllCategories(
         data[activeItem]?.mainInfo?.linkReq,
         activeTab
@@ -55,11 +62,11 @@ const PageSpeedInsightsGui = (props) => {
         if (i === activeItem) {
           item.mainInfo.date = newResult[0].mainInfo.date
           item.categoryList.map((category, idx) => {
-            category[activeTab] = newResult[activeItem].categoryList[idx][activeTab]
+            category[activeTab] = newResult[0].categoryList[idx][activeTab]
           })
           item.history[activeTab].push([
-            newResult[activeItem].mainInfo.date,
-            ...newResult[activeItem].categoryList.map((it) => it[activeTab][0].score),
+            newResult[0].mainInfo.date,
+            ...newResult[0].categoryList.map((it) => it[activeTab][0].score),
           ])
         }
         return item
@@ -68,6 +75,8 @@ const PageSpeedInsightsGui = (props) => {
       setData(newData)
       patchSanityDocument(newData)
       setState(STATE_TYPE.success)
+      setActiveRefreshID('')
+      setActiveRefreshDevice('')
     } catch (error) {
       console.log(error)
       setState(STATE_TYPE.error)
@@ -141,8 +150,11 @@ const PageSpeedInsightsGui = (props) => {
           setActiveTab={setActiveTab}
           handleRefresh={handleRefresh}
           state={state}
+          activeRefreshID={activeRefreshID}
+          activeRefreshDevice={activeRefreshDevice}
         />
       )}
+      {state === STATE_TYPE.loading && !Boolean(data.length) && <CustomSpinner />}
     </Container>
   )
 }
