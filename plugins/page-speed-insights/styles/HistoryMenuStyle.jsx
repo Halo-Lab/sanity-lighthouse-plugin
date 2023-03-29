@@ -6,6 +6,23 @@ export const Container = styled.div`
   width: 100%;
   padding: 10px 0;
   gap: 20px;
+  overflow-y: scroll;
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: #ebebeb;
+  }
 `
 export const CustomButton = styled.button`
   display: flex;
@@ -36,7 +53,7 @@ export const Item = styled.div`
     background-color: lightgrey;
     box-shadow: gray 0px 0px 0px 3px;
   }
-  background: ${(props) => (props.active ? 'gray' : 'white')};
+  background-color: ${(props) => (props.active ? 'lightgrey' : 'white')};
 `
 
 export const Flex = styled.div`

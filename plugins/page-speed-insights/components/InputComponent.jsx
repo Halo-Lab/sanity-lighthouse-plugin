@@ -54,9 +54,9 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
               {url !== '' && errorMessage}
             </span>
           </Flex>
-          <Flex justify={'flex-end'} align={'center'} gap={6}>
+          <Flex justify={'space-between'} align={'center'} gap={2}>
             <Flex>
-              <Inline space={3}>
+              <Inline space={2}>
                 <Radio
                   checked={device === 'Desktop'}
                   name="foo"

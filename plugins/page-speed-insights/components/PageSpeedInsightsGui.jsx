@@ -3,7 +3,7 @@ import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import {Container} from '../styles/PageSpeedInsightsGuiStyles'
 import {InputComponent} from './InputComponent'
 import HistoryMenu from './HistoryMenu'
-import {Flex, Text, Box} from '@sanity/ui'
+import {Flex, Text} from '@sanity/ui'
 import {apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
 import {formatDataList} from '../helpers/formatedData'
 import Tab from './TabComponent'
@@ -51,7 +51,7 @@ const PageSpeedInsightsGui = (props) => {
     try {
       setState(STATE_TYPE.loading)
       setActiveRefreshID(data[activeItem].mainInfo.linkReq)
-      setActiveRefreshDevice(device.toLowerCase())
+      setActiveRefreshDevice(activeTab)
       const result = await apiRequestByDeviceAllCategories(
         data[activeItem]?.mainInfo?.linkReq,
         activeTab
@@ -113,8 +113,6 @@ const PageSpeedInsightsGui = (props) => {
         style={{
           outline: '2px solid gray',
         }}
-        padding={[2, 3]}
-        width={'fill'}
       >
         <InputComponent
           device={device}

@@ -25,7 +25,7 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) =
         <Item
           key={`${mainInfo.linkReq.slice(0, 10)}-${Math.random()}`}
           onClick={(e) => handelItem(e, i)}
-          active={i === activeItem ?? true}
+          active={i === activeItem && true}
         >
           <Flex>
             <Flex gap="2" align={'center'}>
@@ -48,27 +48,11 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) =
           <Flex align="center">
             <DateText>{mainInfo.date}</DateText>
             <Flex gap={2}>
-              <Badge
-                tone={mainInfo.device === 'desktop' ? 'positive' : 'caution'}
-                style={{
-                  backgroundColor: isDisable && 'grey',
-                  borderColor: isDisable && 'grey',
-                  boxShadow: isDisable && 'inset 0 0 0 1px grey',
-                }}
-                padding={2}
-              >
+              <Badge tone={mainInfo.device === 'desktop' ? 'positive' : 'caution'} padding={2}>
                 {mainInfo.device}
               </Badge>
               {showSecondTag && (
-                <Badge
-                  tone={mainInfo.device === 'desktop' ? 'caution' : 'positive'}
-                  style={{
-                    backgroundColor: isDisable && 'grey',
-                    borderColor: isDisable && 'grey',
-                    boxShadow: isDisable && 'inset 0 0 0 1px grey',
-                  }}
-                  padding={2}
-                >
+                <Badge tone={mainInfo.device === 'desktop' ? 'caution' : 'positive'} padding={2}>
                   {mainInfo.device === 'desktop' ? 'mobile' : 'desktop'}
                 </Badge>
               )}

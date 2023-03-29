@@ -1,85 +1,22 @@
 import React, {useCallback} from 'react'
-import styled, {keyframes} from 'styled-components'
+import {
+  DescriptItem,
+  DescriptContainer,
+  Link,
+  RefreshContainer,
+  RenderContainer,
+  TabButton,
+  TabContent,
+  TabContainer,
+  Container,
+} from '../styles/TabComponentStyle'
 import {Flex, Heading, Button} from '@sanity/ui'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import RenderCategories from './RenderCategories'
-import {SyncIcon} from '@sanity/icons'
+import {SyncIcon, PlayIcon, StopIcon, CircleIcon} from '@sanity/icons'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import ComboChartComponent from './shared/ComboChartComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.75rem;
-`
-
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  animation: ${fadeIn} 0.5s ease-in-out;
-  border-bottom: 2px solid gray;
-`
-
-const TabButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background-color: ${({active}) => (active ? 'gray' : '#dddddd')};
-  color: ${({active}) => (active ? '#fff' : '#666666')};
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  &:hover {
-    background-color: ${({active}) => (active ? '#ffffff' : '#bbbbbb')};
-    color: ${({active}) => (active ? '#333333' : '#555555')};
-  }
-`
-
-const TabContent = styled.div`
-  height: 100%;
-  width: 100%;
-  display: ${({active}) => (active ? 'flex' : 'none')};
-  animation: ${fadeIn} 0.5s ease-in-out;
-  flex-direction: column;
-`
-
-const RenderContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1.5 rem;
-`
-
-const RefreshContainer = styled.div`
-  display: flex;
-  align-items: center;
-`
-const Link = styled.a`
-  text-decoration: underline;
-  color: #3c4043;
-  font-size: 21px;
-  :hover {
-    color: #1a73e8;
-  }
-`
 
 const tabs = [
   {id: LIST_DEVICES.desktop, label: LIST_DEVICES.desktop.toUpperCase()},
@@ -100,9 +37,7 @@ const Tab = ({
   const renderDataByDevice = useCallback(
     (data) => {
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
-        return isRefreshCurrent ? (
-          <CustomSpinner />
-        ) : (
+        return (
           <div style={{padding: '20px'}}>
             {' '}
             <Button
@@ -124,8 +59,23 @@ const Tab = ({
         )
       })
     },
-    [activeTab, state]
+    [activeTab, handleRefresh, state]
   )
+  const renderHistoryComponent = useCallback(() => {
+    if (activeTab === LIST_DEVICES.desktop) {
+      return (
+        Boolean(data?.history?.desktop.length) && (
+          <ComboChartComponent history={data.history.desktop} />
+        )
+      )
+    } else {
+      return (
+        Boolean(data?.history?.mobile?.length) && (
+          <ComboChartComponent history={data.history.mobile} />
+        )
+      )
+    }
+  }, [activeTab, data.history.desktop, data.history.mobile])
 
   return (
     <Container>
@@ -169,9 +119,33 @@ const Tab = ({
             {Boolean(data?.categoryList?.length) && (
               <RenderContainer>{renderDataByDevice(data)}</RenderContainer>
             )}
-            {Boolean(data?.history[activeTab]?.length) && (
-              <ComboChartComponent history={data.history[activeTab]} />
+
+            {Boolean(data?.categoryList[0][activeTab]?.length) && (
+              <DescriptContainer>
+                <DescriptItem>
+                  <PlayIcon
+                    style={{rotate: '-90deg', color: 'red', width: '20px', height: '20px'}}
+                  />
+                  0–49
+                </DescriptItem>{' '}
+                <DescriptItem>
+                  <StopIcon style={{color: 'orange', width: '20px', height: '20px'}} />
+                  50–89
+                </DescriptItem>{' '}
+                <DescriptItem>
+                  <CircleIcon
+                    style={{
+                      color: 'green',
+                      width: '20px',
+                      height: '20px',
+                      fill: 'green',
+                    }}
+                  />
+                  90–100
+                </DescriptItem>{' '}
+              </DescriptContainer>
             )}
+            {renderHistoryComponent()}
           </TabContent>
         ))
       )}
