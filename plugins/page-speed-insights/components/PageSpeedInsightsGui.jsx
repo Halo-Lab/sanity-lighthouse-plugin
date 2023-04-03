@@ -9,6 +9,7 @@ import {formatDataList} from '../helpers/formatedData'
 import Tab from './TabComponent'
 import Loading from './shared/LoadingComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
+import {getMonthByIdx} from '../helpers/functions'
 
 const PageSpeedInsightsGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
@@ -67,6 +68,7 @@ const PageSpeedInsightsGui = (props) => {
           item.history[activeTab].push([
             newResult[0].mainInfo.date,
             ...newResult[0].categoryList.map((it) => it[activeTab][0].score),
+            getMonthByIdx(new Date(newResult[0].mainInfo.date).getMonth()),
           ])
         }
         return item
