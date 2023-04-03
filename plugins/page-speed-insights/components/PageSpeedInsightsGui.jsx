@@ -112,6 +112,7 @@ const PageSpeedInsightsGui = (props) => {
         direction={'column'}
         style={{
           outline: '2px solid gray',
+          padding: '0 8px',
         }}
       >
         <InputComponent

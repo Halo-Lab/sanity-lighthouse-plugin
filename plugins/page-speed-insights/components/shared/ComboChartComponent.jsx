@@ -7,10 +7,10 @@ const ComboChartComponent = ({history}) => {
     title: 'History Requests',
     vAxis: {title: 'Score', minValue: 0, maxValue: 100},
     hAxis: {title: 'Date'},
-    // animation: {
-    //   duration: 1000,
-    //   easing: 'in',
-    // },
+    animation: {
+      duration: 1000,
+      easing: 'in',
+    },
     // textPosition: 'in',
     seriesType: 'bars',
     minValue: 0,
@@ -19,17 +19,24 @@ const ComboChartComponent = ({history}) => {
     chartArea: {left: 50, top: 60, bottom: 50, width: '100%', height: '100%'},
     // legend: {position: 'bottom', textStyle: {color: 'gray', fontSize: 16}},
     // legend: 'none',
-    // series: {5: {type: 'line'}},
+    series: {5: {type: 'line'}},
     backgroundColor: 'transparent',
+    selectionMode: 'multiple',
   }
 
-  // const newHistory = [...history, ...history, ...history]
+  const columns = [
+    {type: 'string', id: 'Date'},
+    ...CATEGORIES.map((item) => ({type: 'number', id: item})),
+    {type: 'number', id: 'month'},
+  ]
+
+  const data = [columns, ...history]
 
   return (
     <>
       <Chart
         chartType="ComboChart"
-        data={[['Date', ...CATEGORIES], ...history]}
+        data={data}
         options={options}
         chartPackages={['corechart', 'controls']}
         controls={[
@@ -44,12 +51,12 @@ const ComboChartComponent = ({history}) => {
             ],
             controlType: 'CategoryFilter',
             options: {
-              filterColumnIndex: 0,
+              filterColumnIndex: 6,
               ui: {
                 labelStacking: 'vertical',
-                label: 'Filter by date',
+                // label: 'Filter by date',
                 allowTyping: false,
-                allowMultiple: false,
+                allowMultiple: true,
               },
             },
           },

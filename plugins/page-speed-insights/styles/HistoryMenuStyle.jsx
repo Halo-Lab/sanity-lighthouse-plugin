@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px 0;
   gap: 20px;
   overflow-y: scroll;
   /* Scrollbar Styling */
@@ -46,12 +45,11 @@ export const Item = styled.div`
   flex-direction: column;
   gap: 8px;
   padding: 8px;
-  box-shadow: lightgrey 0px 0px 0px 3px;
+  border: 1px solid lightgrey;
   border-radius: 5px;
   cursor: pointer;
   :hover {
     background-color: lightgrey;
-    box-shadow: gray 0px 0px 0px 3px;
   }
   background-color: ${(props) => (props.active ? 'lightgrey' : 'white')};
 `

@@ -1,3 +1,5 @@
+import {getMonthByIdx} from './functions'
+
 export const formatData = (data) => {
   const {
     id,
@@ -34,9 +36,17 @@ export const formatDataList = (dataList) => {
   let mob = []
   let desk = []
   if (result[0]?.mobile?.length) {
-    mob.push([mainInfo.date, ...result.map((it) => it.mobile[0].score)])
+    mob.push([
+      mainInfo.date,
+      ...result.map((it) => it.mobile[0].score),
+      getMonthByIdx(new Date(mainInfo.date).getMonth()),
+    ])
   } else {
-    desk.push([mainInfo.date, ...result.map((it) => it.desktop[0].score)])
+    desk.push([
+      mainInfo.date,
+      ...result.map((it) => it.desktop[0].score),
+      getMonthByIdx(new Date(mainInfo.date).getMonth()),
+    ])
   }
 
   const history = {mobile: mob, desktop: desk}
