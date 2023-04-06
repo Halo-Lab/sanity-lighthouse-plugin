@@ -2,7 +2,7 @@ import React from 'react'
 import {LinkIcon} from '@sanity/icons'
 import {Container, CustomButton, Item, Flex, DateText} from '../styles/HistoryMenuStyle'
 import {TrashIcon} from '@sanity/icons'
-import {Menu, Card, Text, Stack, MenuItem, Box, MenuDivider, Badge} from '@sanity/ui'
+import {Text, Badge} from '@sanity/ui'
 import Loading from './shared/LoadingComponent'
 import {STATE_TYPE} from '../helpers/constants.js'
 

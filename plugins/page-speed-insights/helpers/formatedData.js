@@ -18,7 +18,7 @@ export const formatData = (data) => {
   return {mainInfo}
 }
 
-const formatDate = (data) => {
+export const formatDate = (data) => {
   const options = {
     year: 'numeric',
     month: 'numeric',

@@ -7,7 +7,7 @@ const PieContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
-  padding: 2rem 0;
+  padding: 1rem 0;
 `
 const Title = styled.h3`
   font-weight: 700;

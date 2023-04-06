@@ -90,9 +90,9 @@ export const Link = styled.a`
 `
 export const DescriptContainer = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 0.25rem;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `
 
 export const DescriptItem = styled.span`

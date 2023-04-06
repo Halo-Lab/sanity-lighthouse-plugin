@@ -27,7 +27,6 @@ export default defineConfig({
       widgets: [projectInfoWidget(), projectUsersWidget()],
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
-    // performancePlugin(),
     pageSpeedPlugin(),
   ],
 

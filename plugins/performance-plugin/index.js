@@ -1,1 +1,0 @@
-export {performancePlugin} from './plugin'

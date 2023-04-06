@@ -15,8 +15,8 @@ import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import RenderCategories from './RenderCategories'
 import {SyncIcon, PlayIcon, StopIcon, CircleIcon} from '@sanity/icons'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
-import ComboChartComponent from './shared/ComboChartComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
+import {ChartComponentMemo} from './shared/ChartComponent'
 
 const tabs = [
   {id: LIST_DEVICES.desktop, label: LIST_DEVICES.desktop.toUpperCase()},
@@ -65,17 +65,17 @@ const Tab = ({
     if (activeTab === LIST_DEVICES.desktop) {
       return (
         Boolean(data?.history?.desktop.length) && (
-          <ComboChartComponent history={data.history.desktop} />
+          <ChartComponentMemo history={data.history[activeTab]} />
         )
       )
     } else {
       return (
         Boolean(data?.history?.mobile?.length) && (
-          <ComboChartComponent history={data.history.mobile} />
+          <ChartComponentMemo history={data.history[activeTab]} />
         )
       )
     }
-  }, [activeTab, data.history.desktop, data.history.mobile])
+  }, [activeTab, data.history])
 
   return (
     <Container>
