@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  margin: 20px 20px 0px auto;
+  margin: 0px 0px auto;
 `
 export const DatePickerComponent = ({value, onChange}) => {
   return (
