@@ -3,8 +3,8 @@ import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
 import {Container} from '../styles/PageSpeedInsightsGuiStyles'
 import {InputComponent} from './InputComponent'
 import HistoryMenu from './HistoryMenu'
-import {Flex, Text} from '@sanity/ui'
-import {apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
+import {Flex, Text, Button} from '@sanity/ui'
+import {apiReqByAllDevice, apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
 import {formatDataList} from '../helpers/formatedData'
 import Tab from './TabComponent'
 import Loading from './shared/LoadingComponent'
@@ -14,7 +14,7 @@ import {getMonthByIdx} from '../helpers/functions'
 const PageSpeedInsightsGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
   const [url, setUrl] = useState('')
-  const [device, setDevice] = useState('Desktop')
+  const [device, setDevice] = useState([])
   const [data, setData] = useState([])
   const [activeItem, setActiveItem] = useState(0)
   const [activeTab, setActiveTab] = useState(LIST_DEVICES.desktop)
@@ -34,10 +34,30 @@ const PageSpeedInsightsGui = (props) => {
   const handelRequest = async () => {
     try {
       setState(STATE_TYPE.loading)
-      const result = await apiRequestByDeviceAllCategories(url, device)
-      const newData = [formatDataList(result), ...data]
+      let result, newData
+      if (device.length > 1) {
+        result = await apiReqByAllDevice(url, true, true)
+
+        const newResult1 = [formatDataList(result.slice(0, 5))]
+
+        const newResult2 = [formatDataList(result.slice(5))]
+
+        newResult1[0].categoryList.map((category, idx) => {
+          category.mobile = newResult2[0].categoryList[idx].mobile
+        })
+        newResult1[0].history.mobile.push([
+          newResult2[0].mainInfo.date,
+          ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
+          getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
+        ])
+        newData = [...newResult1, ...data]
+      } else {
+        result = await apiRequestByDeviceAllCategories(url, device[0])
+        newData = [formatDataList(result), ...data]
+      }
+      console.log(newData)
       setData(newData)
-      setActiveTab(device.toLowerCase())
+      setActiveTab([])
       setActiveItem(0)
       patchSanityDocument(newData)
       setUrl('')
@@ -108,6 +128,74 @@ const PageSpeedInsightsGui = (props) => {
     setState(STATE_TYPE.success)
   }
 
+  const handelRefreshAll = async () => {
+    try {
+      setState(STATE_TYPE.loading)
+      let numberOfReq = 0,
+        newDataArr = []
+
+      while (numberOfReq < data.length) {
+        try {
+          let newData = [...data][numberOfReq]
+          const reqFor = data[numberOfReq].categoryList[0]
+          const result = await apiReqByAllDevice(
+            data[numberOfReq].mainInfo.linkReq,
+            Boolean(reqFor.desktop.length),
+            Boolean(reqFor.mobile.length)
+          )
+
+          if (Boolean(result.length > 5)) {
+            const newResult1 = [formatDataList(result.slice(0, 5))]
+
+            const newResult2 = [formatDataList(result.slice(5))]
+
+            newData.mainInfo.date = newResult1[0].mainInfo.date
+            newData.categoryList.map((category, idx) => {
+              category.mobile = newResult2[0].categoryList[idx].mobile
+              category.desktop = newResult1[0].categoryList[idx].desktop
+            })
+            newData.history.mobile.push([
+              newResult2[0].mainInfo.date,
+              ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
+              getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
+            ])
+            newData.history.desktop.push([
+              newResult1[0].mainInfo.date,
+              ...newResult1[0].categoryList.map((sc) => sc.desktop[0].score),
+              getMonthByIdx(new Date(newResult1[0].mainInfo.date).getMonth()),
+            ])
+          } else {
+            const newResult = [formatDataList(result)]
+
+            const forDevice = newResult[0].mainInfo.device
+            console.log(forDevice)
+            newData.mainInfo.date = newResult[0].mainInfo.date
+            newData.categoryList.map((category, idx) => {
+              category[forDevice] = newResult[0].categoryList[idx][forDevice]
+            })
+            newData.history[forDevice].push([
+              newResult[0].mainInfo.date,
+              ...newResult[0].categoryList.map((sc) => sc[forDevice][0].score),
+              getMonthByIdx(new Date(newResult[0].mainInfo.date)),
+            ])
+          }
+
+          newDataArr.push(newData)
+          numberOfReq += 1
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      setData(newDataArr)
+      patchSanityDocument(newDataArr)
+      setActiveRefreshID('')
+      setActiveRefreshDevice('')
+      setState(STATE_TYPE.success)
+    } catch (error) {
+      setState(STATE_TYPE.error)
+    }
+  }
+
   return (
     <Container>
       <Flex
@@ -141,6 +229,22 @@ const PageSpeedInsightsGui = (props) => {
         ) : (
           <Flex justify="center" padding={4}>
             <Text>Your history will show up here.</Text>
+          </Flex>
+        )}
+        {Boolean(data.length > 1) && (
+          <Flex
+            justify={'center'}
+            padding={4}
+            style={{margin: 'auto 0 0 0', borderTop: '1px solid gray'}}
+          >
+            <Button
+              fontSize={[2, 2, 3]}
+              padding={[1, 1, 3]}
+              text="Refresh all"
+              tone="primary"
+              onClick={handelRefreshAll}
+              disabled={state === STATE_TYPE.loading}
+            />
           </Flex>
         )}
       </Flex>

@@ -1,17 +1,21 @@
 import React, {useState, useCallback} from 'react'
-import {Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
+import {Checkbox, Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
 import {LinkIcon} from '@sanity/icons'
 import validator from 'validator'
-import {STATE_TYPE} from '../helpers/constants.js'
+import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 
 export const InputComponent = ({setUrl, device, setDevice, state, url, data, handelRequest}) => {
   const [errorMessage, setErrorMessage] = useState('')
-
   const handleChange = useCallback(
     (event) => {
-      setDevice(event.currentTarget.value)
+      const check = event.currentTarget.value
+      if (device.includes(check)) {
+        setDevice([...device.filter((dev) => dev !== check)])
+      } else {
+        setDevice([...device, check])
+      }
     },
-    [setDevice]
+    [device, setDevice]
   )
 
   const validate = (value) => {
@@ -58,19 +62,29 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
           <Flex justify={'space-between'} align={'center'} gap={2}>
             <Flex>
               <Inline space={2}>
-                <Radio
-                  checked={device === 'Desktop'}
-                  name="foo"
+                {/* <Radio
+                  checked={device.includes(LIST_DEVICES.desktop)}
                   onChange={handleChange}
-                  value="Desktop"
+                  value="desktop"
+                  disabled={isDisable}
+                /> */}
+                <Checkbox
+                  checked={device.includes(LIST_DEVICES.desktop)}
+                  onChange={handleChange}
+                  value="desktop"
                   disabled={isDisable}
                 />
                 <Text>Desktop</Text>
-                <Radio
-                  checked={device === 'Mobile'}
-                  name="foo"
+                {/* <Radio
+                  checked={device.includes(LIST_DEVICES.mobile)}
                   onChange={handleChange}
-                  value="Mobile"
+                  value="mobile"
+                  disabled={isDisable}
+                /> */}
+                <Checkbox
+                  checked={device.includes(LIST_DEVICES.mobile)}
+                  onChange={handleChange}
+                  value="mobile"
                   disabled={isDisable}
                 />
                 <Text>Mobile</Text>
@@ -82,7 +96,12 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
               text="Analyze"
               tone="primary"
               onClick={handelRequest}
-              disabled={errorMessage !== 'Is Valid URL' || errorMessage === '' || isDisable}
+              disabled={
+                errorMessage !== 'Is Valid URL' ||
+                errorMessage === '' ||
+                isDisable ||
+                !Boolean(device.length)
+              }
             />
           </Flex>
         </Flex>

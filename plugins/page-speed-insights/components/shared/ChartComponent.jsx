@@ -4,18 +4,29 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js'
-import {Bar} from 'react-chartjs-2'
+import {Bar, Line} from 'react-chartjs-2'
 import {CATEGORIES} from '../../helpers/constants'
 import {filterDates, random_rgba} from '../../helpers/functions'
 import {DatePickerComponentMemo} from './DatePickerComponent'
 import {Checkbox, Flex, Text, Box, Heading} from '@sanity/ui'
 import styled from 'styled-components'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  PointElement
+)
 
 const OptionTitle = styled.h2`
   font-weight: 600;
@@ -124,6 +135,14 @@ const ChartComponent = ({history}) => {
         }}
         ref={chartRef}
       />
+      {/* <Line
+        options={options}
+        data={{
+          labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
+          datasets: dataSetList,
+        }}
+        ref={chartRef}
+      /> */}
     </div>
   )
 }
