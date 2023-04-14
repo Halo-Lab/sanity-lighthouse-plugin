@@ -65,13 +65,19 @@ const Tab = ({
     if (activeTab === LIST_DEVICES.desktop) {
       return (
         Boolean(data?.history?.desktop.length) && (
-          <ChartComponentMemo history={data.history[activeTab]} />
+          <ChartComponentMemo
+            history={data.history[activeTab]}
+            markDatesList={[...data.history[activeTab].map((item) => item[0].split(',')[0])]}
+          />
         )
       )
     } else {
       return (
         Boolean(data?.history?.mobile?.length) && (
-          <ChartComponentMemo history={data.history[activeTab]} />
+          <ChartComponentMemo
+            history={data.history[activeTab]}
+            markDatesList={[...data.history[activeTab].map((item) => item[0].split(',')[0])]}
+          />
         )
       )
     }
@@ -119,32 +125,41 @@ const Tab = ({
             {Boolean(data?.categoryList?.length) && (
               <RenderContainer>{renderDataByDevice(data)}</RenderContainer>
             )}
+            <Flex align={'center'} justify={'center'} gap={5} padding={1}>
+              <Link
+                href={`https://developers.google.com/speed/pagespeed/insights/?url=${data.mainInfo.linkReq
+                  .replace(':', '%3A')
+                  .replaceAll('/', '%2F')}`}
+              >
+                for more information
+              </Link>
 
-            {Boolean(data?.categoryList[0][activeTab]?.length) && (
-              <DescriptContainer>
-                <DescriptItem>
-                  <PlayIcon
-                    style={{rotate: '-90deg', color: 'red', width: '20px', height: '20px'}}
-                  />
-                  0–49
-                </DescriptItem>{' '}
-                <DescriptItem>
-                  <StopIcon style={{color: 'orange', width: '20px', height: '20px'}} />
-                  50–89
-                </DescriptItem>{' '}
-                <DescriptItem>
-                  <CircleIcon
-                    style={{
-                      color: 'green',
-                      width: '20px',
-                      height: '20px',
-                      fill: 'green',
-                    }}
-                  />
-                  90–100
-                </DescriptItem>{' '}
-              </DescriptContainer>
-            )}
+              {Boolean(data?.categoryList[0][activeTab]?.length) && (
+                <DescriptContainer>
+                  <DescriptItem>
+                    <PlayIcon
+                      style={{rotate: '-90deg', color: 'red', width: '20px', height: '20px'}}
+                    />
+                    0–49
+                  </DescriptItem>{' '}
+                  <DescriptItem>
+                    <StopIcon style={{color: 'orange', width: '20px', height: '20px'}} />
+                    50–89
+                  </DescriptItem>{' '}
+                  <DescriptItem>
+                    <CircleIcon
+                      style={{
+                        color: 'green',
+                        width: '20px',
+                        height: '20px',
+                        fill: 'green',
+                      }}
+                    />
+                    90–100
+                  </DescriptItem>{' '}
+                </DescriptContainer>
+              )}
+            </Flex>
             {renderHistoryComponent()}
           </TabContent>
         ))

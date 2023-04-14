@@ -13,6 +13,7 @@ export const pageSpeedPlugin = definePlugin((options) => {
         icon: ApiIcon,
         component: PageSpeedPlugin,
         route: route.create('/*'),
+        options,
       },
     ],
   }

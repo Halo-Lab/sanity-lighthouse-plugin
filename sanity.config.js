@@ -11,7 +11,7 @@ import {pageSpeedPlugin} from './plugins/page-speed-insights'
 
 export const projectId = import.meta.env.SANITY_STUDIO_PROJECT_ID
 export const dataset = import.meta.env.SANITY_STUDIO_DATASET
-
+const API_KEY = import.meta.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
 export default defineConfig({
   name: 'default',
 
@@ -27,7 +27,7 @@ export default defineConfig({
       widgets: [projectInfoWidget(), projectUsersWidget()],
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
-    pageSpeedPlugin(),
+    pageSpeedPlugin({API_KEY}),
   ],
 
   schema: {

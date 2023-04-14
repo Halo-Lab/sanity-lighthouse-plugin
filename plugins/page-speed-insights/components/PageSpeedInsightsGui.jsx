@@ -11,6 +11,8 @@ import Loading from './shared/LoadingComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
 import {getMonthByIdx} from '../helpers/functions'
 
+const errorMassageText = 'Server error. Please try again later.'
+
 const PageSpeedInsightsGui = (props) => {
   const [state, setState] = useState(STATE_TYPE.idle)
   const [url, setUrl] = useState('')
@@ -20,6 +22,7 @@ const PageSpeedInsightsGui = (props) => {
   const [activeTab, setActiveTab] = useState(LIST_DEVICES.desktop)
   const [activeRefreshID, setActiveRefreshID] = useState('')
   const [activeRefreshDevice, setActiveRefreshDevice] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     const getDocumentById = async () => {
@@ -31,12 +34,20 @@ const PageSpeedInsightsGui = (props) => {
     getDocumentById()
   }, [])
 
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000)
+    }
+  }, [errorMessage])
+
   const handelRequest = async () => {
     try {
       setState(STATE_TYPE.loading)
       let result, newData
       if (device.length > 1) {
-        result = await apiReqByAllDevice(url, true, true)
+        result = await apiReqByAllDevice(url, true, true, props.tool.options.API_KEY)
 
         const newResult1 = [formatDataList(result.slice(0, 5))]
 
@@ -52,18 +63,19 @@ const PageSpeedInsightsGui = (props) => {
         ])
         newData = [...newResult1, ...data]
       } else {
-        result = await apiRequestByDeviceAllCategories(url, device[0])
+        result = await apiRequestByDeviceAllCategories(url, device[0], props.tool.options.API_KEY)
         newData = [formatDataList(result), ...data]
       }
-      console.log(newData)
+
       setData(newData)
-      setActiveTab([])
+      setActiveTab(device[0])
       setActiveItem(0)
       patchSanityDocument(newData)
       setUrl('')
       setState(STATE_TYPE.success)
     } catch (error) {
       console.log(error)
+      setErrorMessage(errorMassageText)
       setState(STATE_TYPE.error)
     }
   }
@@ -75,7 +87,8 @@ const PageSpeedInsightsGui = (props) => {
       setActiveRefreshDevice(activeTab)
       const result = await apiRequestByDeviceAllCategories(
         data[activeItem]?.mainInfo?.linkReq,
-        activeTab
+        activeTab,
+        props.tool.options.API_KEY
       )
       const newResult = [formatDataList(result)]
 
@@ -101,6 +114,7 @@ const PageSpeedInsightsGui = (props) => {
       setActiveRefreshDevice('')
     } catch (error) {
       console.log(error)
+      setErrorMessage(errorMassageText)
       setState(STATE_TYPE.error)
     }
   }
@@ -118,8 +132,9 @@ const PageSpeedInsightsGui = (props) => {
 
   const deleteCardByID = (link, idx) => {
     setState(STATE_TYPE.loading)
-    console.log(1)
+
     setData([...data].filter((item) => item.mainInfo.linkReq !== link))
+
     props.client
       .patch('performance')
       .unset([`data[${idx}]`])
@@ -141,7 +156,8 @@ const PageSpeedInsightsGui = (props) => {
           const result = await apiReqByAllDevice(
             data[numberOfReq].mainInfo.linkReq,
             Boolean(reqFor.desktop.length),
-            Boolean(reqFor.mobile.length)
+            Boolean(reqFor.mobile.length),
+            props.tool.options.API_KEY
           )
 
           if (Boolean(result.length > 5)) {
@@ -192,6 +208,7 @@ const PageSpeedInsightsGui = (props) => {
       setActiveRefreshDevice('')
       setState(STATE_TYPE.success)
     } catch (error) {
+      setErrorMessage(errorMassageText)
       setState(STATE_TYPE.error)
     }
   }
@@ -214,6 +231,11 @@ const PageSpeedInsightsGui = (props) => {
           data={data}
           handelRequest={handelRequest}
         />
+        <Flex justify={'center'} padding={1}>
+          <Text style={{color: 'red'}} muted>
+            {errorMessage}
+          </Text>
+        </Flex>
         {Boolean(data.length) ? (
           <HistoryMenu
             data={data}

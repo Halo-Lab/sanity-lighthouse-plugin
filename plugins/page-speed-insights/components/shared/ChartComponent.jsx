@@ -1,4 +1,4 @@
-import React, {useCallback, useState, useRef} from 'react'
+import React, {useCallback, useState, useRef, useEffect} from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,9 +12,9 @@ import {
 } from 'chart.js'
 import {Bar, Line} from 'react-chartjs-2'
 import {CATEGORIES} from '../../helpers/constants'
-import {filterDates, random_rgba} from '../../helpers/functions'
+import {filterDates} from '../../helpers/functions'
 import {DatePickerComponentMemo} from './DatePickerComponent'
-import {Checkbox, Flex, Text, Box, Heading} from '@sanity/ui'
+import {Checkbox, Flex, Heading} from '@sanity/ui'
 import styled from 'styled-components'
 
 ChartJS.register(
@@ -45,17 +45,20 @@ const COLORS_BAR = [
   'rgb(72, 137, 88)',
   'rgb(225, 96, 68)',
 ]
-const ChartComponent = ({history}) => {
+const ChartComponent = ({history, markDatesList = []}) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState(null)
   const [isCheckedList, setIsCheckedList] = useState([])
   const labelList = Boolean(history?.length) ? [...history.map((dateReq) => dateReq[0])] : []
+
   const dataSetList = Boolean(history?.length)
     ? [
         ...CATEGORIES.map((category, idx) => {
           return {
+            type: 'line',
             label: category,
             data: [...history.map((it) => it[idx + 1])],
+            borderWidth: 6,
             backgroundColor: COLORS_BAR[idx],
           }
         }),
@@ -74,10 +77,26 @@ const ChartComponent = ({history}) => {
         text: 'Request History',
       },
     },
+    scales: {
+      x: {
+        ticks: {
+          callback: function (value, index, values) {
+            if (index === 0 || index === values.length - 1) {
+              const valueText = labelList[index].split(',')[0]
+              return valueText
+            }
+            return ''
+          },
+        },
+      },
+    },
   }
+
   const renderDatePickerComponent = useCallback(() => {
-    return <DatePickerComponentMemo value={value} onChange={onChange} />
-  }, [value])
+    return (
+      <DatePickerComponentMemo value={value} onChange={onChange} markDateList={markDatesList} />
+    )
+  }, [markDatesList, value])
 
   const renderCustomCheckBox = useCallback(() => {
     const updateChart = (target, chart, name) => {
@@ -127,15 +146,7 @@ const ChartComponent = ({history}) => {
       <Flex align={'center'} gap={2} justify={'center'} padding={1}>
         {renderCustomCheckBox()}
       </Flex>
-      <Bar
-        options={options}
-        data={{
-          labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
-          datasets: dataSetList,
-        }}
-        ref={chartRef}
-      />
-      {/* <Line
+      {/* <Bar
         options={options}
         data={{
           labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
@@ -143,6 +154,14 @@ const ChartComponent = ({history}) => {
         }}
         ref={chartRef}
       /> */}
+      <Line
+        options={options}
+        data={{
+          labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
+          datasets: dataSetList,
+        }}
+        ref={chartRef}
+      />
     </div>
   )
 }

@@ -1,11 +1,12 @@
 import React, {useState, useCallback} from 'react'
-import {Checkbox, Stack, Radio, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
+import {Checkbox, Stack, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
 import {LinkIcon} from '@sanity/icons'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 
 export const InputComponent = ({setUrl, device, setDevice, state, url, data, handelRequest}) => {
   const [errorMessage, setErrorMessage] = useState('')
+
   const handleChange = useCallback(
     (event) => {
       const check = event.currentTarget.value
@@ -62,12 +63,6 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
           <Flex justify={'space-between'} align={'center'} gap={2}>
             <Flex>
               <Inline space={2}>
-                {/* <Radio
-                  checked={device.includes(LIST_DEVICES.desktop)}
-                  onChange={handleChange}
-                  value="desktop"
-                  disabled={isDisable}
-                /> */}
                 <Checkbox
                   checked={device.includes(LIST_DEVICES.desktop)}
                   onChange={handleChange}
@@ -75,12 +70,6 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
                   disabled={isDisable}
                 />
                 <Text>Desktop</Text>
-                {/* <Radio
-                  checked={device.includes(LIST_DEVICES.mobile)}
-                  onChange={handleChange}
-                  value="mobile"
-                  disabled={isDisable}
-                /> */}
                 <Checkbox
                   checked={device.includes(LIST_DEVICES.mobile)}
                   onChange={handleChange}

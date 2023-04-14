@@ -5,7 +5,6 @@ import PageSpeedInsightsContainer from './containers/PageSpeedInsightsContainer'
 function PageSpeedPlugin(props) {
   const client = useClient({apiVersion: '2023-01-24'})
 
-  // client.delete('performance')
   const doc = {
     _id: 'performance',
     _type: 'document',
@@ -13,7 +12,7 @@ function PageSpeedPlugin(props) {
     data: [],
   }
   client.createIfNotExists(doc)
-  return <PageSpeedInsightsContainer client={client} />
+  return <PageSpeedInsightsContainer client={client} {...props} />
 }
 
 export default PageSpeedPlugin
