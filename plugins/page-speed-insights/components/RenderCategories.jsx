@@ -5,18 +5,20 @@ import PieChartComponent from './shared/PieChartComponent'
 const PieContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
-  padding: 1rem 0;
 `
 const Title = styled.h3`
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.17;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+
+  color: #3e3e3e;
 
   display: flex;
   align-items: center;
-  color: #003e56;
   margin: 0;
 `
 
@@ -25,8 +27,8 @@ const RenderCategories = ({item}) => {
 
   return (
     <PieContainer>
-      <Title>{title}</Title>
       <PieChartComponent title={title} score={score} />
+      <Title>{title}</Title>
     </PieContainer>
   )
 }

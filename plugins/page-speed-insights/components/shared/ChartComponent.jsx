@@ -151,7 +151,6 @@ const ChartComponent = ({history, markDatesList = []}) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        he: '100%',
       }}
     >
       <Flex align={'center'} gap={2} justify={'flex-end'} padding={2}>
