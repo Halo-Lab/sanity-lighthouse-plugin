@@ -1,15 +1,30 @@
 import React, {useState, useCallback} from 'react'
-import {Checkbox, Stack, TextInput, Button, Inline, Flex, Text, Box} from '@sanity/ui'
-import {LinkIcon} from '@sanity/icons'
+import {Stack, TextInput, Inline, Flex, Text, Box, Spinner} from '@sanity/ui'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
+import {
+  ButtonAddPage,
+  CheckboxContainer,
+  CheckboxIconContainer,
+  CheckboxLabel,
+  CustomInput,
+  ErorrMessage,
+  InputIcon,
+  InputSpinner,
+} from '../styles/InputStyle.jsx'
+import {TickIcon} from '../asset/TickIcon.jsx'
+import {LinkIcon} from '../asset/LinkIcon.jsx'
+import SpinnerComponent from './shared/CustomSpinner.jsx'
 
 export const InputComponent = ({setUrl, device, setDevice, state, url, data, handelRequest}) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
     (event) => {
-      const check = event.currentTarget.value
+      console.log(event.currentTarget.dataset.disabled)
+      if (event.currentTarget.dataset.disabled === 'true') return
+      const check = event.currentTarget.id
+
       if (device.includes(check)) {
         setDevice([...device.filter((dev) => dev !== check)])
       } else {
@@ -21,9 +36,9 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
 
   const validate = (value) => {
     if (validator.isURL(value)) {
-      setErrorMessage('Is Valid URL')
+      setErrorMessage('')
     } else {
-      setErrorMessage('Is Not Valid URL')
+      setErrorMessage('Is not valid URL.')
     }
     if (data.length) {
       data.map((item) => {
@@ -35,63 +50,65 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
   const isDisable = state === STATE_TYPE.loading
 
   return (
-    <Box style={{borderBottom: '1px solid gray', padding: '1rem 0'}}>
+    <Box>
       <Stack>
-        <Flex gap={1} justify={'space-between'} direction={'column'}>
+        <Flex justify={'space-between'} direction={'column'}>
           <Flex direction={'column'}>
-            <TextInput
-              onChange={({target}) => validate(target.value)}
-              onBlur={({target}) =>
-                target.value === '' ? setErrorMessage('') : validate(target.value)
-              }
-              icon={LinkIcon}
-              value={url}
-              disabled={isDisable}
-              radius={2}
-            />
-
-            <span
-              style={{
-                fontWeight: 'bold',
-                color: errorMessage === 'Is Valid URL' ? 'green' : 'red',
-                minHeight: '22px',
-              }}
-            >
-              {url !== '' && errorMessage}
-            </span>
-          </Flex>
-          <Flex justify={'space-between'} align={'center'} gap={2}>
-            <Flex>
-              <Inline space={2}>
-                <Checkbox
-                  checked={device.includes(LIST_DEVICES.desktop)}
-                  onChange={handleChange}
-                  value="desktop"
+            <Flex gap={2}>
+              <Flex style={{position: 'relative'}}>
+                <InputIcon error={Boolean(errorMessage)}>
+                  <LinkIcon />
+                </InputIcon>
+                <CustomInput
+                  onChange={({target}) => validate(target.value)}
+                  onBlur={({target}) =>
+                    target.value === '' ? setErrorMessage('') : validate(target.value)
+                  }
+                  value={url}
+                  placeholder="Specify page URl"
                   disabled={isDisable}
+                  error={Boolean(errorMessage)}
                 />
-                <Text>Desktop</Text>
-                <Checkbox
-                  checked={device.includes(LIST_DEVICES.mobile)}
-                  onChange={handleChange}
-                  value="mobile"
-                  disabled={isDisable}
-                />
-                <Text>Mobile</Text>
-              </Inline>
+                {state === STATE_TYPE.loading && (
+                  <InputSpinner>
+                    <SpinnerComponent />
+                  </InputSpinner>
+                )}
+              </Flex>
+              <ButtonAddPage
+                type="button"
+                onClick={handelRequest}
+                disabled={isDisable || !Boolean(device.length)}
+              >
+                Add page
+              </ButtonAddPage>
             </Flex>
-            <Button
-              fontSize={[2, 2, 3]}
-              padding={[1, 1, 3]}
-              text="Analyze"
-              tone="primary"
-              onClick={handelRequest}
-              disabled={
-                errorMessage !== 'Is Valid URL' ||
-                errorMessage === '' ||
-                isDisable ||
-                !Boolean(device.length)
-              }
-            />
+            <ErorrMessage>{url !== '' && errorMessage}</ErorrMessage>
+          </Flex>
+
+          <Flex style={{gap: '16px'}}>
+            <CheckboxContainer>
+              <CheckboxIconContainer
+                checked={device.includes(LIST_DEVICES.desktop)}
+                id="desktop"
+                data-disabled={isDisable}
+                onClick={handleChange}
+              >
+                <TickIcon />
+              </CheckboxIconContainer>
+              <CheckboxLabel>{LIST_DEVICES.desktop}</CheckboxLabel>
+            </CheckboxContainer>
+            <CheckboxContainer>
+              <CheckboxIconContainer
+                checked={device.includes(LIST_DEVICES.mobile)}
+                id="mobile"
+                data-disabled={isDisable}
+                onClick={handleChange}
+              >
+                <TickIcon />
+              </CheckboxIconContainer>
+              <CheckboxLabel>{LIST_DEVICES.mobile}</CheckboxLabel>
+            </CheckboxContainer>
           </Flex>
         </Flex>
       </Stack>

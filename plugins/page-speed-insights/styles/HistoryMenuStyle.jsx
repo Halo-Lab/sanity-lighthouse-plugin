@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 20px;
+  padding: 32px 0 16px;
   overflow-y: scroll;
   /* Scrollbar Styling */
   ::-webkit-scrollbar {
@@ -25,17 +26,30 @@ export const Container = styled.div`
 `
 export const CustomButton = styled.button`
   display: flex;
+  width: 24px;
+  height: 24px;
 
   align-items: center;
-  padding: 4px;
-  border: 1px solid red;
-  border-radius: 5px;
+
+  border: 1px solid ${({disabled}) => (disabled ? '#DFDFE3' : '#c1c1c1')};
+  border-radius: 3px;
   background-color: transparent;
-  cursor: 'pointer',
-  :hover {
-    background-color: ${(props) => (props.disabled ? 'transparent' : 'red')};
-    svg {
-      color: white;
+  cursor: 'pointer';
+  svg > path {
+    stroke: ${({disabled}) => disabled && '#DFDFE3'};
+  }
+
+  &:hover,
+  :focus {
+    border: 1px solid ${({theme, disabled}) => (disabled ? '#DFDFE3' : theme.colors.chRed)};
+    svg > path {
+      stroke: ${({theme, disabled}) => (disabled ? '#DFDFE3' : theme.colors.chRed)};
+    }
+  }
+  &:active {
+    border: 1px solid ${({disabled}) => (disabled ? '#DFDFE3' : '#d23229')};
+    svg > path {
+      stroke: ${({disabled}) => (disabled ? '#DFDFE3' : '#d23229')};
     }
   }
 `
@@ -43,15 +57,13 @@ export const CustomButton = styled.button`
 export const Item = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 8px;
-  padding: 8px;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
+  padding: 16px;
+  border: 1px solid ${({active, theme}) => (active ? theme.colors.accent : '#e4e6e8')};
+  border-radius: 8px;
   cursor: pointer;
-  :hover {
-    background-color: lightgrey;
-  }
-  background-color: ${(props) => (props.active ? 'lightgrey' : 'white')};
+  background-color: #fff;
 `
 
 export const Flex = styled.div`
@@ -61,8 +73,40 @@ export const Flex = styled.div`
   align-items: center;
 `
 export const DateText = styled.p`
+  font-family: 'Inter';
+  font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 1.2;
+
+  color: #2b2b2b;
   margin: 0;
+`
+export const LinkText = styled.h3`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #2b2b2b;
+  margin: 0;
+`
+
+export const BadgeComponent = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid ${({tone}) => tone};
+  color: ${({tone}) => tone};
+  border-radius: 58px;
+  padding: 3px 12px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+
+  text-align: center;
+  text-transform: capitalize;
 `

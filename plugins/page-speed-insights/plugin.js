@@ -9,7 +9,7 @@ export const pageSpeedPlugin = definePlugin((options) => {
     tools: [
       {
         name: 'page-speed',
-        title: 'Page Speed Insights',
+        title: 'Sanity PageSpeed Monitoring',
         icon: ApiIcon,
         component: PageSpeedPlugin,
         route: route.create('/*'),

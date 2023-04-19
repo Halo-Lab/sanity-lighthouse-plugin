@@ -49,20 +49,36 @@ const ChartComponent = ({history, markDatesList = []}) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState(null)
   const [isCheckedList, setIsCheckedList] = useState([])
-  const labelList = Boolean(history?.length) ? [...history.map((dateReq) => dateReq[0])] : []
+  const labelList = Boolean(history?.length)
+    ? history.length > 1
+      ? [...history.map((dateReq) => dateReq[0])]
+      : ['', ...history.map((dataReq) => dataReq[0]), '']
+    : []
 
   const dataSetList = Boolean(history?.length)
-    ? [
-        ...CATEGORIES.map((category, idx) => {
-          return {
-            type: 'line',
-            label: category,
-            data: [...history.map((it) => it[idx + 1])],
-            borderWidth: 6,
-            backgroundColor: COLORS_BAR[idx],
-          }
-        }),
-      ]
+    ? history.length > 1
+      ? [
+          ...CATEGORIES.map((category, idx) => {
+            return {
+              type: 'line',
+              label: category,
+              data: [...history.map((it) => it[idx + 1])],
+              borderWidth: 6,
+              backgroundColor: COLORS_BAR[idx],
+            }
+          }),
+        ]
+      : [
+          ...CATEGORIES.map((category, idx) => {
+            return {
+              type: 'line',
+              label: category,
+              data: [null, ...history.map((it) => it[idx + 1]), null],
+              borderWidth: 6,
+              backgroundColor: COLORS_BAR[idx],
+            }
+          }),
+        ]
     : []
 
   const options = {
@@ -78,6 +94,9 @@ const ChartComponent = ({history, markDatesList = []}) => {
       },
     },
     scales: {
+      y: {
+        min: 0,
+      },
       x: {
         ticks: {
           callback: function (value, index, values) {

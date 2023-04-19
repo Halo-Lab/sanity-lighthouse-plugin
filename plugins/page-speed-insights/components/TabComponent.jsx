@@ -11,17 +11,12 @@ import {
   Container,
 } from '../styles/TabComponentStyle'
 import {Flex, Heading, Button} from '@sanity/ui'
-import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
+import {LIST_DEVICES, STATE_TYPE, TABS} from '../helpers/constants'
 import RenderCategories from './RenderCategories'
 import {SyncIcon, PlayIcon, StopIcon, CircleIcon} from '@sanity/icons'
 import {MobileDeviceIcon, DesktopIcon} from '@sanity/icons'
 import {CustomSpinner} from './shared/CustomSpinner'
 import {ChartComponentMemo} from './shared/ChartComponent'
-
-const tabs = [
-  {id: LIST_DEVICES.desktop, label: LIST_DEVICES.desktop.toUpperCase()},
-  {id: LIST_DEVICES.mobile, label: LIST_DEVICES.mobile.toUpperCase()},
-]
 
 const Tab = ({
   data,
@@ -32,8 +27,6 @@ const Tab = ({
   activeRefreshID,
   activeRefreshDevice,
 }) => {
-  const isRefreshCurrent = activeRefreshID === data.mainInfo.linkReq && state === STATE_TYPE.loading
-
   const renderDataByDevice = useCallback(
     (data) => {
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
@@ -87,7 +80,7 @@ const Tab = ({
     <Container>
       <TabContainer>
         <Flex>
-          {tabs.map((tab) => (
+          {TABS.map((tab) => (
             <TabButton
               key={tab.id}
               active={activeTab === tab.id}
@@ -117,10 +110,12 @@ const Tab = ({
         </RefreshContainer>
       </TabContainer>
 
-      {isRefreshCurrent && activeRefreshDevice === activeTab ? (
+      {activeRefreshID === data.mainInfo.linkReq &&
+      state === STATE_TYPE.loading &&
+      activeRefreshDevice === activeTab ? (
         <CustomSpinner />
       ) : (
-        tabs.map((tab) => (
+        TABS.map((tab) => (
           <TabContent key={tab.id} active={activeTab === tab.id}>
             {Boolean(data?.categoryList?.length) && (
               <RenderContainer>{renderDataByDevice(data)}</RenderContainer>

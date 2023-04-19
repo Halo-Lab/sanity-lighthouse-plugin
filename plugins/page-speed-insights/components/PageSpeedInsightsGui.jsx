@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
-import {Container} from '../styles/PageSpeedInsightsGuiStyles'
+import {ButtonResetAll, Container} from '../styles/PageSpeedInsightsGuiStyles'
 import {InputComponent} from './InputComponent'
 import HistoryMenu from './HistoryMenu'
-import {Flex, Text, Button} from '@sanity/ui'
+import {Flex, Text} from '@sanity/ui'
 import {apiReqByAllDevice, apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
 import {formatDataList} from '../helpers/formatedData'
 import Tab from './TabComponent'
 import Loading from './shared/LoadingComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
 import {getMonthByIdx} from '../helpers/functions'
+import {RefreshIcon} from '../asset/RefreshIcon'
 
 const errorMassageText = 'Server error. Please try again later.'
 
@@ -132,13 +133,11 @@ const PageSpeedInsightsGui = (props) => {
 
   const deleteCardByID = (link, idx) => {
     setState(STATE_TYPE.loading)
-
-    setData([...data].filter((item) => item.mainInfo.linkReq !== link))
-
     props.client
       .patch('performance')
       .unset([`data[${idx}]`])
       .commit()
+    setData([...data].filter((item) => item.mainInfo.linkReq !== link))
 
     setState(STATE_TYPE.success)
   }
@@ -184,7 +183,7 @@ const PageSpeedInsightsGui = (props) => {
             const newResult = [formatDataList(result)]
 
             const forDevice = newResult[0].mainInfo.device
-            console.log(forDevice)
+
             newData.mainInfo.date = newResult[0].mainInfo.date
             newData.categoryList.map((category, idx) => {
               category[forDevice] = newResult[0].categoryList[idx][forDevice]
@@ -218,55 +217,55 @@ const PageSpeedInsightsGui = (props) => {
       <Flex
         direction={'column'}
         style={{
-          outline: '2px solid gray',
-          padding: '0 8px',
+          borderRight: '1px solid #E4E6E8',
         }}
       >
-        <InputComponent
-          device={device}
-          setDevice={setDevice}
-          state={state}
-          url={url}
-          setUrl={setUrl}
-          data={data}
-          handelRequest={handelRequest}
-        />
-        <Flex justify={'center'} padding={1}>
-          <Text style={{color: 'red'}} muted>
-            {errorMessage}
-          </Text>
-        </Flex>
-        {Boolean(data.length) ? (
-          <HistoryMenu
-            data={data}
-            setActiveItem={setActiveItem}
-            activeItem={activeItem}
+        <Flex direction={'column'} style={{padding: '40px 24px 24px'}}>
+          <InputComponent
+            device={device}
+            setDevice={setDevice}
             state={state}
-            deleteCardByID={deleteCardByID}
+            url={url}
+            setUrl={setUrl}
+            data={data}
+            handelRequest={handelRequest}
           />
-        ) : state === STATE_TYPE.loading ? (
-          <div style={{minHeight: '16px', padding: '20px 0 0 0'}}>
-            <Loading active={state === STATE_TYPE.loading} />
-          </div>
-        ) : (
-          <Flex justify="center" padding={4}>
-            <Text>Your history will show up here.</Text>
-          </Flex>
-        )}
+          {/* <Flex justify={'center'} padding={1}>
+            <Text style={{color: 'red'}} muted>
+              {errorMessage}
+            </Text>
+          </Flex> */}
+          {Boolean(data.length) ? (
+            <HistoryMenu
+              data={data}
+              setActiveItem={setActiveItem}
+              activeItem={activeItem}
+              state={state}
+              deleteCardByID={deleteCardByID}
+            />
+          ) : state === STATE_TYPE.loading ? (
+            <div style={{minHeight: '16px', padding: '20px 0 0 0'}}>
+              <Loading active={state === STATE_TYPE.loading} />
+            </div>
+          ) : (
+            <Flex justify="center" padding={4}>
+              <Text>Your history will show up here.</Text>
+            </Flex>
+          )}
+        </Flex>
         {Boolean(data.length > 1) && (
           <Flex
             justify={'center'}
-            padding={4}
-            style={{margin: 'auto 0 0 0', borderTop: '1px solid gray'}}
+            style={{padding: '24px', margin: 'auto 0 0 0', borderTop: '1px solid #E4E6E8'}}
           >
-            <Button
-              fontSize={[2, 2, 3]}
-              padding={[1, 1, 3]}
-              text="Refresh all"
-              tone="primary"
+            <ButtonResetAll
+              type="button"
               onClick={handelRefreshAll}
               disabled={state === STATE_TYPE.loading}
-            />
+            >
+              <RefreshIcon />
+              Retest all
+            </ButtonResetAll>
           </Flex>
         )}
       </Flex>

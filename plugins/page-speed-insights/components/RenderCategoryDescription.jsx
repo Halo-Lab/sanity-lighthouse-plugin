@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import {Grid, Flex, Heading, Text, Tooltip, Box} from '@sanity/ui'
+import {Grid, Flex, Text, Tooltip, Box} from '@sanity/ui'
 import styled from 'styled-components'
 
 const Link = styled.a`

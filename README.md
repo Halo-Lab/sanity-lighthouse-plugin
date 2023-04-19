@@ -1,4 +1,4 @@
-# Sanity Page Speed Plugin (for Sanity Studio v3)
+# Sanity PageSpeed Monitoring Plugin (for Sanity Studio v3)
 
 > This plugin is for Sanity Studio v3 and uses the [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v5/about) to provide insights into the speed and performance of your website. To use this plugin, you will need to have an API key for the PageSpeed Insights API.
 
