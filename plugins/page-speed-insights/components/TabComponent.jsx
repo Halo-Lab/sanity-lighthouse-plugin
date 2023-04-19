@@ -111,6 +111,8 @@ const Tab = ({
               href={`https://developers.google.com/speed/pagespeed/insights/?url=${data.mainInfo.linkReq
                 .replace(':', '%3A')
                 .replaceAll('/', '%2F')}`}
+              target="_blank"
+              rel="noreferrer"
             >
               Open PageSpeed details <ArrowUpRightIcon />
             </LinkDetails>
