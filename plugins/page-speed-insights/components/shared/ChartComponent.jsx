@@ -11,11 +11,12 @@ import {
   Legend,
 } from 'chart.js'
 import {Bar, Line} from 'react-chartjs-2'
-import {CATEGORIES} from '../../helpers/constants'
+import {CATEGORIES, CATEGORIES_TITLE, COLORS_BAR} from '../../helpers/constants'
 import {filterDates} from '../../helpers/functions'
 import {DatePickerComponentMemo} from './DatePickerComponent'
-import {Checkbox, Flex, Heading} from '@sanity/ui'
-import styled from 'styled-components'
+import {Flex} from '@sanity/ui'
+import {CustomCheckBox} from '../shared/CustomCheckBox'
+import {ContainerChartLine, TitleSection} from '../../styles/ChartComponentStyle'
 
 ChartJS.register(
   CategoryScale,
@@ -28,23 +29,6 @@ ChartJS.register(
   PointElement
 )
 
-const OptionTitle = styled.h2`
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 1.5;
-
-  display: flex;
-  align-items: center;
-  color: #003e56;
-  margin: 0;
-`
-const COLORS_BAR = [
-  'rgb(59, 130, 162)',
-  'rgb(239, 202, 112)',
-  'rgb(106, 79, 121)',
-  'rgb(72, 137, 88)',
-  'rgb(225, 96, 68)',
-]
 const ChartComponent = ({history, markDatesList = []}) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState(null)
@@ -63,8 +47,10 @@ const ChartComponent = ({history, markDatesList = []}) => {
               type: 'line',
               label: category,
               data: [...history.map((it) => it[idx + 1])],
-              borderWidth: 6,
+              borderWidth: 3,
               backgroundColor: COLORS_BAR[idx],
+              borderColor: COLORS_BAR[idx],
+              tension: 0.1,
             }
           }),
         ]
@@ -92,14 +78,33 @@ const ChartComponent = ({history, markDatesList = []}) => {
         display: false,
         text: 'Request History',
       },
+      tooltip: {
+        backgroundColor: '#FFFFFF',
+        titleColor: '#02021E',
+        bodyColor: '#02021E',
+        borderColor: 'rgba(228, 230, 232, 0.4)',
+        borderWidth: 1,
+      },
     },
     scales: {
       y: {
-        min: 0,
+        // beginAtZero: true,
+        border: {
+          dash: [8, 4],
+        },
       },
       x: {
+        grid: {
+          display: false,
+          borderDash: [8, 4],
+        },
         ticks: {
           callback: function (value, index, values) {
+            if (labelList.length === 3) {
+              return Boolean(index === 0 || index === values.length - 1)
+                ? labelList[1].split(',')[0]
+                : ''
+            }
             if (index === 0 || index === values.length - 1) {
               const valueText = labelList[index].split(',')[0]
               return valueText
@@ -119,32 +124,88 @@ const ChartComponent = ({history, markDatesList = []}) => {
 
   const renderCustomCheckBox = useCallback(() => {
     const updateChart = (target, chart, name) => {
-      const {value} = target
-      const isDataShow = chart.isDatasetVisible(value)
+      const isDataShow = chart.isDatasetVisible(target)
 
       if (isDataShow === false) {
-        chart.show(value)
+        chart.show(target)
         setIsCheckedList((prev) => prev.filter((it) => it !== name))
       }
       if (isDataShow === true) {
-        chart.hide(value)
+        chart.hide(target)
         setIsCheckedList([...isCheckedList, name])
       }
     }
 
-    return CATEGORIES.map((item, idx) => {
+    return CATEGORIES_TITLE.map((item, idx) => {
       return (
-        <Flex key={`${item}-${idx}`} align="center" gap={1}>
-          <Checkbox
-            value={idx}
+        <Flex key={`${item}-${idx}`} align="center">
+          <CustomCheckBox
+            label={item}
             checked={!Boolean(isCheckedList?.includes(item))}
-            onChange={({target}) => updateChart(target, chartRef.current, item)}
+            handleChange={({currentTarget}) =>
+              updateChart(currentTarget.id, chartRef.current, item)
+            }
+            id={idx}
           />
-          <OptionTitle>{item.replace('_', ' ')}</OptionTitle>
         </Flex>
       )
     })
   }, [isCheckedList])
+
+  const hoverLine = {
+    id: 'hoverLine',
+    afterDatasetsDraw(chart, args, plugins) {
+      const {
+        ctx,
+        tooltip,
+        chartArea: {top, left, right, bottom, width, height},
+        scales: {x, y},
+      } = chart
+
+      if (tooltip._active.length > 0) {
+        const xCoor = x.getPixelForValue(tooltip.dataPoints[0].dataIndex)
+        const yCoor = y.getPixelForValue(tooltip.dataPoints[0].parsed.y)
+
+        ctx.save()
+        ctx.beginPath()
+        const gradientLine = ctx.createLinearGradient(0, top, 0, bottom)
+        gradientLine.addColorStop(0, 'rgba(129, 129, 165, 1)')
+        gradientLine.addColorStop(1, 'rgba(130, 130, 166, 0)')
+
+        ctx.lineWidth = 3
+        ctx.strokeStyle = gradientLine
+        ctx.setLineDash([6, 6])
+        ctx.moveTo(xCoor, yCoor)
+        ctx.lineTo(xCoor, bottom)
+        ctx.stroke()
+        ctx.closePath()
+      }
+    },
+  }
+
+  const dashedBorders = {
+    id: 'dashedBorders',
+    beforeDatasetsDraw(chart, args, plugins) {
+      const {
+        ctx,
+        tooltip,
+        chartArea: {top, left, right, bottom, width, height},
+        scales: {x, y},
+      } = chart
+
+      ctx.save()
+      ctx.beginPath()
+      ctx.strokeStyle = 'gray'
+      ctx.lineWidth = 1
+      ctx.setLineDash([6, 6])
+      ctx.moveTo(left, top)
+      ctx.lineTo(right, top)
+      ctx.lineTo(right, bottom)
+      ctx.lineTo(left, bottom)
+      ctx.closePath()
+      ctx.stroke()
+    },
+  }
 
   return (
     <div
@@ -153,33 +214,25 @@ const ChartComponent = ({history, markDatesList = []}) => {
         flexDirection: 'column',
       }}
     >
-      <Flex align={'center'} gap={2} justify={'flex-end'} padding={2}>
+      <Flex align={'center'} gap={2} justify={'space-between'} style={{padding: '24px 0'}}>
+        <TitleSection>Request History</TitleSection>
+
         {renderDatePickerComponent()}
       </Flex>
-      <Flex justify={'center'} padding={2}>
-        <Heading as="h3" size={1}>
-          Request History
-        </Heading>
-      </Flex>
-      <Flex align={'center'} gap={2} justify={'center'} padding={1}>
-        {renderCustomCheckBox()}
-      </Flex>
-      {/* <Bar
-        options={options}
-        data={{
-          labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
-          datasets: dataSetList,
-        }}
-        ref={chartRef}
-      /> */}
-      <Line
-        options={options}
-        data={{
-          labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
-          datasets: dataSetList,
-        }}
-        ref={chartRef}
-      />
+      <ContainerChartLine>
+        <Flex align={'center'} gap={3} justify={'flex-end'}>
+          {renderCustomCheckBox()}
+        </Flex>
+        <Line
+          options={options}
+          data={{
+            labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
+            datasets: dataSetList,
+          }}
+          ref={chartRef}
+          plugins={[hoverLine, dashedBorders]}
+        />
+      </ContainerChartLine>
     </div>
   )
 }
