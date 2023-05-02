@@ -34,7 +34,8 @@ export const CustomButton = styled.button`
   border: 1px solid ${({disabled}) => (disabled ? '#DFDFE3' : '#c1c1c1')};
   border-radius: 3px;
   background-color: transparent;
-  cursor: 'pointer';
+  cursor: pointer;
+  
   svg > path {
     stroke: ${({disabled}) => disabled && '#DFDFE3'};
   }

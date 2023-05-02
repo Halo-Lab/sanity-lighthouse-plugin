@@ -8,12 +8,13 @@ export const Container = styled.div`
   margin: 0 auto;
 `
 export const ButtonResetAll = styled.button`
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  gap: 9px;
   padding: 11.5px 0;
+  gap: 9px;
   background-color: ${({disabled}) => (disabled ? '#DFDFE3' : 'transparent')};
 
   font-family: 'Inter';

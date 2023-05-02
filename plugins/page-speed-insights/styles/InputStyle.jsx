@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const ButtonAddPage = styled.button`
+  cursor: pointer;
   width: 100%;
   max-width: 92px;
 

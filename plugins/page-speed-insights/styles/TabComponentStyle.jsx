@@ -112,8 +112,7 @@ export const RenderContainer = styled.div`
 `
 
 export const RetestButton = styled(ButtonResetAll)`
-  cursor: pointer;
-  padding: 12px 20px;
+  padding: 12px 32px;
 `
 export const Link = styled.a`
   text-decoration: underline;
