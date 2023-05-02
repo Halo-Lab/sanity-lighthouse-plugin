@@ -230,7 +230,7 @@ const ChartComponent = ({history, markDatesList = []}) => {
             datasets: dataSetList,
           }}
           ref={chartRef}
-          plugins={[hoverLine, dashedBorders]}
+          plugins={hoverLine}
         />
       </ContainerChartLine>
     </div>
