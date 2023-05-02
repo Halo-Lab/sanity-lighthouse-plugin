@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {Stack, TextInput, Inline, Flex, Text, Box, Spinner} from '@sanity/ui'
+import {Stack, Flex, Box} from '@sanity/ui'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 import {
@@ -21,7 +21,6 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
 
   const handleChange = useCallback(
     (event) => {
-      console.log(event.currentTarget.dataset.disabled)
       if (event.currentTarget.dataset.disabled === 'true') return
       const check = event.currentTarget.id
 
