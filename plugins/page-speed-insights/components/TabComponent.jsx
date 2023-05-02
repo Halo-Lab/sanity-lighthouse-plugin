@@ -14,7 +14,7 @@ import {
   RetestButton,
   FirstSectionContainer,
 } from '../styles/TabComponentStyle'
-import {Flex, Button} from '@sanity/ui'
+import {Flex} from '@sanity/ui'
 import {LIST_DEVICES, STATE_TYPE, TABS} from '../helpers/constants'
 import RenderCategories from './RenderCategories'
 import {CustomSpinner} from './shared/CustomSpinner'
@@ -41,15 +41,14 @@ const Tab = ({
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
         return (
           <div style={{padding: '20px'}}>
-            {' '}
-            <Button
-              fontSize={[2, 2, 3]}
-              padding={[1, 1, 3]}
-              text="Request data"
-              tone="primary"
+            <RetestButton
+              type="button"
               onClick={(e) => handleRefresh(e)}
               disabled={state === STATE_TYPE.loading}
-            />
+            >
+              <RefreshIcon />
+              Request data
+            </RetestButton>
           </div>
         )
       }

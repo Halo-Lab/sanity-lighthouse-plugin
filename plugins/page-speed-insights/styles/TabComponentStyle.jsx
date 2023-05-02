@@ -112,7 +112,7 @@ export const RenderContainer = styled.div`
 `
 
 export const RetestButton = styled(ButtonResetAll)`
-  max-width: 113px;
+  cursor: pointer;
   padding: 12px 20px;
 `
 export const Link = styled.a`
