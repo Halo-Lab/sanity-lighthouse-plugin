@@ -64,7 +64,7 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
                     target.value === '' ? setErrorMessage('') : validate(target.value)
                   }
                   value={url}
-                  placeholder="Specify page URl"
+                  placeholder="Specify page URL"
                   disabled={isDisable}
                   error={Boolean(errorMessage)}
                 />
