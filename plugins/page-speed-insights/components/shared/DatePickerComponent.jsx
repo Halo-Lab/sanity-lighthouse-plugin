@@ -11,12 +11,6 @@ const Container = styled.div`
   margin: 0px 0px auto;
 `
 
-const modifiersStyles = {
-  active: {
-    backgroundColor: 'red',
-  },
-};
-
 export const DatePickerComponent = ({value, onChange, markDateList}) => {
   return (
     <Container>
@@ -25,20 +19,17 @@ export const DatePickerComponent = ({value, onChange, markDateList}) => {
         value={value}
         tileClassName={({date, view}) => {
           const classesList = []
-          if(Boolean(value?.length) && value.find(x=> formatDate(x).split(',')[0] === formatDate(date).split(',')[0])){
-            classesList.push('highlightFirstAndLast')
-          }
+
           if (markDateList.find((x) => x === formatDate(date).split(',')[0])) {
-            classesList.push('highlight')
+            classesList.push('doted')
           }
-          
-          return classesList.push('titleStyle')
+          classesList.push('titleStyle')
+          return classesList
         }}
         calendarClassName={'calendar'}
         clearIcon={value ? undefined : null}
         calendarIcon={CalendarIcon}
         className={'calendarContainer'}
-        modifiersStyles={modifiersStyles}
       />
     </Container>
   )
