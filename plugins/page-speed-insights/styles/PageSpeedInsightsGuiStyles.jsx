@@ -17,8 +17,6 @@ export const ButtonResetAll = styled.button`
   gap: 9px;
   background-color: ${({disabled}) => (disabled ? '#DFDFE3' : 'transparent')};
 
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 1.2;

@@ -35,7 +35,7 @@ export const CustomButton = styled.button`
   border-radius: 3px;
   background-color: transparent;
   cursor: pointer;
-  
+
   svg > path {
     stroke: ${({disabled}) => disabled && '#DFDFE3'};
   }
@@ -74,7 +74,6 @@ export const Flex = styled.div`
   align-items: center;
 `
 export const DateText = styled.p`
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -84,8 +83,6 @@ export const DateText = styled.p`
   margin: 0;
 `
 export const LinkText = styled.h3`
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
@@ -103,7 +100,6 @@ export const BadgeComponent = styled.div`
   padding: 3px 12px;
 
   font-family: 'Poppins';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.4;

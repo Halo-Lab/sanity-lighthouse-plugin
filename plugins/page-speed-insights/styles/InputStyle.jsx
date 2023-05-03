@@ -5,8 +5,6 @@ export const ButtonAddPage = styled.button`
   width: 100%;
   max-width: 92px;
 
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 1.2;
@@ -48,12 +46,9 @@ export const ErorrMessage = styled.span`
   align-items: center;
   text-align: center;
   min-height: 24px;
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 1.67;
-
   color: #ef3340;
 `
 
@@ -65,15 +60,12 @@ export const CheckboxContainer = styled.div`
   gap: 8px;
 `
 export const CheckboxLabel = styled.label`
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
   display: flex;
   align-items: center;
   text-transform: capitalize;
-
   color: #3e3e3e;
 `
 export const CheckboxIconContainer = styled.div`
@@ -116,7 +108,6 @@ export const CustomInput = styled.input`
   outline: unset;
 
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -124,8 +115,6 @@ export const CustomInput = styled.input`
   color: ${({error}) => (error ? '#EF3340' : '#3f3f3f')};
 
   &::placeholder {
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.2;

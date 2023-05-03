@@ -14,12 +14,8 @@ const fadeIn = keyframes`
 export const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-
   gap: 6px;
 
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
   font-size: 24px;
   line-height: 1.21;
   color: #121212;
@@ -64,8 +60,6 @@ export const TabButton = styled.button`
   background-color: unset;
   border: unset;
 
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.19;
@@ -116,8 +110,6 @@ export const RetestButton = styled(ButtonResetAll)`
 `
 export const Link = styled.a`
   text-decoration: underline;
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 1.21;
@@ -155,8 +147,6 @@ export const DescriptItem = styled.span`
   white-space: nowrap;
   gap: 8px;
 
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;

@@ -9,8 +9,6 @@ const PieContainer = styled.div`
   align-items: center;
 `
 const Title = styled.h3`
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 1.4;
