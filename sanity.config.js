@@ -7,7 +7,7 @@ import {structure, singletonPlugin} from './plugins/desk'
 import {SINGLETON_TYPES_LIST} from './helpers/constants'
 import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
-import {pageSpeedPlugin} from './plugins/page-speed-insights'
+// import {pageSpeedPlugin} from './plugins/page-speed-insights'
 import {pageSpeedMonitoringPlugin} from './plugins/page-speed-monitoring/src'
 
 export const projectId = import.meta.env.SANITY_STUDIO_PROJECT_ID
@@ -28,7 +28,7 @@ export default defineConfig({
       widgets: [projectInfoWidget(), projectUsersWidget()],
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
-    pageSpeedPlugin({API_KEY}),
+    // pageSpeedPlugin({API_KEY}),
     pageSpeedMonitoringPlugin(),
   ],
 

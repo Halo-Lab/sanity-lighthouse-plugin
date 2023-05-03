@@ -1,26 +1,26 @@
 import { definePlugin } from 'sanity'
+import { ApiIcon } from '@sanity/icons'
+import { route } from 'sanity/router'
+import PageSpeedPlugin from './PageSpeedPlugin'
 
 interface MyPluginConfig {
   /* nothing here yet */
 }
 
-/**
- * Usage in `sanity.config.ts` (or .js)
- *
- * ```ts
- * import {defineConfig} from 'sanity'
- * import {myPlugin} from 'sanity-plugin-page-speed-monitoring'
- *
- * export default defineConfig({
- *   // ...
- *   plugins: [myPlugin()],
- * })
- * ```
- */
-export const pageSpeedMonitoringPlugin = definePlugin<MyPluginConfig | void>((config = {}) => {
-  // eslint-disable-next-line no-console
-  console.log('hello from sanity-plugin-page-speed-monitoring')
+export const pageSpeedPlugin = definePlugin<MyPluginConfig | void>((options) => {
+  console.log('hello from sanity-plugin-page-speed-monitoring', options)
+
   return {
     name: 'sanity-plugin-page-speed-monitoring',
+    tools: [
+      {
+        name: 'sanity-plugin-page-speed-monitoring',
+        title: 'Sanity PageSpeed Monitoring',
+        icon: ApiIcon,
+        component: PageSpeedPlugin,
+        route: route.create('/*'),
+        options,
+      },
+    ],
   }
 })
