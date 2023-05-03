@@ -1,30 +1,40 @@
 import {createGlobalStyle} from 'styled-components'
+import Inter from '../asset/fonts/Inter.ttf'
+import Poppins from '../asset/fonts/Poppins.ttf'
 
 const GlobalStyle = createGlobalStyle`  
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins&display=swap');
+@font-face{
+  font-family : 'Inter';
+  src: local('Inter'),
+  url(${Inter}) format('truetype');
+}
+
+@font-face{
+  font-family : 'Poppins';
+  src: local('Poppins'),
+  url(${Poppins}) format('truetype');
+}
+
 body {
-  font-family: Inter,Poppins, sans-serif;
-  font-weight: 400;
-  font-size: 16px;
   height: 100%;
+
+  *{
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+  }
 }
 
 .titleStyle{
-    font-family: 'Inter';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 1.25;
-color: #232323;
-
+  font-weight: 400;
+  line-height: 1.25;
+  color: #232323;
 }  
 
 .highlight {
-    width: inherit;
-    position: relative;
-
-
+  width: inherit;
+  position: relative;
   color: #232323 !important;
+
     &:after{
       content: '•';
       position: absolute;
