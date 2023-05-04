@@ -11,16 +11,16 @@ const Container = styled.div`
   margin: 0px 0px auto;
 `
 
-export const DatePickerComponent = ({value, onChange, markDateList}) => {
+export const DatePickerComponent = ({value, onChange, markDateList}: any) => {
   return (
     <Container>
       <DateRangePicker
         onChange={onChange}
         value={value}
-        tileClassName={({date, view}) => {
+        tileClassName={({date, view}: any) => {
           const classesList = []
 
-          if (markDateList.find((x) => x === formatDate(date).split(',')[0])) {
+          if (markDateList.find((x: any) => x === formatDate(date).split(',')[0])) {
             classesList.push('doted')
           }
           classesList.push('titleStyle')

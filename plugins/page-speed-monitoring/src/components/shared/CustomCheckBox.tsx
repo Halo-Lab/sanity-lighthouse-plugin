@@ -1,8 +1,7 @@
-import React from 'react'
 import {CheckboxContainer, CheckboxIconContainer, CheckboxLabel} from '../../styles/InputStyle'
 import {TickIcon} from '../../asset/TickIcon'
 
-export const CustomCheckBox = ({checked, isDisable = false, handleChange, label = '', id}) => {
+export const CustomCheckBox = ({checked, isDisable = false, handleChange, label = '', id}: any) => {
   return (
     <CheckboxContainer>
       <CheckboxIconContainer

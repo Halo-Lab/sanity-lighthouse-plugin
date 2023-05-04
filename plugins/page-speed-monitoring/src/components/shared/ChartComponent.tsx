@@ -29,7 +29,7 @@ ChartJS.register(
   PointElement
 )
 
-const ChartComponent = ({history, markDatesList = []}) => {
+const ChartComponent = ({history, markDatesList = []}: any) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState(null)
   const [isCheckedList, setIsCheckedList] = useState([])

@@ -14,11 +14,11 @@ import {RefreshIcon} from '../asset/RefreshIcon'
 
 const errorMassageText = 'Server error. Please try again later.'
 
-const PageSpeedInsightsGui = (props) => {
+const PageSpeedInsightsGui = (props: any) => {
   const [state, setState] = useState(STATE_TYPE.idle)
   const [url, setUrl] = useState('')
   const [device, setDevice] = useState([])
-  const [data, setData] = useState([])
+  const [data, setData] = useState<any[]>([])
   const [activeItem, setActiveItem] = useState(0)
   const [activeTab, setActiveTab] = useState(LIST_DEVICES.desktop)
   const [activeRefreshID, setActiveRefreshID] = useState('')
@@ -54,12 +54,12 @@ const PageSpeedInsightsGui = (props) => {
 
         const newResult2 = [formatDataList(result.slice(5))]
 
-        newResult1[0].categoryList.map((category, idx) => {
+        newResult1[0].categoryList.map((category: any, idx: number) => {
           category.mobile = newResult2[0].categoryList[idx].mobile
         })
         newResult1[0].history.mobile.push([
           newResult2[0].mainInfo.date,
-          ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
+          ...newResult2[0].categoryList.map((sc: any) => sc.mobile[0].score),
           getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
         ])
         newData = [...newResult1, ...data]
@@ -81,7 +81,7 @@ const PageSpeedInsightsGui = (props) => {
     }
   }
 
-  const handleRefresh = async (e) => {
+  const handleRefresh = async (e: any) => {
     try {
       setState(STATE_TYPE.loading)
       setActiveRefreshID(data[activeItem].mainInfo.linkReq)
@@ -96,12 +96,12 @@ const PageSpeedInsightsGui = (props) => {
       const newData = [...data].map((item, i) => {
         if (i === activeItem) {
           item.mainInfo.date = newResult[0].mainInfo.date
-          item.categoryList.map((category, idx) => {
+          item.categoryList.map((category: any, idx: number) => {
             category[activeTab] = newResult[0].categoryList[idx][activeTab]
           })
           item.history[activeTab].push([
             newResult[0].mainInfo.date,
-            ...newResult[0].categoryList.map((it) => it[activeTab][0].score),
+            ...newResult[0].categoryList.map((it: any) => it[activeTab][0].score),
             getMonthByIdx(new Date(newResult[0].mainInfo.date).getMonth()),
           ])
         }
@@ -120,18 +120,18 @@ const PageSpeedInsightsGui = (props) => {
     }
   }
 
-  const patchSanityDocument = (newData) => {
+  const patchSanityDocument = (newData: any) => {
     if (!Boolean(newData.length)) return
     props.client
       .patch('performance')
       .set({data: newData})
       .commit()
-      .catch((err) => {
+      .catch((err: any) => {
         console.error('Oh no, the update failed: ', err.message)
       })
   }
 
-  const deleteCardByID = (link, idx) => {
+  const deleteCardByID = (link: any, idx: number) => {
     setState(STATE_TYPE.loading)
     props.client
       .patch('performance')
@@ -165,18 +165,18 @@ const PageSpeedInsightsGui = (props) => {
             const newResult2 = [formatDataList(result.slice(5))]
 
             newData.mainInfo.date = newResult1[0].mainInfo.date
-            newData.categoryList.map((category, idx) => {
+            newData.categoryList.map((category: any, idx: number) => {
               category.mobile = newResult2[0].categoryList[idx].mobile
               category.desktop = newResult1[0].categoryList[idx].desktop
             })
             newData.history.mobile.push([
               newResult2[0].mainInfo.date,
-              ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
+              ...newResult2[0].categoryList.map((sc: any) => sc.mobile[0].score),
               getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
             ])
             newData.history.desktop.push([
               newResult1[0].mainInfo.date,
-              ...newResult1[0].categoryList.map((sc) => sc.desktop[0].score),
+              ...newResult1[0].categoryList.map((sc: any) => sc.desktop[0].score),
               getMonthByIdx(new Date(newResult1[0].mainInfo.date).getMonth()),
             ])
           } else {
@@ -185,12 +185,12 @@ const PageSpeedInsightsGui = (props) => {
             const forDevice = newResult[0].mainInfo.device
 
             newData.mainInfo.date = newResult[0].mainInfo.date
-            newData.categoryList.map((category, idx) => {
+            newData.categoryList.map((category: any, idx: number) => {
               category[forDevice] = newResult[0].categoryList[idx][forDevice]
             })
             newData.history[forDevice].push([
               newResult[0].mainInfo.date,
-              ...newResult[0].categoryList.map((sc) => sc[forDevice][0].score),
+              ...newResult[0].categoryList.map((sc: any) => sc[forDevice][0].score),
               getMonthByIdx(new Date(newResult[0].mainInfo.date)),
             ])
           }

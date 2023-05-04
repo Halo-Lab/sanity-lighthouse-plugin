@@ -10,11 +10,11 @@ const Link = styled.a`
     color: #1a73e8;
   }
 `
-const RenderCategoryDescription = ({data}) => {
-  const renderData = useCallback((items) => {
+const RenderCategoryDescription = ({data}: any) => {
+  const renderData = useCallback((items: any) => {
     return (
       <Grid columns={[1, 2]}>
-        {items.map((item) => {
+        {items.map((item: any) => {
           let newDescription = []
           if (Boolean(item?.description)) {
             newDescription = item.description.split('[Learn more]')

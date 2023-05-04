@@ -16,16 +16,24 @@ import {TickIcon} from '../asset/TickIcon.js'
 import {LinkIcon} from '../asset/LinkIcon.js'
 import SpinnerComponent from './shared/CustomSpinner.jsx'
 
-export const InputComponent = ({setUrl, device, setDevice, state, url, data, handelRequest}) => {
+export const InputComponent = ({
+  setUrl,
+  device,
+  setDevice,
+  state,
+  url,
+  data,
+  handelRequest,
+}: any) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
-    (event) => {
+    (event: any) => {
       if (event.currentTarget.dataset.disabled === 'true') return
       const check = event.currentTarget.id
 
       if (device.includes(check)) {
-        setDevice([...device.filter((dev) => dev !== check)])
+        setDevice([...device.filter((dev: any) => dev !== check)])
       } else {
         setDevice([...device, check])
       }
@@ -33,14 +41,14 @@ export const InputComponent = ({setUrl, device, setDevice, state, url, data, han
     [device, setDevice]
   )
 
-  const validate = (value) => {
+  const validate = (value: any) => {
     if (validator.isURL(value)) {
       setErrorMessage('')
     } else {
       setErrorMessage('Is not valid URL.')
     }
     if (data.length) {
-      data.map((item) => {
+      data.map((item: any) => {
         return item.mainInfo.linkReq == value ? setErrorMessage('This link already exist') : null
       })
     }

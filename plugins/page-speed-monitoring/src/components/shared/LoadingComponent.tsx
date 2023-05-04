@@ -1,13 +1,13 @@
-import React from 'react'
 import styled, {keyframes} from 'styled-components'
 
 export const LoadingWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  height: ${(props) => (props.active ? '12px' : '0')};
+  height: ${({active}: {active: boolean}) => (active ? '12px' : '0')};
   overflow: hidden;
-  animation: ${(props) => (props.active ? 'height 0.25s ease-in' : 'height 0.15s ease-out')};
+  animation: ${({active}: {active: boolean}) =>
+    active ? 'height 0.25s ease-in' : 'height 0.15s ease-out'};
 `
 
 export const BounceAnimation = keyframes`
@@ -32,10 +32,10 @@ export const Dot = styled.div`
   margin: 0 0.25rem;
   /*Animation*/
   animation: ${BounceAnimation} 0.5s linear infinite;
-  animation-delay: ${(props) => props.delay};
+  animation-delay: ${({delay}: {delay: string}) => delay};
 `
 
-export default function Loading({active}) {
+export default function Loading({active}: {active: boolean}) {
   return (
     <LoadingWrapper active={active}>
       <Dot delay="0s" />

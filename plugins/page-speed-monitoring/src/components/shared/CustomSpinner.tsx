@@ -1,4 +1,3 @@
-import React from 'react'
 import {Card, Text, Flex, Spinner} from '@sanity/ui'
 
 export const CustomSpinner = ({text = 'Loading some content…'}) => {

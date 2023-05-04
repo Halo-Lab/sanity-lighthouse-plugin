@@ -29,7 +29,7 @@ export default defineConfig({
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
     // pageSpeedPlugin({API_KEY}),
-    pageSpeedMonitoringPlugin(),
+    pageSpeedMonitoringPlugin(API_KEY),
   ],
 
   schema: {

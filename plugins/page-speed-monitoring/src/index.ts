@@ -7,7 +7,7 @@ interface MyPluginConfig {
   /* nothing here yet */
 }
 
-export const pageSpeedPlugin = definePlugin<MyPluginConfig | void>((options) => {
+export const pageSpeedMonitoringPlugin = definePlugin<MyPluginConfig | void>((options) => {
   console.log('hello from sanity-plugin-page-speed-monitoring', options)
 
   return {

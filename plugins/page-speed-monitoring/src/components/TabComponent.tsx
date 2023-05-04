@@ -35,9 +35,9 @@ const Tab = ({
   state,
   activeRefreshID,
   activeRefreshDevice,
-}) => {
+}: any) => {
   const renderDataByDevice = useCallback(
-    (data) => {
+    (data: any) => {
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
         return (
           <div style={{padding: '20px'}}>
@@ -52,7 +52,7 @@ const Tab = ({
           </div>
         )
       }
-      return data.categoryList.map((item, i) => {
+      return data.categoryList.map((item: any, i: number) => {
         return (
           <div key={`${item[activeTab].score}-${Math.random()}`}>
             <RenderCategories item={item[activeTab][0]} />
@@ -68,7 +68,7 @@ const Tab = ({
         Boolean(data?.history?.desktop.length) && (
           <ChartComponentMemo
             history={data.history[activeTab]}
-            markDatesList={[...data.history[activeTab].map((item) => item[0].split(',')[0])]}
+            markDatesList={[...data.history[activeTab].map((item: any) => item[0].split(',')[0])]}
           />
         )
       )
@@ -77,7 +77,7 @@ const Tab = ({
         Boolean(data?.history?.mobile?.length) && (
           <ChartComponentMemo
             history={data.history[activeTab]}
-            markDatesList={[...data.history[activeTab].map((item) => item[0].split(',')[0])]}
+            markDatesList={[...data.history[activeTab].map((item: any) => item[0].split(',')[0])]}
           />
         )
       )
@@ -95,7 +95,7 @@ const Tab = ({
         </TitleContainer>
         <Flex justify={'space-between'}>
           <Flex style={{margin: 'auto 0 0 0'}}>
-            {TABS.map((tab) => (
+            {TABS.map((tab: any) => (
               <Flex key={tab.id} direction={'column'}>
                 <TabButton active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)}>
                   {tab.label === LIST_DEVICES.desktop ? <DesktopIcon /> : <MobileIcon />}{' '}
@@ -132,7 +132,7 @@ const Tab = ({
       activeRefreshDevice === activeTab ? (
         <CustomSpinner />
       ) : (
-        TABS.map((tab) => (
+        TABS.map((tab: any) => (
           <TabContent key={tab.id} active={activeTab === tab.id}>
             {Boolean(data?.categoryList?.length) && (
               <FirstSectionContainer>

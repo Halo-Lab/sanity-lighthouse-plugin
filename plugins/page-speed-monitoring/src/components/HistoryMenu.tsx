@@ -1,28 +1,28 @@
-import React from 'react'
 import {
   Container,
   CustomButton,
   Item,
-  Flex,
   DateText,
   LinkText,
   BadgeComponent,
+  Flex,
 } from '../styles/HistoryMenuStyle'
+// import {Flex} from '@sanity/ui'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 import {TrashIcon} from '../asset/TrashIcon'
 
-const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) => {
+const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}: any) => {
   const isDisable = state === STATE_TYPE.loading
 
-  const handelItem = ({target}, i) => {
+  const handelItem = ({target}: any, i: number) => {
     if (target.id === 'deleteButton' && state !== STATE_TYPE.loading) {
       return
     }
     setActiveItem(i)
   }
 
-  const renderItems = (items) =>
-    items.map(({mainInfo, categoryList}, i) => {
+  const renderItems = (items: any) =>
+    items.map(({mainInfo, categoryList}: any, i: number) => {
       const showSecondTag =
         Boolean(categoryList[0]?.mobile?.length) && Boolean(categoryList[0]?.desktop?.length)
 
@@ -33,7 +33,7 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) =
           active={i === activeItem && true}
         >
           <Flex>
-            <Flex gap="2" align={'center'}>
+            <Flex>
               <LinkText>
                 {mainInfo.linkReq.slice(0, 22)}
                 {mainInfo.linkReq.length > 22 && '...'}
@@ -48,8 +48,8 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}) =
               <TrashIcon />
             </CustomButton>
           </Flex>
-          <Flex align="center">
-            <Flex gap={2}>
+          <Flex>
+            <Flex>
               <BadgeComponent
                 tone={mainInfo.device === LIST_DEVICES.desktop ? '#4BBD7E' : '#F4BE5E'}
               >
