@@ -46,7 +46,13 @@
     "watch": "pkg-utils watch --strict"
   },
   "dependencies": {
-    "@sanity/incompatible-plugin": "^1.0.4"
+    "@sanity/incompatible-plugin": "^1.0.4",
+    "@wojtekmaj/react-daterange-picker": "^5.0.2",
+    "axios": "^1.4.0",
+    "chart.js": "^4.3.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-minimal-pie-chart": "^8.4.0",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "@sanity/pkg-utils": "^2.2.14",
