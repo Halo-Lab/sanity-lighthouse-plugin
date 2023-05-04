@@ -15,7 +15,7 @@ const RenderCategoryDescription = ({data}: any) => {
     return (
       <Grid columns={[1, 2]}>
         {items.map((item: any) => {
-          let newDescription = []
+          let newDescription: any = []
           if (Boolean(item?.description)) {
             newDescription = item.description.split('[Learn more]')
           }

@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import {Bar, Line} from 'react-chartjs-2'
+import {Line} from 'react-chartjs-2'
 import {CATEGORIES, CATEGORIES_TITLE, COLORS_BAR} from '../../helpers/constants'
 import {filterDates} from '../../helpers/functions'
 import {DatePickerComponentMemo} from './DatePickerComponent'
@@ -32,7 +32,7 @@ ChartJS.register(
 const ChartComponent = ({history, markDatesList = []}: any) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState(null)
-  const [isCheckedList, setIsCheckedList] = useState([])
+  const [isCheckedList, setIsCheckedList] = useState<any[]>([])
   const labelList = Boolean(history?.length)
     ? history.length > 1
       ? [...history.map((dateReq) => dateReq[0])]
@@ -224,13 +224,13 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
           {renderCustomCheckBox()}
         </Flex>
         <Line
-          options={options}
+          options={options as any}
           data={{
             labels: value ? filterDates(labelList, value[0], value[1]) : labelList,
             datasets: dataSetList,
           }}
           ref={chartRef}
-          plugins={hoverLine}
+          plugins={hoverLine as any}
         />
       </ContainerChartLine>
     </div>

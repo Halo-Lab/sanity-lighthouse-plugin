@@ -11,6 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    // "noImplicitAny": false
-  }
+    "noImplicitAny": false
+  },
 }

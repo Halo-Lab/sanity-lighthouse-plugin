@@ -145,8 +145,8 @@ const PageSpeedInsightsGui = (props: any) => {
   const handelRefreshAll = async () => {
     try {
       setState(STATE_TYPE.loading)
-      let numberOfReq = 0,
-        newDataArr = []
+      let numberOfReq = 0
+      const newDataArr: any = []
 
       while (numberOfReq < data.length) {
         try {

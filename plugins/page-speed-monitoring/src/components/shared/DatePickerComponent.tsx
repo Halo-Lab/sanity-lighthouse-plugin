@@ -1,7 +1,7 @@
 import {memo} from 'react'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
-import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css'
-import 'react-calendar/dist/Calendar.css'
+// import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css'
+// import 'react-calendar/dist/Calendar.css'
 import styled from 'styled-components'
 import {formatDate} from '../../helpers/formatedData'
 import {CalendarIcon} from '../../asset/CalendarIcon'
@@ -18,7 +18,7 @@ export const DatePickerComponent = ({value, onChange, markDateList}: any) => {
         onChange={onChange}
         value={value}
         tileClassName={({date, view}: any) => {
-          const classesList = []
+          const classesList: any = []
 
           if (markDateList.find((x: any) => x === formatDate(date).split(',')[0])) {
             classesList.push('doted')

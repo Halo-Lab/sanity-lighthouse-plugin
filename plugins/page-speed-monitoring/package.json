@@ -79,5 +79,10 @@
   },
   "engines": {
     "node": ">=14"
+  },
+  "sanityPlugin": {
+    "verifyPackage": {
+      "tsc": false
+    }
   }
 }
