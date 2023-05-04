@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 20px;
-  padding: 32px 0 16px;
+  margin: 32px 0 16px;
   overflow-y: scroll;
   /* Scrollbar Styling */
   ::-webkit-scrollbar {

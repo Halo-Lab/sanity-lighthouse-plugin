@@ -10,9 +10,10 @@ import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dash
 // import {pageSpeedPlugin} from './plugins/page-speed-insights'
 import {pageSpeedMonitoringPlugin} from './plugins/page-speed-monitoring/src'
 
-export const projectId = import.meta.env.SANITY_STUDIO_PROJECT_ID
-export const dataset = import.meta.env.SANITY_STUDIO_DATASET
-const API_KEY = import.meta.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET
+const API_KEY = process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
+
 export default defineConfig({
   name: 'default',
 
