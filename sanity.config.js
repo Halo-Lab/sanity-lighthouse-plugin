@@ -9,9 +9,10 @@ import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
 import {pageSpeedPlugin} from './plugins/page-speed-insights'
 
-export const projectId = import.meta.env.SANITY_STUDIO_PROJECT_ID
-export const dataset = import.meta.env.SANITY_STUDIO_DATASET
-const API_KEY = import.meta.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID
+const dataset = process.env.SANITY_STUDIO_DATASET
+const API_KEY = process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
+
 export default defineConfig({
   name: 'default',
 

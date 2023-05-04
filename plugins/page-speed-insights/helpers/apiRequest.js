@@ -3,7 +3,7 @@ import {CATEGORIES, LIST_DEVICES} from './constants'
 
 const endpoint = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed'
 // API Key (https://developers.google.com/speed/docs/insights/v5/get-started)
-const key = import.meta.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY ?? ''
+const key = process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY ?? ''
 
 export const apiRequestByDeviceAllCategories = async (url, device = 'desktop', API_KEY) => {
   const req = CATEGORIES.map((category) => {
