@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 20px;
-  padding: 32px 0 16px;
+  margin: 32px 0 16px;
   overflow-y: scroll;
   /* Scrollbar Styling */
   ::-webkit-scrollbar {
@@ -31,26 +31,29 @@ export const CustomButton = styled.button`
 
   align-items: center;
 
-  border: 1px solid ${({disabled}) => (disabled ? '#DFDFE3' : '#c1c1c1')};
+  border: 1px solid ${({disabled}: {disabled: boolean}) => (disabled ? '#DFDFE3' : '#c1c1c1')};
   border-radius: 3px;
   background-color: transparent;
   cursor: pointer;
 
   svg > path {
-    stroke: ${({disabled}) => disabled && '#DFDFE3'};
+    stroke: ${({disabled}: {disabled: boolean}) => disabled && '#DFDFE3'};
   }
 
   &:hover,
   :focus {
-    border: 1px solid ${({theme, disabled}) => (disabled ? '#DFDFE3' : theme.colors.chRed)};
+    border: 1px solid
+      ${({theme, disabled}: {disabled: boolean; theme: any}) =>
+        disabled ? '#DFDFE3' : theme.colors.chRed};
     svg > path {
-      stroke: ${({theme, disabled}) => (disabled ? '#DFDFE3' : theme.colors.chRed)};
+      stroke: ${({theme, disabled}: {disabled: boolean; theme: any}) =>
+        disabled ? '#DFDFE3' : theme.colors.chRed};
     }
   }
   &:active {
-    border: 1px solid ${({disabled}) => (disabled ? '#DFDFE3' : '#d23229')};
+    border: 1px solid ${({disabled}: {disabled: boolean}) => (disabled ? '#DFDFE3' : '#d23229')};
     svg > path {
-      stroke: ${({disabled}) => (disabled ? '#DFDFE3' : '#d23229')};
+      stroke: ${({disabled}: {disabled: boolean}) => (disabled ? '#DFDFE3' : '#d23229')};
     }
   }
 `
