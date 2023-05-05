@@ -33,18 +33,18 @@ export const ButtonResetAll = styled.button`
     background: ${({disabled}) => (disabled ? '#DFDFE3' : '#efefff')};
     border: 1px solid ${({disabled}) => (disabled ? 'inherit' : '#3719ca')};
     border-radius: 4px;
-    color: ${({theme, disabled}) => (disabled ? '#fff' : theme.colors.accent)};
+    color: ${({theme, disabled}) => (disabled ? '#fff' : '#3719CA')};
     svg > path {
-      stroke: ${({theme, disabled}) => (disabled ? '#fff' : theme.colors.accent)};
+      stroke: ${({theme, disabled}) => (disabled ? '#fff' : '#3719CA')};
     }
   }
   &:active {
     background: ${({disabled}) => (disabled ? '#DFDFE3' : '#efefff')};
     border: 1px solid ${({disabled}) => (disabled ? 'inherit' : '#3719ca')};
     border-radius: 4px;
-    color: ${({theme, disabled}) => (disabled ? '#fff' : theme.colors.accent)};
+    color: ${({theme, disabled}) => (disabled ? '#fff' : '#3719CA')};
     svg > path {
-      stroke: ${({theme, disabled}) => (disabled ? '#fff' : theme.colors.accent)};
+      stroke: ${({theme, disabled}) => (disabled ? '#fff' : '#3719CA')};
     }
   }
 `

@@ -49,7 +49,7 @@ export const TabContainer = styled.div`
   gap: 32px;
   padding: 0 40px;
   animation: ${fadeIn} 0.5s ease-in-out;
-  border-bottom: 1px solid ${({theme}) => theme.colors.mB};
+  border-bottom: 1px solid #E4E6E8;
 `
 
 export const TabButton = styled.button`
@@ -57,7 +57,7 @@ export const TabButton = styled.button`
   align-items: center;
   gap: 0.25rem;
   color: ${({active, theme}: {active: boolean; theme: any}) =>
-    active ? theme.colors.accent : 'rgba(18, 18, 18, 0.4)'};
+    active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
   background-color: unset;
   border: unset;
 
@@ -73,14 +73,14 @@ export const TabButton = styled.button`
   transition: all 0.3s ease-in-out;
   svg > path {
     stroke: ${({active, theme}: {active: boolean; theme: any}) =>
-      active ? theme.colors.accent : 'rgba(18, 18, 18, 0.4)'};
+      active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
     transition: stroke 0.3s ease-in-out;
   }
 `
 
 export const TabLine = styled.span`
   height: 3px;
-  background-color: ${({theme}) => theme.colors.accent};
+  background-color: ${({theme}) => '#3719CA'};
   border-radius: 5px 5px 0 0;
   width: 100%;
 `
@@ -119,7 +119,7 @@ export const Link = styled.a`
   color: #121212;
 
   :hover {
-    color: ${({theme}) => theme.colors.accent};
+    color: ${({theme}) => '#3719CA'};
   }
 `
 export const LinkDetails = styled(Link)`
@@ -131,7 +131,7 @@ export const LinkDetails = styled(Link)`
   white-space: nowrap;
   :hover {
     svg > path {
-      stroke: ${({theme}) => theme.colors.accent};
+      stroke: ${({theme}) => '#3719CA'};
     }
   }
 `

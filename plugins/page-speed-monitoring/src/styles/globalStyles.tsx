@@ -14,10 +14,13 @@ import {createGlobalStyle} from 'styled-components'
 // }
 
 const GlobalStyle = createGlobalStyle`  
-
 body {
   height: 100%;
+}
 
+.test{
+  border: 5px solid red;
+  
   *{
     font-family: 'Inter', sans-serif;
     font-size: 14px;

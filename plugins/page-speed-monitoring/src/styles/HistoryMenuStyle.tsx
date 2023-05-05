@@ -42,12 +42,9 @@ export const CustomButton = styled.button`
 
   &:hover,
   :focus {
-    border: 1px solid
-      ${({theme, disabled}: {disabled: boolean; theme: any}) =>
-        disabled ? '#DFDFE3' : theme.colors.chRed};
+    border: 1px solid ${({disabled}: {disabled: boolean}) => (disabled ? '#DFDFE3' : '#EB483F')};
     svg > path {
-      stroke: ${({theme, disabled}: {disabled: boolean; theme: any}) =>
-        disabled ? '#DFDFE3' : theme.colors.chRed};
+      stroke: ${({disabled}: {disabled: boolean}) => (disabled ? '#DFDFE3' : '#EB483F')};
     }
   }
   &:active {
@@ -65,8 +62,8 @@ export const Item = styled.div`
   gap: 8px;
   padding: 16px;
   border: 1px solid
-    ${({active, theme}: {active: boolean; theme: any}) =>
-      active ? theme.colors.accent : '#e4e6e8'};
+    ${({active}: {active: boolean}) =>
+      active ? '#3719CA' : '#e4e6e8'};
   border-radius: 8px;
   cursor: pointer;
   background-color: #fff;
