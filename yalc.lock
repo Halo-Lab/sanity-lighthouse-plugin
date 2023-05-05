@@ -1,0 +1,8 @@
+{
+  "version": "v1",
+  "packages": {
+    "sanity-plugin-page-speed-monitoring": {
+      "signature": "ab2e295730cbc46da5fcd20bf7a78ead"
+    }
+  }
+}

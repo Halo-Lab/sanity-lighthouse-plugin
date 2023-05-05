@@ -1,19 +1,19 @@
 import {createGlobalStyle} from 'styled-components'
-import Inter from '../asset/fonts/Inter.ttf'
-import Poppins from '../asset/fonts/Poppins.ttf'
+// import Inter from '../asset/fonts/Inter.ttf'
+// import Poppins from '../asset/fonts/Poppins.ttf'
+// @font-face{
+//   font-family : 'Inter';
+//   src: local('Inter'),
+//   url(${Inter}) format('truetype');
+// }
+
+// @font-face{
+//   font-family : 'Poppins';
+//   src: local('Poppins'),
+//   url(${Poppins}) format('truetype');
+// }
 
 const GlobalStyle = createGlobalStyle`  
-@font-face{
-  font-family : 'Inter';
-  src: local('Inter'),
-  url(${Inter}) format('truetype');
-}
-
-@font-face{
-  font-family : 'Poppins';
-  src: local('Poppins'),
-  url(${Poppins}) format('truetype');
-}
 
 body {
   height: 100%;
