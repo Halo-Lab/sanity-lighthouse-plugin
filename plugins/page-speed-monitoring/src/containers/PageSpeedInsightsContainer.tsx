@@ -1,4 +1,4 @@
-import styled, {ThemeProvider as StyledThemeProvider} from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
 import {ThemeProvider as SanityThemeProvider, studioTheme} from '@sanity/ui'
 import PageSpeedInsightsGui from '../components/PageSpeedInsightsGui'
 import GlobalStyle from '../styles/globalStyles'
@@ -7,33 +7,36 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  border: 5px solid blue;
+
+  * {
+    font-family: 'Inter', sans-serif;
+  }
 `
-const theme = {
-  colors: {
-    mB: '#E4E6E8', //main border color
-    accent: '#3719CA',
-    textBlack: '#2B2B2B',
-    green: '#4BBD7E',
-    yellow: '#F4BE5E',
-    chGreen: '#5CC971',
-    chOrange: '#F3AE4E',
-    chRed: '#EB483F',
-    lineGray: '#4E809F',
-    lineOrange: 'D1684D',
-  },
-}
+// const theme = {
+//   colors: {
+//     mB: '#E4E6E8', //main border color
+//     accent: '#3719CA',
+//     textBlack: '#2B2B2B',
+//     green: '#4BBD7E',
+//     yellow: '#F4BE5E',
+//     chGreen: '#5CC971',
+//     chOrange: '#F3AE4E',
+//     chRed: '#EB483F',
+//     lineGray: '#4E809F',
+//     lineOrange: 'D1684D',
+//   },
+// }
 
 const PageSpeedInsightsContainer = (props: any) => {
   return (
-    <SanityThemeProvider theme={studioTheme}>
-      {/* <StyledThemeProvider theme={theme}> */}
-      <Container className="test">
-        <GlobalStyle />
+    // <SanityThemeProvider theme={studioTheme}>
+    <ThemeProvider theme={studioTheme}>
+      <GlobalStyle />
+      <Container>
         <PageSpeedInsightsGui {...props} />
       </Container>
-      {/* </StyledThemeProvider> */}
-    </SanityThemeProvider>
+    </ThemeProvider>
+    // </SanityThemeProvider>
   )
 }
 

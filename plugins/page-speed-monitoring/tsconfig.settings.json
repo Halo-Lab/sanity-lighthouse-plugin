@@ -12,6 +12,5 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "noImplicitAny": false,
-    "jsx": "react-jsx"
   },
 }

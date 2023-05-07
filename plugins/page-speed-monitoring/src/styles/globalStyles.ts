@@ -1,25 +1,12 @@
 import {createGlobalStyle} from 'styled-components'
-// import Inter from '../asset/fonts/Inter.ttf'
-// import Poppins from '../asset/fonts/Poppins.ttf'
-// @font-face{
-//   font-family : 'Inter';
-//   src: local('Inter'),
-//   url(${Inter}) format('truetype');
-// }
-
-// @font-face{
-//   font-family : 'Poppins';
-//   src: local('Poppins'),
-//   url(${Poppins}) format('truetype');
-// }
 
 const GlobalStyle = createGlobalStyle`  
-body {
-  height: 100%;
-}
+  body {
+    height: 100%;
+  }
 
-.test{
-  border: 5px solid red;
+  .test{
+    border: 5px solid red;
   
   *{
     font-family: 'Inter', sans-serif;

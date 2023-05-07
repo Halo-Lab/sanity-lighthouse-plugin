@@ -11,7 +11,7 @@ import {
   ErorrMessage,
   InputIcon,
   InputSpinner,
-} from '../styles/InputStyle.jsx'
+} from '../styles/InputStyle'
 import {TickIcon} from '../asset/TickIcon.js'
 import {LinkIcon} from '../asset/LinkIcon.js'
 import SpinnerComponent from './shared/CustomSpinner.jsx'
@@ -58,67 +58,67 @@ export const InputComponent = ({
 
   return (
     <Box>
-      <Stack>
-        <Flex justify={'space-between'} direction={'column'}>
-          <Flex direction={'column'}>
-            <Flex gap={2}>
-              <Flex style={{position: 'relative'}}>
-                <InputIcon error={Boolean(errorMessage)}>
-                  <LinkIcon />
-                </InputIcon>
-                <CustomInput
-                  onChange={({target}) => validate(target.value)}
-                  onBlur={({target}) =>
-                    target.value === '' ? setErrorMessage('') : validate(target.value)
-                  }
-                  value={url}
-                  placeholder="Specify page URL"
-                  disabled={isDisable}
-                  error={Boolean(errorMessage)}
-                />
-                {state === STATE_TYPE.loading && (
-                  <InputSpinner>
-                    <SpinnerComponent />
-                  </InputSpinner>
-                )}
-              </Flex>
-              <ButtonAddPage
-                type="button"
-                onClick={handelRequest}
-                disabled={isDisable || !Boolean(device.length)}
-              >
-                Add page
-              </ButtonAddPage>
+      {/* <Stack> */}
+      <Flex justify={'space-between'} direction={'column'}>
+        <Flex direction={'column'}>
+          <Flex gap={2}>
+            <Flex style={{position: 'relative'}}>
+              <InputIcon error={Boolean(errorMessage)}>
+                <LinkIcon />
+              </InputIcon>
+              <CustomInput
+                onChange={({target}) => validate(target.value)}
+                onBlur={({target}) =>
+                  target.value === '' ? setErrorMessage('') : validate(target.value)
+                }
+                value={url}
+                placeholder="Specify page URL"
+                disabled={isDisable}
+                error={Boolean(errorMessage)}
+              />
+              {state === STATE_TYPE.loading && (
+                <InputSpinner>
+                  <SpinnerComponent />
+                </InputSpinner>
+              )}
             </Flex>
-            <ErorrMessage>{url !== '' && errorMessage}</ErorrMessage>
+            <ButtonAddPage
+              type="button"
+              onClick={handelRequest}
+              disabled={isDisable || !Boolean(device.length)}
+            >
+              Add page
+            </ButtonAddPage>
           </Flex>
-
-          <Flex style={{gap: '16px'}}>
-            <CheckboxContainer>
-              <CheckboxIconContainer
-                checked={device.includes(LIST_DEVICES.desktop)}
-                id="desktop"
-                data-disabled={isDisable}
-                onClick={handleChange}
-              >
-                <TickIcon />
-              </CheckboxIconContainer>
-              <CheckboxLabel>{LIST_DEVICES.desktop}</CheckboxLabel>
-            </CheckboxContainer>
-            <CheckboxContainer>
-              <CheckboxIconContainer
-                checked={device.includes(LIST_DEVICES.mobile)}
-                id="mobile"
-                data-disabled={isDisable}
-                onClick={handleChange}
-              >
-                <TickIcon />
-              </CheckboxIconContainer>
-              <CheckboxLabel>{LIST_DEVICES.mobile}</CheckboxLabel>
-            </CheckboxContainer>
-          </Flex>
+          <ErorrMessage>{url !== '' && errorMessage}</ErorrMessage>
         </Flex>
-      </Stack>
+
+        <Flex style={{gap: '16px'}}>
+          <CheckboxContainer>
+            <CheckboxIconContainer
+              checked={device.includes(LIST_DEVICES.desktop)}
+              id="desktop"
+              data-disabled={isDisable}
+              onClick={handleChange}
+            >
+              <TickIcon />
+            </CheckboxIconContainer>
+            <CheckboxLabel>{LIST_DEVICES.desktop}</CheckboxLabel>
+          </CheckboxContainer>
+          <CheckboxContainer>
+            <CheckboxIconContainer
+              checked={device.includes(LIST_DEVICES.mobile)}
+              id="mobile"
+              data-disabled={isDisable}
+              onClick={handleChange}
+            >
+              <TickIcon />
+            </CheckboxIconContainer>
+            <CheckboxLabel>{LIST_DEVICES.mobile}</CheckboxLabel>
+          </CheckboxContainer>
+        </Flex>
+      </Flex>
+      {/* </Stack> */}
     </Box>
   )
 }

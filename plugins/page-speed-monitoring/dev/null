@@ -37703,7 +37703,7 @@ var require_dist = __commonJS({
         return defaultVal || EMPTY_ARRAY;
       return Array.isArray(val) ? val : [val];
     }
-    function _getResponsiveSpace(theme2, props) {
+    function _getResponsiveSpace(theme, props) {
       let spaceIndexes = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : EMPTY_ARRAY;
       if (!Array.isArray(spaceIndexes)) {
         throw new Error("the property must be array of numbers");
@@ -37711,11 +37711,11 @@ var require_dist = __commonJS({
       if (spaceIndexes.length === 0) {
         return null;
       }
-      return _responsive(theme2.sanity.media, spaceIndexes, (spaceIndex) => _fillCSSObject(props, rem(theme2.sanity.space[spaceIndex])));
+      return _responsive(theme.sanity.media, spaceIndexes, (spaceIndex) => _fillCSSObject(props, rem(theme.sanity.space[spaceIndex])));
     }
     function responsiveFont(fontKey, props) {
-      const { $size, $weight, theme: theme2 } = props;
-      const { fonts: fonts2, media } = theme2.sanity;
+      const { $size, $weight, theme } = props;
+      const { fonts: fonts2, media } = theme.sanity;
       const { family, sizes, weights } = fonts2[fontKey];
       const fontWeight = $weight && weights[$weight] || weights.regular;
       const defaultSize = sizes[2];
@@ -37749,8 +37749,8 @@ var require_dist = __commonJS({
       return responsiveFont("label", props);
     }
     function responsiveTextAlignStyle(props) {
-      const { theme: theme2 } = props;
-      return _responsive(theme2.sanity.media, props.$align, (textAlign) => {
+      const { theme } = props;
+      return _responsive(theme.sanity.media, props.$align, (textAlign) => {
         return { textAlign };
       });
     }
@@ -38792,7 +38792,7 @@ var require_dist = __commonJS({
     function ThemeProvider(props) {
       const parentTheme = React$2.useContext(ThemeContext);
       const { children, scheme = (parentTheme == null ? void 0 : parentTheme.scheme) || "light", theme: themeProp = (parentTheme == null ? void 0 : parentTheme.theme) || null, tone = (parentTheme == null ? void 0 : parentTheme.tone) || "default" } = props;
-      const theme2 = React$2.useMemo(() => {
+      const theme = React$2.useMemo(() => {
         if (!themeProp)
           return null;
         const { color: rootColor, layer: rootLayer, ...restTheme } = themeProp;
@@ -38802,10 +38802,10 @@ var require_dist = __commonJS({
         return { sanity: { ...restTheme, color: color2, layer } };
       }, [scheme, themeProp, tone]);
       const value = React$2.useMemo(() => themeProp && { version: 0, theme: themeProp, scheme, tone }, [themeProp, scheme, tone]);
-      if (!theme2) {
+      if (!theme) {
         return /* @__PURE__ */ jsxRuntime.jsx("pre", { children: 'ThemeProvider: no "theme" property provided' });
       }
-      return /* @__PURE__ */ jsxRuntime.jsx(ThemeContext.Provider, { value, children: /* @__PURE__ */ jsxRuntime.jsx(Le, { theme: theme2, children }) });
+      return /* @__PURE__ */ jsxRuntime.jsx(ThemeContext.Provider, { value, children: /* @__PURE__ */ jsxRuntime.jsx(Le, { theme, children }) });
     }
     function isRecord(value) {
       return Boolean(value && typeof value === "object");
@@ -38880,8 +38880,8 @@ var require_dist = __commonJS({
       return 0;
     }
     function useMediaIndex() {
-      const theme2 = useTheme();
-      const { media } = theme2.sanity;
+      const theme = useTheme();
+      const { media } = theme.sanity;
       let store = MEDIA_STORE_CACHE.get(media);
       if (!store) {
         store = _createMediaStore(media);
@@ -38915,28 +38915,28 @@ var require_dist = __commonJS({
       return [border, borderTop, borderRight, borderBottom, borderLeft];
     }
     function border(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$border, (value) => value ? { "&&": { border: BORDER_VALUE } } : { "&&": { border: 0 } });
     }
     function borderTop(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$borderTop, (value) => value ? { "&&": { borderTop: BORDER_VALUE } } : { "&&": { borderTop: 0 } });
     }
     function borderRight(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$borderRight, (value) => value ? { "&&": { borderRight: BORDER_VALUE } } : { "&&": { borderRight: 0 } });
     }
     function borderBottom(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$borderBottom, (value) => value ? { "&&": { borderBottom: BORDER_VALUE } } : { "&&": { borderBottom: 0 } });
     }
     function borderLeft(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$borderLeft, (value) => value ? { "&&": { borderLeft: BORDER_VALUE } } : { "&&": { borderLeft: 0 } });
     }
     var BASE_STYLE$4 = { '&[data-as="ul"],&[data-as="ol"]': { listStyle: "none" } };
@@ -38949,23 +38949,23 @@ var require_dist = __commonJS({
       return [responsiveBoxSizingStyle, responsiveBoxHeightStyle, responsiveBoxOverflowStyle, responsiveBoxDisplayStyle];
     }
     function responsiveBoxDisplayStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$display, (display) => ({ "&:not([hidden])": { display } }));
     }
     function responsiveBoxSizingStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$sizing, (sizing) => ({ boxSizing: BOX_SIZING[sizing] }));
     }
     function responsiveBoxHeightStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$height, (height) => ({ height: BOX_HEIGHT[height] }));
     }
     function responsiveBoxOverflowStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$overflow, (overflow) => ({ overflow }));
     }
     var BASE_STYLE$3 = { "&&:not([hidden])": { display: "flex" } };
@@ -38973,34 +38973,34 @@ var require_dist = __commonJS({
       return [BASE_STYLE$3, responsiveFlexAlignStyle, responsiveFlexGapStyle, responsiveFlexWrapStyle, responsiveFlexJustifyStyle, responsiveFlexDirectionStyle];
     }
     function responsiveFlexAlignStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$align, (align) => {
         return { alignItems: align };
       });
     }
     function responsiveFlexGapStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, space: space2 } = theme2.sanity;
+      const { theme } = props;
+      const { media, space: space2 } = theme.sanity;
       return _responsive(media, props.$gap, (gap2) => ({ gap: gap2 ? rem(space2[gap2]) : void 0 }));
     }
     function responsiveFlexWrapStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$wrap, (wrap) => {
         return { flexWrap: wrap };
       });
     }
     function responsiveFlexJustifyStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$justify, (justify) => {
         return { justifyContent: justify };
       });
     }
     function responsiveFlexDirectionStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$direction, (direction) => {
         return { flexDirection: direction };
       });
@@ -39010,8 +39010,8 @@ var require_dist = __commonJS({
       return [BASE_STYLE$2, responsiveFlexItemStyle];
     }
     function responsiveFlexItemStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       if (!props.$flex)
         return EMPTY_ARRAY;
       return _responsive(media, props.$flex, (flex) => ({ flex }));
@@ -39033,43 +39033,43 @@ var require_dist = __commonJS({
       return [GRID_CSS, responsiveGridAutoFlowStyle, responsiveGridAutoRowsStyle, responsiveGridAutoColsStyle, responsiveGridColumnsStyle, responsiveGridRowsStyle, responsiveGridGapStyle, responsiveGridGapXStyle, responsiveGridGapYStyle];
     }
     function responsiveGridAutoFlowStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$autoFlow, (autoFlow) => ({ gridAutoFlow: autoFlow }));
     }
     function responsiveGridAutoRowsStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$autoRows, (autoRows) => ({ gridAutoRows: autoRows && GRID_AUTO_ROWS[autoRows] }));
     }
     function responsiveGridAutoColsStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$autoCols, (autoCols) => ({ gridAutoColumns: autoCols && GRID_AUTO_COLUMS[autoCols] }));
     }
     function responsiveGridColumnsStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$columns, (columns) => ({ gridTemplateColumns: columns && "repeat(".concat(columns, ",minmax(0,1fr));") }));
     }
     function responsiveGridRowsStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$rows, (rows) => ({ gridTemplateRows: rows && "repeat(".concat(rows, ",minmax(0,1fr));") }));
     }
     function responsiveGridGapStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, space: space2 } = theme2.sanity;
+      const { theme } = props;
+      const { media, space: space2 } = theme.sanity;
       return _responsive(media, props.$gap, (gap2) => ({ gridGap: gap2 ? rem(space2[gap2]) : void 0 }));
     }
     function responsiveGridGapXStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, space: space2 } = theme2.sanity;
+      const { theme } = props;
+      const { media, space: space2 } = theme.sanity;
       return _responsive(media, props.$gapX, (gapX) => ({ columnGap: gapX ? rem(space2[gapX]) : void 0 }));
     }
     function responsiveGridGapYStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, space: space2 } = theme2.sanity;
+      const { theme } = props;
+      const { media, space: space2 } = theme.sanity;
       return _responsive(media, props.$gapY, (gapY) => ({ rowGap: gapY ? rem(space2[gapY]) : void 0 }));
     }
     function responsiveGridItemStyle() {
@@ -39078,8 +39078,8 @@ var require_dist = __commonJS({
     var GRID_ITEM_ROW = { auto: "auto", full: "1 / -1" };
     var GRID_ITEM_COLUMN = { auto: "auto", full: "1 / -1" };
     function responsiveGridItemRowStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$row, (row) => {
         if (typeof row === "number") {
           return { gridRow: "span ".concat(row, " / span ").concat(row) };
@@ -39088,18 +39088,18 @@ var require_dist = __commonJS({
       });
     }
     function responsiveGridItemRowStartStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$rowStart, (rowStart) => ({ gridRowStart: rowStart }));
     }
     function responsiveGridItemRowEndStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$rowEnd, (rowEnd) => ({ gridRowEnd: rowEnd }));
     }
     function responsiveGridItemColumnStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$column, (column) => {
         if (typeof column === "number") {
           return { gridColumn: "span ".concat(column, " / span ").concat(column) };
@@ -39108,18 +39108,18 @@ var require_dist = __commonJS({
       });
     }
     function responsiveGridItemColumnStartStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$columnStart, (columnStart) => ({ gridColumnStart: columnStart }));
     }
     function responsiveGridItemColumnEndStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$columnEnd, (columnEnd) => ({ gridColumnEnd: columnEnd }));
     }
     function responsiveInputPaddingStyle(props) {
-      const { $fontSize, $iconLeft, $iconRight, $padding, $space, theme: theme2 } = props;
-      const { fonts: fonts2, media, space: spaceScale } = theme2.sanity;
+      const { $fontSize, $iconLeft, $iconRight, $padding, $space, theme } = props;
+      const { fonts: fonts2, media, space: spaceScale } = theme.sanity;
       const len = Math.max($padding.length, $space.length, $fontSize.length);
       const _padding = [];
       const _space = [];
@@ -39150,36 +39150,36 @@ var require_dist = __commonJS({
       return ROOT_STYLE;
     }
     function textInputBaseStyle(props) {
-      const { theme: theme2, $scheme, $tone, $weight } = props;
-      const font = theme2.sanity.fonts.text;
-      const color2 = theme2.sanity.color.input;
+      const { theme, $scheme, $tone, $weight } = props;
+      const font = theme.sanity.fonts.text;
+      const color2 = theme.sanity.color.input;
       return Ae(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    appearance: none;\n    background: none;\n    border: 0;\n    border-radius: 0;\n    outline: none;\n    width: 100%;\n    box-sizing: border-box;\n    font-family: ", ";\n    font-weight: ", ";\n    margin: 0;\n    position: relative;\n    z-index: 1;\n    display: block;\n\n    /* NOTE: This is a hack to disable Chrome\u2019s autofill styles */\n    &:-webkit-autofill,\n    &:-webkit-autofill:hover,\n    &:-webkit-autofill:focus,\n    &:-webkit-autofill:active {\n      -webkit-text-fill-color: var(--input-fg-color) !important;\n      transition: background-color 5000s;\n      transition-delay: 86400s /* 24h */;\n    }\n\n    /* &:is(textarea) */\n    &[data-as='textarea'] {\n      resize: none;\n    }\n\n    color: var(--input-fg-color);\n\n    &::placeholder {\n      color: var(--input-placeholder-color);\n    }\n\n    &[data-scheme='", "'][data-tone='", "'] {\n      --input-fg-color: ", ";\n      --input-placeholder-color: ", ";\n\n      /* enabled */\n      &:not(:invalid):not(:disabled):not(:read-only) {\n        --input-fg-color: ", ";\n        --input-placeholder-color: ", ";\n      }\n\n      /* disabled */\n      &:not(:invalid):disabled {\n        --input-fg-color: ", ";\n        --input-placeholder-color: ", ";\n      }\n\n      /* invalid */\n      &:invalid {\n        --input-fg-color: ", ";\n        --input-placeholder-color: ", ";\n      }\n\n      /* readOnly */\n      &:read-only {\n        --input-fg-color: ", ";\n        --input-placeholder-color: ", ";\n      }\n    }\n  "])), font.family, $weight && font.weights[$weight] || font.weights.regular, $scheme, $tone, color2.default.enabled.fg, color2.default.enabled.placeholder, color2.default.enabled.fg, color2.default.enabled.placeholder, color2.default.disabled.fg, color2.default.disabled.placeholder, color2.invalid.enabled.fg, color2.invalid.enabled.placeholder, color2.default.readOnly.fg, color2.default.readOnly.placeholder);
     }
     function textInputFontSizeStyle(props) {
-      const { theme: theme2 } = props;
-      const { fonts: fonts2, media } = theme2.sanity;
+      const { theme } = props;
+      const { fonts: fonts2, media } = theme.sanity;
       return _responsive(media, props.$fontSize, (sizeIndex) => {
         const size2 = fonts2.text.sizes[sizeIndex] || fonts2.text.sizes[2];
         return { fontSize: rem(size2.fontSize), lineHeight: size2.lineHeight / size2.fontSize };
       });
     }
     function textInputRepresentationStyle(props) {
-      const { $hasPrefix, $hasSuffix, $scheme, $tone, theme: theme2 } = props;
-      const { focusRing, input } = theme2.sanity;
-      const color2 = theme2.sanity.color.input;
+      const { $hasPrefix, $hasSuffix, $scheme, $tone, theme } = props;
+      const { focusRing, input } = theme.sanity;
+      const color2 = theme.sanity.color.input;
       return Ae(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    --input-box-shadow: none;\n\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    display: block;\n    pointer-events: none;\n    z-index: 0;\n\n    background-color: var(--card-bg-color);\n    box-shadow: var(--input-box-shadow);\n\n    border-top-left-radius: ", ";\n    border-bottom-left-radius: ", ";\n    border-top-right-radius: ", ";\n    border-bottom-right-radius: ", ";\n\n    &[data-scheme='", "'][data-tone='", "'] {\n      --card-bg-color: ", ";\n      --card-fg-color: ", ";\n\n      /* enabled */\n      *:not(:disabled) + &[data-border] {\n        --input-box-shadow: ", ";\n      }\n\n      /* invalid */\n      *:not(:disabled):invalid + & {\n        --card-bg-color: ", ";\n        --card-fg-color: ", ";\n\n        &[data-border] {\n          --input-box-shadow: ", ";\n        }\n      }\n\n      /* focused */\n      *:not(:disabled):focus + & {\n        &[data-border] {\n          --input-box-shadow: ", ";\n        }\n\n        &:not([data-border]) {\n          --input-box-shadow: ", ";\n        }\n      }\n\n      /* disabled */\n      *:disabled + & {\n        --card-bg-color: ", " !important;\n        --card-fg-color: ", " !important;\n\n        &[data-border] {\n          --input-box-shadow: ", ";\n        }\n      }\n\n      /* readOnly */\n      *:read-only + & {\n        --card-bg-color: ", " !important;\n        --card-fg-color: ", " !important;\n      }\n\n      /* hovered */\n      @media (hover: hover) {\n        *:not(:disabled):not(:read-only):not(:invalid):hover + & {\n          --card-bg-color: ", ";\n          --card-fg-color: ", ";\n        }\n\n        *:not(:disabled):not(:read-only):not(:invalid):not(:focus):hover + &[data-border] {\n          --input-box-shadow: ", ";\n        }\n      }\n    }\n  "])), $hasPrefix ? 0 : void 0, $hasPrefix ? 0 : void 0, $hasSuffix ? 0 : void 0, $hasSuffix ? 0 : void 0, $scheme, $tone, color2.default.enabled.bg, color2.default.enabled.fg, focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), color2.invalid.enabled.bg, color2.invalid.enabled.fg, focusRingBorderStyle({ color: color2.invalid.enabled.border, width: input.border.width }), focusRingStyle({ border: { color: color2.default.enabled.border, width: input.border.width }, focusRing }), focusRingStyle({ focusRing }), color2.default.disabled.bg, color2.default.disabled.fg, focusRingBorderStyle({ color: color2.default.disabled.border, width: input.border.width }), color2.default.readOnly.bg, color2.default.readOnly.fg, color2.default.hovered.bg, color2.default.hovered.fg, focusRingBorderStyle({ color: color2.default.hovered.border, width: input.border.width }));
     }
     function responsiveMarginStyle(props) {
-      const { theme: theme2 } = props;
-      return [_getResponsiveSpace(theme2, ["margin"], props.$margin), _getResponsiveSpace(theme2, ["marginLeft", "marginRight"], props.$marginX), _getResponsiveSpace(theme2, ["marginTop", "marginBottom"], props.$marginY), _getResponsiveSpace(theme2, ["marginTop"], props.$marginTop), _getResponsiveSpace(theme2, ["marginRight"], props.$marginRight), _getResponsiveSpace(theme2, ["marginBottom"], props.$marginBottom), _getResponsiveSpace(theme2, ["marginLeft"], props.$marginLeft)].filter(Boolean);
+      const { theme } = props;
+      return [_getResponsiveSpace(theme, ["margin"], props.$margin), _getResponsiveSpace(theme, ["marginLeft", "marginRight"], props.$marginX), _getResponsiveSpace(theme, ["marginTop", "marginBottom"], props.$marginY), _getResponsiveSpace(theme, ["marginTop"], props.$marginTop), _getResponsiveSpace(theme, ["marginRight"], props.$marginRight), _getResponsiveSpace(theme, ["marginBottom"], props.$marginBottom), _getResponsiveSpace(theme, ["marginLeft"], props.$marginLeft)].filter(Boolean);
     }
     function responsivePaddingStyle(props) {
-      const { theme: theme2 } = props;
-      return [_getResponsiveSpace(theme2, ["padding"], props.$padding), _getResponsiveSpace(theme2, ["paddingLeft", "paddingRight"], props.$paddingX), _getResponsiveSpace(theme2, ["paddingTop", "paddingBottom"], props.$paddingY), _getResponsiveSpace(theme2, ["paddingTop"], props.$paddingTop), _getResponsiveSpace(theme2, ["paddingRight"], props.$paddingRight), _getResponsiveSpace(theme2, ["paddingBottom"], props.$paddingBottom), _getResponsiveSpace(theme2, ["paddingLeft"], props.$paddingLeft)].filter(Boolean);
+      const { theme } = props;
+      return [_getResponsiveSpace(theme, ["padding"], props.$padding), _getResponsiveSpace(theme, ["paddingLeft", "paddingRight"], props.$paddingX), _getResponsiveSpace(theme, ["paddingTop", "paddingBottom"], props.$paddingY), _getResponsiveSpace(theme, ["paddingTop"], props.$paddingTop), _getResponsiveSpace(theme, ["paddingRight"], props.$paddingRight), _getResponsiveSpace(theme, ["paddingBottom"], props.$paddingBottom), _getResponsiveSpace(theme, ["paddingLeft"], props.$paddingLeft)].filter(Boolean);
     }
     function responsiveRadiusStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, radius } = theme2.sanity;
+      const { theme } = props;
+      const { media, radius } = theme.sanity;
       return _responsive(media, props.$radius, (radiusIndex) => ({ borderRadius: rem(radius[radiusIndex]) }));
     }
     function toBoxShadow(shadow, color2) {
@@ -39195,14 +39195,14 @@ var require_dist = __commonJS({
       return { boxShadow: "".concat(outline, ", ").concat(umbra, ", ").concat(penumbra, ", ").concat(ambient) };
     }
     function responsiveShadowStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, shadows } = theme2.sanity;
+      const { theme } = props;
+      const { media, shadows } = theme.sanity;
       return _responsive(media, props.$shadow, (shadow) => shadowStyle(shadows[shadow]));
     }
     function textBaseStyle(props) {
-      const { $accent, $muted, theme: theme2 } = props;
-      const { weights } = theme2.sanity.fonts.text;
-      return Ae(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    color: var(--card-fg-color);\n\n    ", "\n\n    ", "\n\n    & code {\n      font-family: ", ";\n      border-radius: 1px;\n      background-color: var(--card-code-bg-color);\n      color: var(--card-code-fg-color);\n    }\n\n    & a {\n      text-decoration: none;\n      border-radius: 1px;\n      color: var(--card-link-color);\n      outline: none;\n\n      @media (hover: hover) {\n        &:hover {\n          text-decoration: underline;\n        }\n      }\n\n      &:focus {\n        box-shadow: 0 0 0 1px var(--card-bg-color), 0 0 0 3px var(--card-focus-ring-color);\n      }\n\n      &:focus:not(:focus-visible) {\n        box-shadow: none;\n      }\n    }\n\n    & strong {\n      font-weight: ", ";\n    }\n\n    & svg {\n      /* Certain popular CSS libraries changes the defaults for SVG display */\n      /* Make sure SVGs are rendered as inline elements */\n      display: inline;\n    }\n\n    & [data-sanity-icon] {\n      vertical-align: baseline;\n    }\n  "])), $accent && Ae(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n      color: var(--card-accent-fg-color);\n    "]))), $muted && Ae(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n      color: var(--card-muted-fg-color);\n    "]))), theme2.sanity.fonts.code.family, weights.bold);
+      const { $accent, $muted, theme } = props;
+      const { weights } = theme.sanity.fonts.text;
+      return Ae(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    color: var(--card-fg-color);\n\n    ", "\n\n    ", "\n\n    & code {\n      font-family: ", ";\n      border-radius: 1px;\n      background-color: var(--card-code-bg-color);\n      color: var(--card-code-fg-color);\n    }\n\n    & a {\n      text-decoration: none;\n      border-radius: 1px;\n      color: var(--card-link-color);\n      outline: none;\n\n      @media (hover: hover) {\n        &:hover {\n          text-decoration: underline;\n        }\n      }\n\n      &:focus {\n        box-shadow: 0 0 0 1px var(--card-bg-color), 0 0 0 3px var(--card-focus-ring-color);\n      }\n\n      &:focus:not(:focus-visible) {\n        box-shadow: none;\n      }\n    }\n\n    & strong {\n      font-weight: ", ";\n    }\n\n    & svg {\n      /* Certain popular CSS libraries changes the defaults for SVG display */\n      /* Make sure SVGs are rendered as inline elements */\n      display: inline;\n    }\n\n    & [data-sanity-icon] {\n      vertical-align: baseline;\n    }\n  "])), $accent && Ae(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n      color: var(--card-accent-fg-color);\n    "]))), $muted && Ae(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n      color: var(--card-muted-fg-color);\n    "]))), theme.sanity.fonts.code.family, weights.bold);
     }
     var Root$E = styled.div(responsiveTextFont, responsiveTextAlignStyle, textBaseStyle);
     var SpanWithTextOverflow$2 = styled.span(_templateObject7 || (_templateObject7 = _taggedTemplateLiteral(["\n  display: block;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  overflow: clip;\n"])));
@@ -39219,8 +39219,8 @@ var require_dist = __commonJS({
       return { position: "absolute", boxSizing: "border-box", zIndex: 0, opacity: 0, transition: "all 0.2s linear", transform: "rotate(-90deg) translate3d(0, 6px, 0)", left: 0, right: 0, top: 0, bottom: 0, "& > svg": { width: "11px", height: "7px", position: "absolute", top: "-5px", left: "50%", transform: "translateX(-6px)", "&:not([hidden])": { display: "block" } }, "[data-arrow-position='inside'] > &": { transform: "rotate(-90deg) translate3d(0, 6px, 0)", opacity: 0 }, "[data-arrow-position='top'] > &": { opacity: 1, transform: "rotate(0deg)" }, "[data-arrow-position='bottom'] > &": { opacity: 1, transform: "rotate(-180deg)" } };
     }
     function avatarRootStyle(props) {
-      const { $color, theme: theme2 } = props;
-      const { focusRing } = theme2.sanity;
+      const { $color, theme } = props;
+      const { focusRing } = theme.sanity;
       return {
         backgroundColor: $color,
         position: "relative",
@@ -39234,16 +39234,16 @@ var require_dist = __commonJS({
       };
     }
     function responsiveAvatarSizeStyle(props) {
-      const { theme: theme2 } = props;
-      const { avatar, media } = theme2.sanity;
+      const { theme } = props;
+      const { avatar, media } = theme.sanity;
       return _responsive(media, props.$size, (size2) => {
         const avatarSize = avatar.sizes[size2] || avatar.sizes[0];
         return { width: rem(avatarSize.size), height: rem(avatarSize.size), borderRadius: rem(avatarSize.size / 2), "&>svg": { width: rem(avatarSize.size), height: rem(avatarSize.size), borderRadius: rem(avatarSize.size / 2) } };
       });
     }
     function avatarInitialsStyle(props) {
-      const { theme: theme2 } = props;
-      const { base } = theme2.sanity.color;
+      const { theme } = props;
+      const { base } = theme.sanity.color;
       return { width: "100%", height: "100%", color: base.fg, alignItems: "center", justifyContent: "center", textTransform: "uppercase", textAlign: "center", borderRadius: "50%", "&:not([hidden])": { display: "flex" } };
     }
     function avatarBgStrokeStyle() {
@@ -39261,9 +39261,9 @@ var require_dist = __commonJS({
       const { as: asProp, color: colorKey = "gray", src, title, initials, onImageLoadError, arrowPosition: arrowPositionProp, animateArrowFrom, status = "online", size: sizeProp = 0, ...restProps } = props;
       const as = ReactIs$1.isValidElementType(asProp) ? asProp : "div";
       const size2 = useArrayProp(sizeProp);
-      const theme2 = useTheme();
-      const color2 = theme2.sanity.color.spot[colorKey] || theme2.sanity.color.spot.gray;
-      const avatarSize = theme2.sanity.avatar.sizes[size2[0]] || theme2.sanity.avatar.sizes[0];
+      const theme = useTheme();
+      const color2 = theme.sanity.color.spot[colorKey] || theme.sanity.color.spot.gray;
+      const avatarSize = theme.sanity.avatar.sizes[size2[0]] || theme.sanity.avatar.sizes[0];
       const _sizeRem = avatarSize.size;
       const _radius = _sizeRem / 2;
       const elementId = React$2.useId();
@@ -39290,8 +39290,8 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsxs(Root$D, { as, "data-as": typeof as === "string" ? as : void 0, "data-ui": "Avatar", ...restProps, $size: size2, $color: color2, "aria-label": title, "data-arrow-position": arrowPosition, "data-status": status, ref, title, children: [/* @__PURE__ */ jsxRuntime.jsx(Arrow, { children: /* @__PURE__ */ jsxRuntime.jsx("svg", { width: "11", height: "7", viewBox: "0 0 11 7", fill: "none", children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M6.67948 1.50115L11 7L0 7L4.32052 1.50115C4.92109 0.736796 6.07891 0.736795 6.67948 1.50115Z", fill: color2 }) }) }), !imageFailed && src && /* @__PURE__ */ jsxRuntime.jsxs("svg", { viewBox: "0 0 ".concat(_sizeRem, " ").concat(_sizeRem), fill: "none", children: [/* @__PURE__ */ jsxRuntime.jsx("defs", { children: /* @__PURE__ */ jsxRuntime.jsx("pattern", { id: imageId, patternContentUnits: "objectBoundingBox", width: "1", height: "1", children: /* @__PURE__ */ jsxRuntime.jsx("image", { href: src, width: "1", height: "1", onError: handleImageError }) }) }), /* @__PURE__ */ jsxRuntime.jsx("circle", { cx: _radius, cy: _radius, r: _radius, fill: "url(#".concat(imageId, ")") }), /* @__PURE__ */ jsxRuntime.jsx(BgStroke, { cx: _radius, cy: _radius, rx: _radius, ry: _radius, vectorEffect: "non-scaling-stroke" }), /* @__PURE__ */ jsxRuntime.jsx(Stroke, { cx: _radius, cy: _radius, rx: _radius, ry: _radius, stroke: color2, vectorEffect: "non-scaling-stroke" })] }), (imageFailed || !src) && initials && /* @__PURE__ */ jsxRuntime.jsx(jsxRuntime.Fragment, { children: /* @__PURE__ */ jsxRuntime.jsx(Initials, { children: /* @__PURE__ */ jsxRuntime.jsx(Text, { as: "span", size: initialsSize, children: /* @__PURE__ */ jsxRuntime.jsx("strong", { children: initials }) }) }) })] });
     });
     function _responsiveAvatarCounterSizeStyle(props) {
-      const { theme: theme2 } = props;
-      const { avatar, media } = theme2.sanity;
+      const { theme } = props;
+      const { avatar, media } = theme.sanity;
       return _responsive(media, props.$size, (size2) => {
         const avatarSize = avatar.sizes[size2];
         if (!avatarSize)
@@ -39300,8 +39300,8 @@ var require_dist = __commonJS({
       });
     }
     function _avatarCounterBaseStyle(props) {
-      const { theme: theme2 } = props;
-      return Ae(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n    align-items: center;\n    justify-content: center;\n    box-sizing: border-box;\n    user-select: none;\n    color: inherit;\n    color: var(--card-fg-color);\n    background: var(--card-bg-color);\n    box-shadow: 0 0 0 1px var(--card-bg-color), inset 0 0 0 1.5px var(--card-hairline-hard-color);\n    padding: 0 ", ";\n\n    &:not([hidden]) {\n      display: flex;\n    }\n  "])), rem(theme2.sanity.space[2]));
+      const { theme } = props;
+      return Ae(_templateObject8 || (_templateObject8 = _taggedTemplateLiteral(["\n    align-items: center;\n    justify-content: center;\n    box-sizing: border-box;\n    user-select: none;\n    color: inherit;\n    color: var(--card-fg-color);\n    background: var(--card-bg-color);\n    box-shadow: 0 0 0 1px var(--card-bg-color), inset 0 0 0 1.5px var(--card-hairline-hard-color);\n    padding: 0 ", ";\n\n    &:not([hidden]) {\n      display: flex;\n    }\n  "])), rem(theme.sanity.space[2]));
     }
     var Root$C = styled.div(_responsiveAvatarCounterSizeStyle, _avatarCounterBaseStyle);
     var AvatarCounter = React$2.forwardRef(function AvatarCounter2(props, ref) {
@@ -39319,8 +39319,8 @@ var require_dist = __commonJS({
       return BASE_STYLES;
     }
     function responsiveAvatarStackSizeStyle(props) {
-      const { theme: theme2 } = props;
-      const { avatar, media } = theme2.sanity;
+      const { theme } = props;
+      const { avatar, media } = theme.sanity;
       return _responsive(media, props.$size, (size2) => {
         const avatarSize = avatar.sizes[size2];
         if (!avatarSize)
@@ -39346,8 +39346,8 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(Root$A, { "data-as": typeof asProp === "string" ? asProp : void 0, "data-ui": "Box", ...restProps, $column: useArrayProp(column), $columnStart: useArrayProp(columnStart), $columnEnd: useArrayProp(columnEnd), $display: useArrayProp(display), $flex: useArrayProp(flex), $height: useArrayProp(height), $margin: useArrayProp(margin), $marginX: useArrayProp(marginX), $marginY: useArrayProp(marginY), $marginTop: useArrayProp(marginTop), $marginRight: useArrayProp(marginRight), $marginBottom: useArrayProp(marginBottom), $marginLeft: useArrayProp(marginLeft), $overflow: useArrayProp(overflow), $padding: useArrayProp(padding), $paddingX: useArrayProp(paddingX), $paddingY: useArrayProp(paddingY), $paddingTop: useArrayProp(paddingTop), $paddingRight: useArrayProp(paddingRight), $paddingBottom: useArrayProp(paddingBottom), $paddingLeft: useArrayProp(paddingLeft), $row: useArrayProp(row), $rowStart: useArrayProp(rowStart), $rowEnd: useArrayProp(rowEnd), $sizing: useArrayProp(sizing), as: asProp, ref, children: props.children });
     });
     function labelBaseStyle(props) {
-      const { $accent, $muted, theme: theme2 } = props;
-      const { fonts: fonts2 } = theme2.sanity;
+      const { $accent, $muted, theme } = props;
+      const { fonts: fonts2 } = theme.sanity;
       return Ae(_templateObject10 || (_templateObject10 = _taggedTemplateLiteral(["\n    text-transform: uppercase;\n\n    ", "\n\n    ", "\n\n    & code {\n      font-family: ", ";\n      border-radius: 1px;\n    }\n\n    & a {\n      text-decoration: none;\n      border-radius: 1px;\n    }\n\n    & svg {\n      /* Certain popular CSS libraries changes the defaults for SVG display */\n      /* Make sure SVGs are rendered as inline elements */\n      display: inline;\n    }\n\n    & [data-sanity-icon] {\n      vertical-align: baseline;\n    }\n  "])), $accent && Ae(_templateObject11 || (_templateObject11 = _taggedTemplateLiteral(["\n      color: var(--card-accent-fg-color);\n    "]))), $muted && Ae(_templateObject12 || (_templateObject12 = _taggedTemplateLiteral(["\n      color: var(--card-muted-fg-color);\n    "]))), fonts2.code.family);
     }
     var Root$z = styled.div(responsiveLabelFont, responsiveTextAlignStyle, labelBaseStyle);
@@ -39363,8 +39363,8 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(Root$z, { "data-ui": "Label", ...restProps, $accent: accent, $align: useArrayProp(align), $muted: muted, $size: useArrayProp(size2), $weight: weight, ref, children });
     });
     function badgeStyle(props) {
-      const { $mode, $tone, theme: theme2 } = props;
-      const palette = theme2.sanity.color[$mode === "outline" ? "muted" : "solid"];
+      const { $mode, $tone, theme } = props;
+      const palette = theme.sanity.color[$mode === "outline" ? "muted" : "solid"];
       const color2 = palette[$tone] || palette.default;
       return { backgroundColor: color2.enabled.bg, color: color2.enabled.fg, boxShadow: "inset 0 0 0 1px ".concat(color2.enabled.border), cursor: "default", "&:not([hidden])": { display: "inline-block" } };
     }
@@ -39418,13 +39418,13 @@ var require_dist = __commonJS({
     var buttonTheme = { border: { width: 1 } };
     function buttonColorStyles(props) {
       var _a2, _b;
-      const { $mode, theme: theme2 } = props;
-      const { focusRing } = theme2.sanity;
-      const base = theme2.sanity.color.base;
-      const mode = theme2.sanity.color.button[$mode] || theme2.sanity.color.button.default;
+      const { $mode, theme } = props;
+      const { focusRing } = theme.sanity;
+      const base = theme.sanity.color.base;
+      const mode = theme.sanity.color.button[$mode] || theme.sanity.color.button.default;
       const color2 = mode[props.$tone] || mode.default;
       const border2 = { width: buttonTheme.border.width, color: "var(--card-border-color)" };
-      return [_colorVarsStyle(base, color2.enabled), { backgroundColor: "var(--card-bg-color)", color: "var(--card-fg-color)", boxShadow: focusRingBorderStyle(border2), '&:disabled, &[data-disabled="true"]': _colorVarsStyle(base, color2.disabled), "&:not([data-disabled='true'])": { "&:focus": { boxShadow: focusRingStyle({ base, border: border2, focusRing }) }, "&:focus:not(:focus-visible)": { boxShadow: focusRingBorderStyle(border2) }, "@media (hover: hover)": { "&:hover": _colorVarsStyle(base, color2.hovered), "&:active": _colorVarsStyle(base, color2.pressed), "&[data-hovered]": _colorVarsStyle(base, color2.hovered) }, "&[data-selected]": _colorVarsStyle(base, color2.pressed) } }, (_b = (_a2 = theme2.sanity.styles) == null ? void 0 : _a2.button) == null ? void 0 : _b.root].filter(Boolean);
+      return [_colorVarsStyle(base, color2.enabled), { backgroundColor: "var(--card-bg-color)", color: "var(--card-fg-color)", boxShadow: focusRingBorderStyle(border2), '&:disabled, &[data-disabled="true"]': _colorVarsStyle(base, color2.disabled), "&:not([data-disabled='true'])": { "&:focus": { boxShadow: focusRingStyle({ base, border: border2, focusRing }) }, "&:focus:not(:focus-visible)": { boxShadow: focusRingBorderStyle(border2) }, "@media (hover: hover)": { "&:hover": _colorVarsStyle(base, color2.hovered), "&:active": _colorVarsStyle(base, color2.pressed), "&[data-hovered]": _colorVarsStyle(base, color2.hovered) }, "&[data-selected]": _colorVarsStyle(base, color2.pressed) } }, (_b = (_a2 = theme.sanity.styles) == null ? void 0 : _a2.button) == null ? void 0 : _b.root].filter(Boolean);
     }
     var Root$v = styled.button(responsiveRadiusStyle, buttonBaseStyles, buttonColorStyles);
     var LoadingBox = styled.div(_templateObject17 || (_templateObject17 = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background-color: var(--card-bg-color);\n  border-radius: inherit;\n  z-index: 1;\n  box-shadow: inherit;\n"])));
@@ -39440,7 +39440,7 @@ var require_dist = __commonJS({
       const paddingRight = useArrayProp(paddingRightProp);
       const radius = useArrayProp(radiusProp);
       const space2 = useArrayProp(spaceProp);
-      const theme2 = useTheme();
+      const theme = useTheme();
       const boxProps = React$2.useMemo(() => ({
         // flex: 1,
         padding,
@@ -39451,23 +39451,23 @@ var require_dist = __commonJS({
         paddingLeft,
         paddingRight
       }), [padding, paddingX, paddingY, paddingTop, paddingBottom, paddingLeft, paddingRight]);
-      return /* @__PURE__ */ jsxRuntime.jsxs(Root$v, { "data-ui": "Button", ...restProps, $mode: mode, $radius: radius, $tone: tone, "data-disabled": Boolean(loading || disabled), "data-selected": selected ? "" : void 0, disabled: Boolean(loading || disabled), ref, type, children: [Boolean(loading) && /* @__PURE__ */ jsxRuntime.jsx(LoadingBox, { children: /* @__PURE__ */ jsxRuntime.jsx(Spinner, {}) }), (icon || text || iconRight) && /* @__PURE__ */ jsxRuntime.jsx(Box, { as: "span", ...boxProps, children: /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { as: "span", justify, children: [icon && /* @__PURE__ */ jsxRuntime.jsxs(Text, { size: fontSize2, children: [React$2.isValidElement(icon) && icon, reactIsExports$1.isValidElementType(icon) && React$2.createElement(icon)] }), text && /* @__PURE__ */ jsxRuntime.jsx(Box, { flex: iconRight ? 1 : void 0, marginLeft: icon ? space2 : void 0, marginRight: iconRight ? space2 : void 0, children: /* @__PURE__ */ jsxRuntime.jsx(Text, { align: textAlign, size: fontSize2, textOverflow: "ellipsis", weight: theme2.sanity.button.textWeight, children: text }) }), iconRight && /* @__PURE__ */ jsxRuntime.jsxs(Text, { size: fontSize2, children: [React$2.isValidElement(iconRight) && iconRight, reactIsExports$1.isValidElementType(iconRight) && React$2.createElement(iconRight)] })] }) }), children && /* @__PURE__ */ jsxRuntime.jsx(Box, { as: "span", ...boxProps, children })] });
+      return /* @__PURE__ */ jsxRuntime.jsxs(Root$v, { "data-ui": "Button", ...restProps, $mode: mode, $radius: radius, $tone: tone, "data-disabled": Boolean(loading || disabled), "data-selected": selected ? "" : void 0, disabled: Boolean(loading || disabled), ref, type, children: [Boolean(loading) && /* @__PURE__ */ jsxRuntime.jsx(LoadingBox, { children: /* @__PURE__ */ jsxRuntime.jsx(Spinner, {}) }), (icon || text || iconRight) && /* @__PURE__ */ jsxRuntime.jsx(Box, { as: "span", ...boxProps, children: /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { as: "span", justify, children: [icon && /* @__PURE__ */ jsxRuntime.jsxs(Text, { size: fontSize2, children: [React$2.isValidElement(icon) && icon, reactIsExports$1.isValidElementType(icon) && React$2.createElement(icon)] }), text && /* @__PURE__ */ jsxRuntime.jsx(Box, { flex: iconRight ? 1 : void 0, marginLeft: icon ? space2 : void 0, marginRight: iconRight ? space2 : void 0, children: /* @__PURE__ */ jsxRuntime.jsx(Text, { align: textAlign, size: fontSize2, textOverflow: "ellipsis", weight: theme.sanity.button.textWeight, children: text }) }), iconRight && /* @__PURE__ */ jsxRuntime.jsxs(Text, { size: fontSize2, children: [React$2.isValidElement(iconRight) && iconRight, reactIsExports$1.isValidElementType(iconRight) && React$2.createElement(iconRight)] })] }) }), children && /* @__PURE__ */ jsxRuntime.jsx(Box, { as: "span", ...boxProps, children })] });
     });
     function cardStyle(props) {
       return [cardBaseStyle(props), cardColorStyle(props)];
     }
     function cardBaseStyle(props) {
-      const { $checkered, theme: theme2 } = props;
-      const space2 = theme2.sanity.space;
+      const { $checkered, theme } = props;
+      const space2 = theme.sanity.space;
       return Ae(_templateObject18 || (_templateObject18 = _taggedTemplateLiteral(["\n    ", "\n\n    &[data-as='button'] {\n      -webkit-font-smoothing: inherit;\n      appearance: none;\n      outline: none;\n      font: inherit;\n      text-align: inherit;\n      border: 0;\n      width: stretch;\n    }\n\n    /* &:is(a) */\n    &[data-as='a'] {\n      outline: none;\n      text-decoration: none;\n    }\n\n    /* &:is(pre) */\n    &[data-as='pre'] {\n      font: inherit;\n    }\n  "])), $checkered && Ae(_templateObject19 || (_templateObject19 = _taggedTemplateLiteral(["\n      background-size: ", "px ", "px;\n      background-position: 50% 50%;\n      background-image: var(--card-bg-image);\n    "])), space2[3], space2[3]));
     }
     function cardColorStyle(props) {
       var _a2, _b;
-      const { $checkered, $focusRing, theme: theme2 } = props;
-      const { focusRing } = theme2.sanity;
-      const { base, card, dark } = theme2.sanity.color;
+      const { $checkered, $focusRing, theme } = props;
+      const { focusRing } = theme.sanity;
+      const { base, card, dark } = theme.sanity.color;
       const border2 = { width: 0, color: "var(--card-border-color)" };
-      return Ae(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["\n    color-scheme: ", ";\n\n    ", "\n\n    background-color: var(--card-bg-color);\n    color: var(--card-fg-color);\n\n    /* &:is(button) */\n    &[data-as='button'] {\n      --card-focus-ring-box-shadow: none;\n\n      cursor: default;\n      box-shadow: var(--card-focus-ring-box-shadow);\n\n      &:disabled {\n        ", "\n      }\n\n      &:not(:disabled) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-pressed]):not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n\n        &:focus {\n          --card-focus-ring-box-shadow: ", ";\n        }\n\n        &:focus:not(:focus-visible) {\n          --card-focus-ring-box-shadow: ", ";\n        }\n      }\n    }\n\n    /* &:is(a) */\n    &[data-as='a'] {\n      cursor: pointer;\n      box-shadow: var(--card-focus-ring-box-shadow);\n\n      &[data-disabled] {\n        ", "\n      }\n\n      &:not([data-disabled]) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-pressed]):not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n\n        &:focus {\n          --card-focus-ring-box-shadow: ", ";\n        }\n\n        &:focus:not(:focus-visible) {\n          --card-focus-ring-box-shadow: ", ";\n        }\n      }\n    }\n\n    ", "\n  "])), dark ? "dark" : "light", _colorVarsStyle(base, card.enabled, $checkered), _colorVarsStyle(base, card.disabled, $checkered), _colorVarsStyle(base, card.pressed, $checkered), _colorVarsStyle(base, card.selected, $checkered), _colorVarsStyle(base, card.hovered, $checkered), _colorVarsStyle(base, card.pressed, $checkered), $focusRing ? focusRingStyle({ base, border: border2, focusRing }) : void 0, $focusRing ? focusRingBorderStyle(border2) : void 0, _colorVarsStyle(base, card.disabled, $checkered), _colorVarsStyle(base, card.pressed, $checkered), _colorVarsStyle(base, card.selected, $checkered), _colorVarsStyle(base, card.hovered, $checkered), _colorVarsStyle(base, card.pressed, $checkered), $focusRing ? focusRingStyle({ base, border: border2, focusRing }) : void 0, $focusRing ? focusRingBorderStyle(border2) : void 0, (_b = (_a2 = theme2.sanity.styles) == null ? void 0 : _a2.card) == null ? void 0 : _b.root);
+      return Ae(_templateObject20 || (_templateObject20 = _taggedTemplateLiteral(["\n    color-scheme: ", ";\n\n    ", "\n\n    background-color: var(--card-bg-color);\n    color: var(--card-fg-color);\n\n    /* &:is(button) */\n    &[data-as='button'] {\n      --card-focus-ring-box-shadow: none;\n\n      cursor: default;\n      box-shadow: var(--card-focus-ring-box-shadow);\n\n      &:disabled {\n        ", "\n      }\n\n      &:not(:disabled) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-pressed]):not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n\n        &:focus {\n          --card-focus-ring-box-shadow: ", ";\n        }\n\n        &:focus:not(:focus-visible) {\n          --card-focus-ring-box-shadow: ", ";\n        }\n      }\n    }\n\n    /* &:is(a) */\n    &[data-as='a'] {\n      cursor: pointer;\n      box-shadow: var(--card-focus-ring-box-shadow);\n\n      &[data-disabled] {\n        ", "\n      }\n\n      &:not([data-disabled]) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-pressed]):not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n\n        &:focus {\n          --card-focus-ring-box-shadow: ", ";\n        }\n\n        &:focus:not(:focus-visible) {\n          --card-focus-ring-box-shadow: ", ";\n        }\n      }\n    }\n\n    ", "\n  "])), dark ? "dark" : "light", _colorVarsStyle(base, card.enabled, $checkered), _colorVarsStyle(base, card.disabled, $checkered), _colorVarsStyle(base, card.pressed, $checkered), _colorVarsStyle(base, card.selected, $checkered), _colorVarsStyle(base, card.hovered, $checkered), _colorVarsStyle(base, card.pressed, $checkered), $focusRing ? focusRingStyle({ base, border: border2, focusRing }) : void 0, $focusRing ? focusRingBorderStyle(border2) : void 0, _colorVarsStyle(base, card.disabled, $checkered), _colorVarsStyle(base, card.pressed, $checkered), _colorVarsStyle(base, card.selected, $checkered), _colorVarsStyle(base, card.hovered, $checkered), _colorVarsStyle(base, card.pressed, $checkered), $focusRing ? focusRingStyle({ base, border: border2, focusRing }) : void 0, $focusRing ? focusRingBorderStyle(border2) : void 0, (_b = (_a2 = theme.sanity.styles) == null ? void 0 : _a2.card) == null ? void 0 : _b.root);
     }
     var Root$u = styled(Box)(responsiveBorderStyle, responsiveRadiusStyle, responsiveShadowStyle, cardStyle);
     var Card = React$2.forwardRef(function Card2(props, ref) {
@@ -39481,9 +39481,9 @@ var require_dist = __commonJS({
       return Ae(_templateObject21 || (_templateObject21 = _taggedTemplateLiteral(["\n    position: relative;\n    display: inline-block;\n  "])));
     }
     function inputElementStyles(props) {
-      const { theme: theme2 } = props;
-      const color2 = theme2.sanity.color.input;
-      const { focusRing, input, radius } = theme2.sanity;
+      const { theme } = props;
+      const color2 = theme.sanity.color.input;
+      const { focusRing, input, radius } = theme.sanity;
       return Ae(_templateObject22 || (_templateObject22 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    outline: none;\n    opacity: 0;\n    z-index: 1;\n    padding: 0;\n    margin: 0;\n\n    & + span {\n      position: relative;\n      display: block;\n      height: ", ";\n      width: ", ";\n      box-sizing: border-box;\n      box-shadow: ", ";\n      border-radius: ", ";\n      line-height: 1;\n      background-color: ", ";\n\n      & > svg {\n        display: block;\n        position: absolute;\n        opacity: 0;\n        height: 100%;\n        width: 100%;\n\n        & > path {\n          vector-effect: non-scaling-stroke;\n          stroke-width: 2 !important;\n        }\n      }\n    }\n\n    &:not(:disabled):focus + span {\n      box-shadow: ", ";\n    }\n\n    &:not(:disabled):focus:not(:focus-visible) + span {\n      box-shadow: ", ";\n    }\n\n    &:checked + span > svg:first-child {\n      opacity: 1;\n    }\n\n    &[data-read-only] + span {\n      background-color: ", ";\n      box-shadow: ", ";\n      color: ", ";\n    }\n\n    &:not([data-read-only]):disabled + span {\n      background-color: ", ";\n      box-shadow: ", ";\n      color: ", ";\n    }\n\n    &:indeterminate + span > svg:last-child {\n      opacity: 1;\n    }\n  "])), rem(input.checkbox.size), rem(input.checkbox.size), focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), rem(radius[2]), color2.default.enabled.bg, focusRingStyle({ border: { width: input.border.width, color: color2.default.enabled.border }, focusRing }), focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), color2.default.readOnly.bg, focusRingBorderStyle({ width: input.border.width, color: color2.default.readOnly.border }), color2.default.readOnly.fg, color2.default.disabled.bg, focusRingBorderStyle({ width: input.border.width, color: color2.default.disabled.border }), color2.default.disabled.fg);
     }
     var Root$t = styled.div(checkboxBaseStyles);
@@ -39500,8 +39500,8 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsxs(Root$t, { className, "data-ui": "Checkbox", style: style2, children: [/* @__PURE__ */ jsxRuntime.jsx(Input$5, { "data-read-only": !disabled && readOnly ? "" : void 0, ...restProps, checked, disabled: disabled || readOnly, type: "checkbox", readOnly, ref }), /* @__PURE__ */ jsxRuntime.jsxs("span", { children: [/* @__PURE__ */ jsxRuntime.jsx(CheckmarkIcon, {}), /* @__PURE__ */ jsxRuntime.jsx(RemoveIcon, {})] })] });
     });
     function codeSyntaxHighlightingStyle(_ref20) {
-      let { theme: theme2 } = _ref20;
-      const color2 = theme2.sanity.color.syntax;
+      let { theme } = _ref20;
+      const color2 = theme.sanity.color.syntax;
       return { "&.atrule": { color: color2.atrule }, "&.attr-name": { color: color2.attrName }, "&.attr-value": { color: color2.attrValue }, "&.attribute": { color: color2.attribute }, "&.boolean": { color: color2.boolean }, "&.builtin": { color: color2.builtin }, "&.cdata": { color: color2.cdata }, "&.char": { color: color2.char }, "&.class": { color: color2.class }, "&.class-name": { color: color2.className }, "&.comment": { color: color2.comment }, "&.constant": { color: color2.constant }, "&.deleted": { color: color2.deleted }, "&.doctype": { color: color2.doctype }, "&.entity": { color: color2.entity }, "&.function": { color: color2.function }, "&.hexcode": { color: color2.hexcode }, "&.id": { color: color2.id }, "&.important": { color: color2.important }, "&.inserted": { color: color2.inserted }, "&.keyword": { color: color2.keyword }, "&.number": { color: color2.number }, "&.operator": { color: color2.operator }, "&.prolog": { color: color2.prolog }, "&.property": { color: color2.property }, "&.pseudo-class": { color: color2.pseudoClass }, "&.pseudo-element": { color: color2.pseudoElement }, "&.punctuation": { color: color2.punctuation }, "&.regex": { color: color2.regex }, "&.selector": { color: color2.selector }, "&.string": { color: color2.string }, "&.symbol": { color: color2.symbol }, "&.tag": { color: color2.tag }, "&.unit": { color: color2.unit }, "&.url": { color: color2.url }, "&.variable": { color: color2.variable } };
     }
     function codeBaseStyle() {
@@ -39519,8 +39519,8 @@ var require_dist = __commonJS({
       return BASE_STYLE$1;
     }
     function responsiveContainerWidthStyle(props) {
-      const { theme: theme2 } = props;
-      const { container, media } = theme2.sanity;
+      const { theme } = props;
+      const { container, media } = theme.sanity;
       return _responsive(media, props.$width, (val) => ({ maxWidth: val === "auto" ? "none" : rem(container[val]) }));
     }
     var Root$r = styled(Box)(containerBaseStyle, responsiveContainerWidthStyle);
@@ -39534,8 +39534,8 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(Root$q, { "data-as": typeof as === "string" ? as : void 0, "data-ui": "Grid", ...restProps, $autoRows: useArrayProp(autoRows), $autoCols: useArrayProp(autoCols), $autoFlow: useArrayProp(autoFlow), $columns: useArrayProp(columns), $gap: useArrayProp(gap2), $gapX: useArrayProp(gapX), $gapY: useArrayProp(gapY), $rows: useArrayProp(rows), forwardedAs: as, ref, children });
     });
     function headingBaseStyle(props) {
-      const { $accent, $muted, theme: theme2 } = props;
-      return Ae(_templateObject24 || (_templateObject24 = _taggedTemplateLiteral(["\n    ", "\n\n    ", "\n\n    & code {\n      font-family: ", ";\n      border-radius: 1px;\n    }\n\n    & a {\n      text-decoration: none;\n      border-radius: 1px;\n      color: var(--card-link-color);\n      outline: none;\n\n      @media (hover: hover) {\n        &:hover {\n          text-decoration: underline;\n        }\n      }\n\n      &:focus {\n        box-shadow: 0 0 0 1px var(--card-bg-color), 0 0 0 3px var(--card-focus-ring-color);\n      }\n\n      &:focus:not(:focus-visible) {\n        box-shadow: none;\n      }\n    }\n\n    & svg {\n      /* Certain popular CSS libraries changes the defaults for SVG display */\n      /* Make sure SVGs are rendered as inline elements */\n      display: inline;\n    }\n\n    & [data-sanity-icon] {\n      vertical-align: baseline;\n    }\n  "])), $accent && Ae(_templateObject25 || (_templateObject25 = _taggedTemplateLiteral(["\n      color: var(--card-accent-fg-color);\n    "]))), $muted && Ae(_templateObject26 || (_templateObject26 = _taggedTemplateLiteral(["\n      color: var(--card-muted-fg-color);\n    "]))), theme2.sanity.fonts.code.family);
+      const { $accent, $muted, theme } = props;
+      return Ae(_templateObject24 || (_templateObject24 = _taggedTemplateLiteral(["\n    ", "\n\n    ", "\n\n    & code {\n      font-family: ", ";\n      border-radius: 1px;\n    }\n\n    & a {\n      text-decoration: none;\n      border-radius: 1px;\n      color: var(--card-link-color);\n      outline: none;\n\n      @media (hover: hover) {\n        &:hover {\n          text-decoration: underline;\n        }\n      }\n\n      &:focus {\n        box-shadow: 0 0 0 1px var(--card-bg-color), 0 0 0 3px var(--card-focus-ring-color);\n      }\n\n      &:focus:not(:focus-visible) {\n        box-shadow: none;\n      }\n    }\n\n    & svg {\n      /* Certain popular CSS libraries changes the defaults for SVG display */\n      /* Make sure SVGs are rendered as inline elements */\n      display: inline;\n    }\n\n    & [data-sanity-icon] {\n      vertical-align: baseline;\n    }\n  "])), $accent && Ae(_templateObject25 || (_templateObject25 = _taggedTemplateLiteral(["\n      color: var(--card-accent-fg-color);\n    "]))), $muted && Ae(_templateObject26 || (_templateObject26 = _taggedTemplateLiteral(["\n      color: var(--card-muted-fg-color);\n    "]))), theme.sanity.fonts.code.family);
     }
     var Root$p = styled.div(headingBaseStyle, responsiveTextAlignStyle, responsiveHeadingFont);
     var SpanWithTextOverflow = styled.span(_templateObject27 || (_templateObject27 = _taggedTemplateLiteral(["\n  display: block;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  overflow: clip;\n"])));
@@ -39551,9 +39551,9 @@ var require_dist = __commonJS({
       return { lineHeight: 0, "&&:not([hidden])": { display: "block" }, "& > div": { display: "inline-block", verticalAlign: "middle" } };
     }
     function inlineSpaceStyle(props) {
-      const { theme: theme2 } = props;
-      return _responsive(theme2.sanity.media, props.$space, (spaceIndex) => {
-        const space2 = rem(theme2.sanity.space[spaceIndex]);
+      const { theme } = props;
+      return _responsive(theme.sanity.media, props.$space, (spaceIndex) => {
+        const space2 = rem(theme.sanity.space[spaceIndex]);
         return { margin: "-".concat(space2, " 0 0 -").concat(space2), "& > div": { padding: "".concat(space2, " 0 0 ").concat(space2) } };
       });
     }
@@ -39603,8 +39603,8 @@ var require_dist = __commonJS({
       return ret;
     }
     React$2.forwardRef(function ElementQuery2(props, ref) {
-      const theme2 = useTheme();
-      const { children, media = theme2.sanity.media, ...restProps } = props;
+      const theme = useTheme();
+      const { children, media = theme.sanity.media, ...restProps } = props;
       const forwardedRef = useForwardedRef(ref);
       const [element, setElement] = React$2.useState(null);
       const elementSize = useElementSize(element);
@@ -40010,9 +40010,9 @@ var require_dist = __commonJS({
     PopoverCard.displayName = "PopoverCard";
     var Popover = React$2.memo(React$2.forwardRef(function Popover2(props, ref) {
       var _a2, _b, _c, _d, _e2;
-      const theme2 = useTheme();
+      const theme = useTheme();
       const boundaryElementContext = useBoundaryElement();
-      const { __unstable_margins: margins = DEFAULT_POPOVER_MARGINS, arrow: arrowProp = true, boundaryElement = boundaryElementContext.element, children: childProp, constrainSize = false, content, disabled, fallbackPlacements, matchReferenceWidth: matchReferenceWidthProp, open, overflow = "hidden", padding: paddingProp, placement: placementProp = "bottom", portal, preventOverflow = true, radius: radiusProp = 3, referenceElement, scheme, shadow: shadowProp = 3, tone = "inherit", width: widthProp = "auto", zOffset: zOffsetProp = (_a2 = theme2.sanity.layer) == null ? void 0 : _a2.popover.zOffset, ...restProps } = props;
+      const { __unstable_margins: margins = DEFAULT_POPOVER_MARGINS, arrow: arrowProp = true, boundaryElement = boundaryElementContext.element, children: childProp, constrainSize = false, content, disabled, fallbackPlacements, matchReferenceWidth: matchReferenceWidthProp, open, overflow = "hidden", padding: paddingProp, placement: placementProp = "bottom", portal, preventOverflow = true, radius: radiusProp = 3, referenceElement, scheme, shadow: shadowProp = 3, tone = "inherit", width: widthProp = "auto", zOffset: zOffsetProp = (_a2 = theme.sanity.layer) == null ? void 0 : _a2.popover.zOffset, ...restProps } = props;
       const boundarySize = (_b = useElementSize(boundaryElement)) == null ? void 0 : _b.border;
       const padding = useArrayProp(paddingProp);
       const radius = useArrayProp(radiusProp);
@@ -40089,9 +40089,9 @@ var require_dist = __commonJS({
       return Ae(_templateObject36 || (_templateObject36 = _taggedTemplateLiteral(["\n    position: relative;\n\n    &:not([hidden]) {\n      display: inline-block;\n    }\n\n    &[data-read-only] {\n      outline: 1px solid red;\n    }\n  "])));
     }
     function inputElementStyle(props) {
-      const { theme: theme2 } = props;
-      const { focusRing, input } = theme2.sanity;
-      const color2 = theme2.sanity.color.input;
+      const { theme } = props;
+      const { focusRing, input } = theme.sanity;
+      const color2 = theme.sanity.color.input;
       const dist = (input.radio.size - input.radio.markSize) / 2;
       return Ae(_templateObject37 || (_templateObject37 = _taggedTemplateLiteral(["\n    appearance: none;\n    position: absolute;\n    top: 0;\n    left: 0;\n    opacity: 0;\n    height: 100%;\n    width: 100%;\n    outline: none;\n    z-index: 1;\n    padding: 0;\n    margin: 0;\n    border-radius: ", ";\n    border: none;\n\n    /* enabled */\n    & + span {\n      display: block;\n      position: relative;\n      height: ", ";\n      width: ", ";\n      border-radius: ", ";\n      background: ", ";\n      box-shadow: ", ";\n\n      &::after {\n        content: '';\n        position: absolute;\n        top: ", ";\n        left: ", ";\n        height: ", ";\n        width: ", ";\n        border-radius: ", ";\n        background: ", ";\n        opacity: 0;\n      }\n    }\n\n    /* focused */\n    &:not(:disabled):focus + span {\n      box-shadow: ", ";\n    }\n\n    &:not(:disabled):focus:not(:focus-visible) + span {\n      box-shadow: ", ";\n    }\n\n    &:checked + span::after {\n      opacity: 1;\n    }\n\n    /* read only */\n    &[data-read-only] + span {\n      box-shadow: 0 0 0 1px ", ";\n      background: ", ";\n\n      &::after {\n        background: ", ";\n      }\n    }\n\n    /* disabled */\n    &:not([data-read-only]):disabled + span {\n      box-shadow: 0 0 0 1px ", ";\n      background: ", ";\n\n      &::after {\n        background: ", ";\n      }\n    }\n  "])), rem(input.radio.size / 2), rem(input.radio.size), rem(input.radio.size), rem(input.radio.size / 2), color2.default.enabled.bg, focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), rem(dist), rem(dist), rem(input.radio.markSize), rem(input.radio.markSize), rem(input.radio.markSize / 2), color2.default.enabled.fg, focusRingStyle({ border: { width: input.border.width, color: color2.default.enabled.border }, focusRing }), focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), color2.default.readOnly.border, color2.default.readOnly.bg, color2.default.readOnly.fg, color2.default.disabled.border, color2.default.disabled.bg, color2.default.disabled.fg);
     }
@@ -40107,30 +40107,30 @@ var require_dist = __commonJS({
       return Ae(_templateObject38 || (_templateObject38 = _taggedTemplateLiteral(["\n    position: relative;\n    width: stretch;\n\n    &:not([hidden]) {\n      display: inline-block;\n    }\n  "])));
     }
     function inputBaseStyle(props) {
-      const { theme: theme2 } = props;
-      const font = theme2.sanity.fonts.text;
+      const { theme } = props;
+      const font = theme.sanity.fonts.text;
       return Ae(_templateObject39 || (_templateObject39 = _taggedTemplateLiteral(["\n    -webkit-font-smoothing: antialiased;\n    appearance: none;\n    border: 0;\n    font-family: ", ";\n    color: inherit;\n    width: 100%;\n    outline: none;\n    margin: 0;\n\n    &:disabled {\n      opacity: 1;\n    }\n  "])), font.family);
     }
     function inputColorStyle(props) {
-      const { theme: theme2 } = props;
-      const { focusRing, input } = theme2.sanity;
-      const color2 = theme2.sanity.color.input;
+      const { theme } = props;
+      const { focusRing, input } = theme.sanity;
+      const color2 = theme.sanity.color.input;
       return Ae(_templateObject40 || (_templateObject40 = _taggedTemplateLiteral(["\n    /* enabled */\n    background-color: ", ";\n    color: ", ";\n    box-shadow: ", ";\n\n    /* hovered */\n    @media (hover: hover) {\n      &:not(:disabled):hover {\n        background-color: ", ";\n        color: ", ";\n        box-shadow: ", ";\n      }\n    }\n\n    /* focused */\n    &:not(:disabled):focus {\n      box-shadow: ", ";\n    }\n\n    /* read-only */\n    &[data-read-only] {\n      background-color: ", ";\n      color: ", ";\n      box-shadow: ", ";\n    }\n\n    /* disabled */\n    &:not([data-read-only]):disabled {\n      background-color: ", ";\n      color: ", ";\n      box-shadow: ", ";\n    }\n  "])), color2.default.enabled.bg, color2.default.enabled.fg, focusRingBorderStyle({ color: color2.default.enabled.border, width: input.border.width }), color2.default.hovered.bg, color2.default.hovered.fg, focusRingBorderStyle({ color: color2.default.hovered.border, width: input.border.width }), focusRingStyle({ border: { width: input.border.width, color: color2.default.enabled.border }, focusRing }), color2.default.readOnly.bg, color2.default.readOnly.fg, focusRingBorderStyle({ color: color2.default.readOnly.border, width: input.border.width }), color2.default.disabled.bg, color2.default.disabled.fg, focusRingBorderStyle({ color: color2.default.disabled.border, width: input.border.width }));
     }
     function textSize(size2) {
       return { fontSize: rem(size2.fontSize), lineHeight: rem(size2.lineHeight) };
     }
     function inputTextSizeStyle(props) {
-      const { theme: theme2, $fontSize } = props;
-      const { sizes } = theme2.sanity.fonts.text;
-      return _responsive(theme2.sanity.media, $fontSize, (sizeIndex) => textSize(sizes[sizeIndex] || sizes[2]));
+      const { theme, $fontSize } = props;
+      const { sizes } = theme.sanity.fonts.text;
+      return _responsive(theme.sanity.media, $fontSize, (sizeIndex) => textSize(sizes[sizeIndex] || sizes[2]));
     }
     function inputStyle() {
       return [responsiveRadiusStyle, inputBaseStyle, inputColorStyle, inputTextSizeStyle, responsiveInputPaddingIconRightStyle];
     }
     function iconBoxStyle(props) {
-      const { theme: theme2 } = props;
-      const color2 = theme2.sanity.color.input;
+      const { theme } = props;
+      const color2 = theme.sanity.color.input;
       return Ae(_templateObject41 || (_templateObject41 = _taggedTemplateLiteral(["\n    pointer-events: none;\n    position: absolute;\n    top: 0;\n    right: 0;\n\n    /* enabled */\n    --card-fg-color: ", ";\n\n    /* hover */\n    @media (hover: hover) {\n      select:not(disabled):not(:read-only):hover + && {\n        --card-fg-color: ", ";\n      }\n    }\n\n    /* disabled */\n    select:disabled + && {\n      --card-fg-color: ", ";\n    }\n\n    /* read-only */\n    select[data-read-only] + && {\n      --card-fg-color: ", ";\n    }\n  "])), color2.default.enabled.fg, color2.default.hovered.fg, color2.default.disabled.fg, color2.default.readOnly.fg);
     }
     var selectStyle = { root: rootStyle, input: inputStyle, iconBox: iconBoxStyle };
@@ -40148,8 +40148,8 @@ var require_dist = __commonJS({
       return BASE_STYLE;
     }
     function responsiveStackSpaceStyle(props) {
-      const { theme: theme2 } = props;
-      const { media, space: space2 } = theme2.sanity;
+      const { theme } = props;
+      const { media, space: space2 } = theme.sanity;
       return _responsive(media, props.$space, (spaceIndex) => ({ gridGap: rem(space2[spaceIndex]) }));
     }
     var Root$f = styled(Box)(stackBaseStyle, responsiveStackSpaceStyle);
@@ -40164,19 +40164,19 @@ var require_dist = __commonJS({
       return Ae(_templateObject43 || (_templateObject43 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    opacity: 0;\n    height: 100%;\n    width: 100%;\n    outline: none;\n    padding: 0;\n    margin: 0;\n\n    /* Place the input element above the representation element */\n    z-index: 1;\n  "])));
     }
     function switchRepresentationStyles(props) {
-      const { theme: theme2 } = props;
-      const { focusRing, input } = theme2.sanity;
-      const color2 = theme2.sanity.color.button.default;
+      const { theme } = props;
+      const { focusRing, input } = theme.sanity;
+      const color2 = theme.sanity.color.button.default;
       return Ae(_templateObject44 || (_templateObject44 = _taggedTemplateLiteral(["\n    --switch-bg-color: ", ";\n    --switch-fg-color: ", ";\n    --switch-box-shadow: none;\n\n    &:not([hidden]) {\n      display: block;\n    }\n    position: relative;\n    width: ", ";\n    height: ", ";\n    border-radius: ", ";\n\n    /* Make sure it\u2019s not possible to interact with the wrapper element */\n    pointer-events: none;\n\n    &:after {\n      content: '';\n      display: block;\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      z-index: 1;\n      box-shadow: var(--switch-box-shadow);\n      border-radius: inherit;\n    }\n\n    /* Focus styles */\n    input:focus + && {\n      --switch-box-shadow: ", ";\n    }\n\n    input:focus:not(:focus-visible) + && {\n      --switch-box-shadow: none;\n    }\n\n    input:checked + && {\n      --switch-bg-color: ", ";\n      --switch-fg-color: ", ";\n    }\n\n    @media (hover: hover) {\n      input:not(:disabled):hover + && {\n        --switch-bg-color: ", ";\n        --switch-fg-color: ", ";\n      }\n\n      input:not(:disabled):checked:hover + && {\n        --switch-bg-color: ", ";\n        --switch-fg-color: ", ";\n      }\n    }\n\n    input:not([data-read-only]):disabled + && {\n      --switch-bg-color: ", ";\n      --switch-fg-color: ", ";\n    }\n  "])), color2.default.enabled.bg, color2.default.enabled.fg, rem(input.switch.width), rem(input.switch.height), rem(input.switch.height / 2), focusRingStyle({ focusRing }), color2.positive.enabled.bg, color2.positive.enabled.fg, color2.default.hovered.bg, color2.default.hovered.fg, color2.positive.hovered.bg, color2.positive.hovered.fg, color2.default.disabled.bg, color2.default.disabled.fg);
     }
     function switchTrackStyles(props) {
-      const { theme: theme2 } = props;
-      const { input } = theme2.sanity;
+      const { theme } = props;
+      const { input } = theme.sanity;
       return Ae(_templateObject45 || (_templateObject45 = _taggedTemplateLiteral(["\n    &:not([hidden]) {\n      display: block;\n    }\n    background-color: var(--switch-bg-color);\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: ", ";\n    height: ", ";\n    border-radius: ", ";\n  "])), rem(input.switch.width), rem(input.switch.height), rem(input.switch.height / 2));
     }
     function switchThumbStyles(props) {
-      const { $indeterminate, theme: theme2 } = props;
-      const { input } = theme2.sanity;
+      const { $indeterminate, theme } = props;
+      const { input } = theme.sanity;
       const trackWidth = input.switch.width;
       const trackHeight = input.switch.height;
       const trackPadding = input.switch.padding;
@@ -40284,8 +40284,8 @@ var require_dist = __commonJS({
     React$2.forwardRef(function Tooltip2(props, ref) {
       var _a2, _b, _c;
       const boundaryElementContext = useBoundaryElement();
-      const theme2 = useTheme();
-      const { boundaryElement = boundaryElementContext == null ? void 0 : boundaryElementContext.element, children: childProp, content, disabled, fallbackPlacements: fallbackPlacementsProp, padding, placement: placementProp = "bottom", portal, scheme, shadow = 2, zOffset = (_a2 = theme2.sanity.layer) == null ? void 0 : _a2.tooltip.zOffset, ...restProps } = props;
+      const theme = useTheme();
+      const { boundaryElement = boundaryElementContext == null ? void 0 : boundaryElementContext.element, children: childProp, content, disabled, fallbackPlacements: fallbackPlacementsProp, padding, placement: placementProp = "bottom", portal, scheme, shadow = 2, zOffset = (_a2 = theme.sanity.layer) == null ? void 0 : _a2.tooltip.zOffset, ...restProps } = props;
       const fallbackPlacements = useArrayProp(fallbackPlacementsProp);
       const forwardedRef = useForwardedRef(ref);
       const [referenceElement, setReferenceElement] = React$2.useState(null);
@@ -40698,13 +40698,13 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(Root$8, { "data-ui": "Breadcrumbs", ...restProps, ref, children: items.map((item, itemIndex) => /* @__PURE__ */ jsxRuntime.jsxs(React$2.Fragment, { children: [itemIndex > 0 && /* @__PURE__ */ jsxRuntime.jsx(Box, { "aria-hidden": true, as: "li", paddingX: space2, children: separator || /* @__PURE__ */ jsxRuntime.jsx(Text, { muted: true, children: "/" }) }), /* @__PURE__ */ jsxRuntime.jsx(Box, { as: "li", children: item })] }, itemIndex)) });
     });
     function dialogStyle(_ref23) {
-      let { theme: theme2 } = _ref23;
-      const color2 = theme2.sanity.color.base;
+      let { theme } = _ref23;
+      const color2 = theme.sanity.color.base;
       return { "&:not([hidden])": { display: "flex" }, top: 0, left: 0, right: 0, bottom: 0, alignItems: "center", justifyContent: "center", outline: "none", background: color2.shadow.umbra };
     }
     function responsiveDialogPositionStyle(props) {
-      const { theme: theme2 } = props;
-      const { media } = theme2.sanity;
+      const { theme } = props;
+      const { media } = theme.sanity;
       return _responsive(media, props.$position, (position) => ({ "&&": { position } }));
     }
     var key$3 = Symbol.for("@sanity/ui/context/dialog");
@@ -40787,8 +40787,8 @@ var require_dist = __commonJS({
     React$2.forwardRef(function Dialog2(props, ref) {
       var _a2, _b;
       const dialog = useDialog();
-      const theme2 = useTheme();
-      const { __unstable_autoFocus: autoFocus = true, __unstable_hideCloseButton: hideCloseButton = false, cardRadius: cardRadiusProp = 3, cardShadow = 4, children, contentRef, footer, header, id, onActivate, onClickOutside, onClose, onFocus, padding: paddingProp = 4, portal: portalProp, position: positionProp = dialog.position || "fixed", scheme, width: widthProp = 0, zOffset: zOffsetProp = dialog.zOffset || ((_a2 = theme2.sanity.layer) == null ? void 0 : _a2.dialog.zOffset), ...restProps } = props;
+      const theme = useTheme();
+      const { __unstable_autoFocus: autoFocus = true, __unstable_hideCloseButton: hideCloseButton = false, cardRadius: cardRadiusProp = 3, cardShadow = 4, children, contentRef, footer, header, id, onActivate, onClickOutside, onClose, onFocus, padding: paddingProp = 4, portal: portalProp, position: positionProp = dialog.position || "fixed", scheme, width: widthProp = 0, zOffset: zOffsetProp = dialog.zOffset || ((_a2 = theme.sanity.layer) == null ? void 0 : _a2.dialog.zOffset), ...restProps } = props;
       const portal = usePortal();
       const portalElement = portalProp ? ((_b = portal.elements) == null ? void 0 : _b[portalProp]) || null : portal.element;
       const boundaryElement = useBoundaryElement().element;
@@ -41200,10 +41200,10 @@ var require_dist = __commonJS({
     }
     function selectableColorStyle(props) {
       var _a2, _b;
-      const { $tone, theme: theme2 } = props;
-      const { base, muted, selectable } = theme2.sanity.color;
+      const { $tone, theme } = props;
+      const { base, muted, selectable } = theme.sanity.color;
       const tone = selectable ? selectable[$tone] || selectable.default : muted[$tone] || muted.default;
-      return Ae(_templateObject77 || (_templateObject77 = _taggedTemplateLiteral(["\n    ", "\n\n    background-color: var(--card-bg-color);\n    color: var(--card-fg-color);\n    outline: none;\n\n    /* &:is(button) */\n    &[data-as='button'] {\n      &:disabled {\n        ", "\n      }\n\n      &:not(:disabled) {\n        &[aria-pressed='true'] {\n          ", "\n        }\n\n        &[data-selected],\n        &[aria-selected='true'] > & {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n      }\n    }\n\n    /* &:is(a) */\n    &[data-as='a'] {\n      &[data-disabled] {\n        ", "\n      }\n\n      &:not([data-disabled]) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n      }\n    }\n\n    ", "\n  "])), _colorVarsStyle(base, tone.enabled), _colorVarsStyle(base, tone.disabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.selected), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.disabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.selected), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.pressed), (_b = (_a2 = theme2.sanity.styles) == null ? void 0 : _a2.card) == null ? void 0 : _b.root);
+      return Ae(_templateObject77 || (_templateObject77 = _taggedTemplateLiteral(["\n    ", "\n\n    background-color: var(--card-bg-color);\n    color: var(--card-fg-color);\n    outline: none;\n\n    /* &:is(button) */\n    &[data-as='button'] {\n      &:disabled {\n        ", "\n      }\n\n      &:not(:disabled) {\n        &[aria-pressed='true'] {\n          ", "\n        }\n\n        &[data-selected],\n        &[aria-selected='true'] > & {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n      }\n    }\n\n    /* &:is(a) */\n    &[data-as='a'] {\n      &[data-disabled] {\n        ", "\n      }\n\n      &:not([data-disabled]) {\n        &[data-pressed] {\n          ", "\n        }\n\n        &[data-selected] {\n          ", "\n        }\n\n        @media (hover: hover) {\n          &:not([data-selected]) {\n            &[data-hovered],\n            &:hover {\n              ", "\n            }\n\n            &:active {\n              ", "\n            }\n          }\n        }\n      }\n    }\n\n    ", "\n  "])), _colorVarsStyle(base, tone.enabled), _colorVarsStyle(base, tone.disabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.selected), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.disabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.selected), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.pressed), (_b = (_a2 = theme.sanity.styles) == null ? void 0 : _a2.card) == null ? void 0 : _b.root);
     }
     var Selectable = styled(Box)(responsiveRadiusStyle, selectableBaseStyle, selectableColorStyle);
     function useMenu() {
@@ -41266,9 +41266,9 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(Root$4, { ...restProps, $animated: animated, $radius: useArrayProp(radius), $visible: visible, ref });
     });
     var Root$3 = styled(Skeleton)((_ref26) => {
-      let { $size, $style, theme: theme2 } = _ref26;
-      const { media } = theme2.sanity;
-      const font = theme2.sanity.fonts[$style];
+      let { $size, $style, theme } = _ref26;
+      const { media } = theme.sanity;
+      const font = theme.sanity.fonts[$style];
       const styles = _responsive(media, $size, (sizeIndex) => {
         const fontSize2 = font.sizes[sizeIndex];
         const capHeight = fontSize2.lineHeight - fontSize2.ascenderHeight - fontSize2.descenderHeight;
@@ -41542,9 +41542,9 @@ var require_dist = __commonJS({
       return Ae(_templateObject86 || (_templateObject86 = _taggedTemplateLiteral(["\n    &[role='none'] > [role='treeitem'] {\n      outline: none;\n      cursor: default;\n      border-radius: 3px;\n\n      &:focus {\n        position: relative;\n      }\n    }\n\n    &[role='treeitem'] {\n      outline: none;\n\n      & > div {\n        cursor: default;\n        border-radius: 3px;\n      }\n\n      &:focus > div {\n        position: relative;\n      }\n    }\n  "])));
     }
     function treeItemRootColorStyle(props) {
-      const { theme: theme2 } = props;
+      const { theme } = props;
       const $tone = "default";
-      const { base, muted, selectable } = theme2.sanity.color;
+      const { base, muted, selectable } = theme.sanity.color;
       const tone = selectable ? selectable[$tone] || selectable.default : muted[$tone] || muted.default;
       return Ae(_templateObject87 || (_templateObject87 = _taggedTemplateLiteral([`
     /* <div role="none"><a data-ui="TreeItem__box" role="treeitem" tabIndex="0"></div> */
@@ -41561,8 +41561,8 @@ var require_dist = __commonJS({
         `, "\n\n        background-color: var(--card-bg-color);\n        color: var(--card-fg-color);\n      }\n\n      &[data-selected] > [data-ui='TreeItem__box'] {\n        ", "\n      }\n\n      @media (hover: hover) {\n        &:not([data-selected]):not(:focus) > [data-ui='TreeItem__box']:hover {\n          ", "\n        }\n\n        &:focus > [data-ui='TreeItem__box'] {\n          ", "\n        }\n      }\n    }\n  "])), _colorVarsStyle(base, tone.enabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.selected), _colorVarsStyle(base, tone.enabled), _colorVarsStyle(base, tone.pressed), _colorVarsStyle(base, tone.hovered), _colorVarsStyle(base, tone.selected));
     }
     function treeItemBoxStyle(props) {
-      const { $level, theme: theme2 } = props;
-      const { space: space2 } = theme2.sanity;
+      const { $level, theme } = props;
+      const { space: space2 } = theme.sanity;
       return Ae(_templateObject88 || (_templateObject88 = _taggedTemplateLiteral(["\n    padding-left: ", ";\n\n    &[data-as='a'] {\n      text-decoration: none;\n    }\n  "])), rem(space2[2] * $level));
     }
     function useTree() {
@@ -41650,10 +41650,10 @@ var require_dist = __commonJS({
       let { disabled } = _ref31;
       return disabled ? "inherit" : "#3719ca";
     }, (_ref32) => {
-      let { theme: theme2, disabled } = _ref32;
+      let { theme, disabled } = _ref32;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref33) => {
-      let { theme: theme2, disabled } = _ref33;
+      let { theme, disabled } = _ref33;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref34) => {
       let { disabled } = _ref34;
@@ -41662,10 +41662,10 @@ var require_dist = __commonJS({
       let { disabled } = _ref35;
       return disabled ? "inherit" : "#3719ca";
     }, (_ref36) => {
-      let { theme: theme2, disabled } = _ref36;
+      let { theme, disabled } = _ref36;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref37) => {
-      let { theme: theme2, disabled } = _ref37;
+      let { theme, disabled } = _ref37;
       return disabled ? "#fff" : "#3719CA";
     });
     var ButtonAddPage = styled.button(_templateObject92 || (_templateObject92 = _taggedTemplateLiteral2(["\n  cursor: pointer;\n  width: 100%;\n  max-width: 92px;\n\n  font-weight: 600;\n  font-size: 14px;\n  line-height: 1.2;\n\n  display: flex;\n  align-items: center;\n  text-align: center;\n  justify-content: center;\n\n  color: #ffffff;\n  background: ", ";\n  border: 1px solid transparent;\n  border-radius: 4px;\n  padding: 11.5px 0;\n\n  &:hover,\n  :focus {\n    background: ", ";\n  }\n  &:active {\n    background: ", ";\n  }\n"])), (_ref38) => {
@@ -41889,14 +41889,14 @@ var require_dist = __commonJS({
     var Container$2 = styled.div(_templateObject110 || (_templateObject110 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  padding: 40px 0 24px;\n  overflow: scroll;\n  /* Scrollbar Styling */\n  ::-webkit-scrollbar {\n    width: 5px;\n  }\n\n  ::-webkit-scrollbar-track {\n    background-color: transparent;\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  ::-webkit-scrollbar-thumb {\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n    background: #ebebeb;\n  }\n"])));
     var TabContainer = styled.div(_templateObject111 || (_templateObject111 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n  padding: 0 40px;\n  animation: ", " 0.5s ease-in-out;\n  border-bottom: 1px solid #E4E6E8;\n"])), fadeIn);
     var TabButton = styled.button(_templateObject112 || (_templateObject112 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  gap: 0.25rem;\n  color: ", ";\n  background-color: unset;\n  border: unset;\n\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 1.19;\n  text-align: center;\n  text-transform: capitalize;\n\n  padding: 0px 9px 16px;\n  cursor: pointer;\n\n  transition: all 0.3s ease-in-out;\n  svg > path {\n    stroke: ", ";\n    transition: stroke 0.3s ease-in-out;\n  }\n"])), (_ref63) => {
-      let { active, theme: theme2 } = _ref63;
+      let { active, theme } = _ref63;
       return active ? "#3719CA" : "rgba(18, 18, 18, 0.4)";
     }, (_ref64) => {
-      let { active, theme: theme2 } = _ref64;
+      let { active, theme } = _ref64;
       return active ? "#3719CA" : "rgba(18, 18, 18, 0.4)";
     });
     var TabLine = styled.span(_templateObject113 || (_templateObject113 = _taggedTemplateLiteral2(["\n  height: 3px;\n  background-color: ", ";\n  border-radius: 5px 5px 0 0;\n  width: 100%;\n"])), (_ref65) => {
-      let { theme: theme2 } = _ref65;
+      let { theme } = _ref65;
       return "#3719CA";
     });
     var TabContent = styled.div(_templateObject114 || (_templateObject114 = _taggedTemplateLiteral2(["\n  display: ", ";\n  animation: ", " 0.5s ease-in-out;\n  flex-direction: column;\n  padding: 32px 40px 24px;\n"])), (_ref66) => {
@@ -41906,12 +41906,12 @@ var require_dist = __commonJS({
     var FirstSectionContainer = styled.div(_templateObject115 || (_templateObject115 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 40px;\n  border: 1px solid #e4e6e8;\n  border-radius: 4px;\n  padding: 32px;\n  overflow: hidden;\n"])));
     var RenderContainer = styled.div(_templateObject116 || (_templateObject116 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 3%;\n"])));
     var RetestButton = styled(ButtonResetAll)(_templateObject117 || (_templateObject117 = _taggedTemplateLiteral2(["\n  padding: 12px 32px;\n"])));
-    var Link = styled.a(_templateObject118 || (_templateObject118 = _taggedTemplateLiteral2(["\n  text-decoration: underline;\n  font-weight: 600;\n  font-size: 24px;\n  line-height: 1.21;\n\n  color: #121212;\n\n  :hover {\n    color: ", ";\n  }\n"])), (_ref67) => {
-      let { theme: theme2 } = _ref67;
+    var Link = styled.a(_templateObject118 || (_templateObject118 = _taggedTemplateLiteral2(["\n  text-decoration: underline;\n  font-weight: 600;\n  font-size: 24px;\n  line-height: 1.21;\n  color: #121212;\n\n  :hover {\n    color: ", ";\n  }\n"])), (_ref67) => {
+      let { theme } = _ref67;
       return "#3719CA";
     });
     var LinkDetails = styled(Link)(_templateObject119 || (_templateObject119 = _taggedTemplateLiteral2(["\n  font-size: 14px;\n  line-height: 1.21;\n  text-decoration: unset;\n  display: flex;\n  align-items: center;\n  white-space: nowrap;\n  :hover {\n    svg > path {\n      stroke: ", ";\n    }\n  }\n"])), (_ref68) => {
-      let { theme: theme2 } = _ref68;
+      let { theme } = _ref68;
       return "#3719CA";
     });
     var DescriptContainer = styled.div(_templateObject120 || (_templateObject120 = _taggedTemplateLiteral2(["\n  display: flex;\n  gap: 1.25rem;\n  justify-content: center;\n  align-items: flex-start;\n"])));
@@ -42230,23 +42230,13 @@ var require_dist = __commonJS({
       };
       return /* @__PURE__ */ jsxRuntime.jsxs(Container$4, { children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { borderRight: "1px solid #E4E6E8" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { padding: "40px 24px 24px" }, children: [/* @__PURE__ */ jsxRuntime.jsx(InputComponent, { device, setDevice, state, url, setUrl, data: data2, handelRequest }), Boolean(data2.length) ? /* @__PURE__ */ jsxRuntime.jsx(HistoryMenu, { data: data2, setActiveItem, activeItem, state, deleteCardByID }) : state === STATE_TYPE.loading ? /* @__PURE__ */ jsxRuntime.jsx("div", { style: { minHeight: "16px", padding: "20px 0 0 0" }, children: /* @__PURE__ */ jsxRuntime.jsx(Loading, { active: state === STATE_TYPE.loading }) }) : /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", padding: 4, children: /* @__PURE__ */ jsxRuntime.jsx(Text, { children: "Your history will show up here." }) })] }), Boolean(data2.length > 1) && /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", style: { padding: "24px", margin: "auto 0 0 0", borderTop: "1px solid #E4E6E8" }, children: /* @__PURE__ */ jsxRuntime.jsxs(ButtonResetAll, { type: "button", onClick: handelRefreshAll, disabled: state === STATE_TYPE.loading, children: [/* @__PURE__ */ jsxRuntime.jsx(RefreshIcon, {}), "Retest all"] }) })] }), Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(Tab, { data: data2[activeItem], activeTab, setActiveTab, handleRefresh, state, activeRefreshID, activeRefreshDevice }), state === STATE_TYPE.loading && !Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(CustomSpinner, {})] });
     };
-    var GlobalStyle = $e(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral2(["  \nbody {\n  height: 100%;\n}\n\n.test{\n  border: 5px solid red;\n  \n  *{\n    font-family: 'Inter', sans-serif;\n    font-size: 14px;\n  }\n}\n\n.titleStyle{\n  font-weight: 400;\n  line-height: 1.25;\n  color: #232323;\n}  \n\n.doted {\n  width: inherit;\n  position: relative;\n  color: #232323 !important;\n\n    &:after{\n      content: '\u2022';\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%,0%);\n      color:#3719CA;\n      margin: 4px 0 0 0;\n    }\n}\n\n  .customInput{\n    display: flex;\n    justify-content:center;\n    align-items: center;\n    padding: 12px;\n  }\n\n  .react-calendar{\n    border : none;\n    font-family: inherit;\n  }\n\n  .calendar{\n    padding: 24px;\n    background: #FFFFFF;\n    box-shadow: 0px 2px 40px rgba(96, 93, 97, 0.15);\n    border-radius: 8px;\n  }\n\n.react-calendar__month-view__weekdays__weekday{\n  display: none;\n}\n\n.react-daterange-picker__wrapper{ \n  border-radius: 4px;\n  outline: unset;\n  border: 1px solid #C9C9C9;\n  color: #C9C9C9;\n\n  &:active,:hover,:focus{\n    border: 1px solid #3F3F3F;\n  }\n}\n  .react-calendar__tile--active{\n    background-color: #F5F5FA;\n    color: #232323 !important;\n  }\n\n  .react-calendar__tile--rangeEnd,\n  .react-calendar__tile--rangeStart{\n    background-color: #006edc;\n    color: white !important;\n  }\n\n  .react-calendar__tile--rangeStart{\n    border-top-left-radius: 8px;\n    border-bottom-left-radius: 8px;\n  }\n\n  .react-calendar__tile--rangeEnd{\n    border-top-right-radius: 8px;\n    border-bottom-right-radius: 8px;\n  }\n"])));
-    var Container = styled.div(_templateObject131 || (_templateObject131 = _taggedTemplateLiteral2(["\n  width: 100%;\n  height: 100%;\n  display: flex;\n"])));
-    var theme = { colors: {
-      mB: "#E4E6E8",
-      //main border color
-      accent: "#3719CA",
-      textBlack: "#2B2B2B",
-      green: "#4BBD7E",
-      yellow: "#F4BE5E",
-      chGreen: "#5CC971",
-      chOrange: "#F3AE4E",
-      chRed: "#EB483F",
-      lineGray: "#4E809F",
-      lineOrange: "D1684D"
-    } };
+    var GlobalStyle = $e(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral2(["  \n  body {\n    height: 100%;\n  }\n\n  .test{\n    border: 5px solid red;\n  \n  *{\n    font-family: 'Inter', sans-serif;\n    font-size: 14px;\n  }\n}\n\n.titleStyle{\n  font-weight: 400;\n  line-height: 1.25;\n  color: #232323;\n}  \n\n.doted {\n  width: inherit;\n  position: relative;\n  color: #232323 !important;\n\n    &:after{\n      content: '\u2022';\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%,0%);\n      color:#3719CA;\n      margin: 4px 0 0 0;\n    }\n}\n\n  .customInput{\n    display: flex;\n    justify-content:center;\n    align-items: center;\n    padding: 12px;\n  }\n\n  .react-calendar{\n    border : none;\n    font-family: inherit;\n  }\n\n  .calendar{\n    padding: 24px;\n    background: #FFFFFF;\n    box-shadow: 0px 2px 40px rgba(96, 93, 97, 0.15);\n    border-radius: 8px;\n  }\n\n.react-calendar__month-view__weekdays__weekday{\n  display: none;\n}\n\n.react-daterange-picker__wrapper{ \n  border-radius: 4px;\n  outline: unset;\n  border: 1px solid #C9C9C9;\n  color: #C9C9C9;\n\n  &:active,:hover,:focus{\n    border: 1px solid #3F3F3F;\n  }\n}\n  .react-calendar__tile--active{\n    background-color: #F5F5FA;\n    color: #232323 !important;\n  }\n\n  .react-calendar__tile--rangeEnd,\n  .react-calendar__tile--rangeStart{\n    background-color: #006edc;\n    color: white !important;\n  }\n\n  .react-calendar__tile--rangeStart{\n    border-top-left-radius: 8px;\n    border-bottom-left-radius: 8px;\n  }\n\n  .react-calendar__tile--rangeEnd{\n    border-top-right-radius: 8px;\n    border-bottom-right-radius: 8px;\n  }\n"])));
+    var Container = styled.div(_templateObject131 || (_templateObject131 = _taggedTemplateLiteral2(["\n  width: 100%;\n  height: 100%;\n  display: flex;\n\n  * {\n    font-family: 'Inter', sans-serif;\n  }\n"])));
     var PageSpeedInsightsContainer = (props) => {
-      return /* @__PURE__ */ jsxRuntime.jsx(ThemeProvider, { theme: studioTheme, children: /* @__PURE__ */ jsxRuntime.jsx(Le, { theme, children: /* @__PURE__ */ jsxRuntime.jsxs(Container, { className: "test", children: [/* @__PURE__ */ jsxRuntime.jsx(GlobalStyle, {}), /* @__PURE__ */ jsxRuntime.jsx(PageSpeedInsightsGui, { ...props })] }) }) });
+      return (
+        // <SanityThemeProvider theme={studioTheme}>
+        /* @__PURE__ */ jsxRuntime.jsxs(Le, { theme: studioTheme, children: [/* @__PURE__ */ jsxRuntime.jsx(GlobalStyle, {}), /* @__PURE__ */ jsxRuntime.jsx(Container, { children: /* @__PURE__ */ jsxRuntime.jsx(PageSpeedInsightsGui, { ...props }) })] })
+      );
     };
     function PageSpeedPlugin(props) {
       const client = sanity.useClient({ apiVersion: "2023-01-24" });
