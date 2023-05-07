@@ -29,7 +29,7 @@
     "react-is": "^18.2.0",
     "react-minimal-pie-chart": "^8.4.0",
     "sanity": "^3.9.0",
-    "sanity-plugin-page-speed-monitoring": "file:.yalc/sanity-plugin-page-speed-monitoring",
+    "sanity-plugin-page-speed-monitoring-test": "file:.yalc/sanity-plugin-page-speed-monitoring-test",
     "styled-components": "^5.3.6",
     "validator": "^13.9.0"
   },

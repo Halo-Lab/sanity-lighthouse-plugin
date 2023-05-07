@@ -9,7 +9,7 @@ import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
 // import {pageSpeedPlugin} from './plugins/page-speed-insights'
 // import {pageSpeedMonitoringPlugin} from './plugins/page-speed-monitoring/src'
-import {pageSpeedMonitoringPlugin} from 'sanity-plugin-page-speed-monitoring'
+import {pageSpeedMonitoringPlugin} from 'sanity-plugin-page-speed-monitoring-test'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID
 const dataset = process.env.SANITY_STUDIO_DATASET
@@ -31,7 +31,7 @@ export default defineConfig({
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
     // pageSpeedPlugin({API_KEY}),
-    pageSpeedMonitoringPlugin(API_KEY),
+    pageSpeedMonitoringPlugin({API_KEY}),
   ],
 
   schema: {

@@ -1,4 +1,4 @@
-import styled, {ThemeProvider} from 'styled-components'
+import styled from 'styled-components'
 import {ThemeProvider as SanityThemeProvider, studioTheme} from '@sanity/ui'
 import PageSpeedInsightsGui from '../components/PageSpeedInsightsGui'
 import GlobalStyle from '../styles/globalStyles'
@@ -29,14 +29,12 @@ export const Container = styled.div`
 
 const PageSpeedInsightsContainer = (props: any) => {
   return (
-    // <SanityThemeProvider theme={studioTheme}>
-    <ThemeProvider theme={studioTheme}>
+    <SanityThemeProvider theme={studioTheme}>
       <GlobalStyle />
       <Container>
         <PageSpeedInsightsGui {...props} />
       </Container>
-    </ThemeProvider>
-    // </SanityThemeProvider>
+    </SanityThemeProvider>
   )
 }
 

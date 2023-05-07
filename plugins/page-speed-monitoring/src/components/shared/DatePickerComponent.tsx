@@ -1,23 +1,16 @@
 import {memo} from 'react'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
-// import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css'
-// import 'react-calendar/dist/Calendar.css'
-import styled from 'styled-components'
 import {formatDate} from '../../helpers/formatedData'
 import {CalendarIcon} from '../../asset/CalendarIcon'
-
-const Container = styled.div`
-  display: flex;
-  margin: 0px 0px auto;
-`
+import DatePickerContainer from '../../styles/DatePickerContainer'
 
 export const DatePickerComponent = ({value, onChange, markDateList}: any) => {
   return (
-    <Container>
+    <DatePickerContainer>
       <DateRangePicker
         onChange={onChange}
         value={value}
-        tileClassName={({date, view}: any) => {
+        tileClassName={({date}: any) => {
           const classesList: any = []
 
           if (markDateList.find((x: any) => x === formatDate(date).split(',')[0])) {
@@ -31,7 +24,7 @@ export const DatePickerComponent = ({value, onChange, markDateList}: any) => {
         calendarIcon={CalendarIcon}
         className={'calendarContainer'}
       />
-    </Container>
+    </DatePickerContainer>
   )
 }
 
