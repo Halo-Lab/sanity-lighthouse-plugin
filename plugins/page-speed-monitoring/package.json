@@ -51,6 +51,7 @@
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
     "react-chartjs-2": "^5.2.0",
+    "react-helmet": "^6.1.0",
     "react-minimal-pie-chart": "^8.4.0",
     "validator": "^13.9.0"
   },

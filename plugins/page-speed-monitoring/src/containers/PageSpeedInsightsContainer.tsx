@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {ThemeProvider as SanityThemeProvider, studioTheme} from '@sanity/ui'
 import PageSpeedInsightsGui from '../components/PageSpeedInsightsGui'
 import GlobalStyle from '../styles/globalStyles'
+import {Helmet} from 'react-helmet'
 
 export const Container = styled.div`
   width: 100%;
@@ -31,6 +32,12 @@ const PageSpeedInsightsContainer = (props: any) => {
   return (
     <SanityThemeProvider theme={studioTheme}>
       <GlobalStyle />
+      <Helmet>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins&display=swap"
+          rel="stylesheet"
+        />
+      </Helmet>
       <Container>
         <PageSpeedInsightsGui {...props} />
       </Container>
