@@ -12,8 +12,8 @@ import {
   InputIcon,
   InputSpinner,
 } from '../styles/InputStyle'
-import {TickIcon} from '../asset/TickIcon.js'
-import {LinkIcon} from '../asset/LinkIcon.js'
+import {TickIcon} from '../assets/icons/TickIcon.js'
+import {LinkIcon} from '../assets/icons/LinkIcon.js'
 import SpinnerComponent from './shared/CustomSpinner.jsx'
 
 export const InputComponent = ({

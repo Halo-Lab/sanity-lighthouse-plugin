@@ -9,7 +9,7 @@ import {
 } from '../styles/HistoryMenuStyle'
 // import {Flex} from '@sanity/ui'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
-import {TrashIcon} from '../asset/TrashIcon'
+import {TrashIcon} from '../assets/icons/TrashIcon'
 
 const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}: any) => {
   const isDisable = state === STATE_TYPE.loading

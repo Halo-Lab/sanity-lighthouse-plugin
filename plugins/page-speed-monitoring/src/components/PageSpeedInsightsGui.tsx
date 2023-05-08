@@ -10,7 +10,7 @@ import Tab from './TabComponent'
 import Loading from './shared/LoadingComponent'
 import {CustomSpinner} from './shared/CustomSpinner'
 import {getMonthByIdx} from '../helpers/functions'
-import {RefreshIcon} from '../asset/RefreshIcon'
+import {RefreshIcon} from '../assets/icons/RefreshIcon'
 
 const errorMassageText = 'Server error. Please try again later.'
 

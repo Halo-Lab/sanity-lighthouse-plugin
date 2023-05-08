@@ -1,5 +1,5 @@
 import {CheckboxContainer, CheckboxIconContainer, CheckboxLabel} from '../../styles/InputStyle'
-import {TickIcon} from '../../asset/TickIcon'
+import {TickIcon} from '../../assets/icons/TickIcon'
 
 export const CustomCheckBox = ({checked, isDisable = false, handleChange, label = '', id}: any) => {
   return (

@@ -1,7 +1,7 @@
 import {memo} from 'react'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import {formatDate} from '../../helpers/formatedData'
-import {CalendarIcon} from '../../asset/CalendarIcon'
+import {CalendarIcon} from '../../assets/icons/CalendarIcon'
 import DatePickerContainer from '../../styles/DatePickerContainer'
 
 export const DatePickerComponent = ({value, onChange, markDateList}: any) => {
