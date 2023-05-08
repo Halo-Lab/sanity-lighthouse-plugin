@@ -24,23 +24,39 @@ margin: 0px 0px auto;
   }
   
   .react-daterange-picker__wrapper {
+    padding: 10px;
     display: flex;
     flex-grow: 1;
     flex-shrink: 0;
     align-items: center;
-    border: thin solid gray;
+    justify-content: flex-start;
+
+    border-radius: 4px;
+    outline: unset;
+    border: 1px solid #C9C9C9;
+    color: #888888;
+    cursor: pointer;
+  
+    &:active,:hover,:focus{
+      border: 1px solid #3F3F3F;
+    }
   }
   
   .react-daterange-picker__inputGroup {
-    min-width: calc((4px * 3) + 0.54em * 8 + 0.217em * 2);
+    width: fit-content;
     height: 100%;
     flex-grow: 1;
     padding: 0 2px;
     box-sizing: content-box;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3F3F3F;
   }
   
   .react-daterange-picker__inputGroup__divider {
-    padding: 1px 0;
+    padding: 2px 0;
     white-space: pre;
   }
   
@@ -50,14 +66,10 @@ margin: 0px 0px auto;
   }
   
   .react-daterange-picker__inputGroup__input {
-    min-width: 0.54em;
     height: 100%;
     position: relative;
-    padding: 0 1px;
     border: 0;
     background: none;
-    color: currentColor;
-    font: inherit;
     box-sizing: content-box;
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
@@ -84,7 +96,8 @@ margin: 0px 0px auto;
   .react-daterange-picker__button {
     border: 0;
     background: transparent;
-    padding: 4px 6px;
+    padding: 0px;
+    margin-left: 5px;
   }
   
   .react-daterange-picker__button:enabled {
@@ -113,13 +126,11 @@ margin: 0px 0px auto;
   .react-daterange-picker__calendar--closed {
     display: none;
   }
+
   .react-calendar {
     width: 350px;
     max-width: 100%;
     background: white;
-    border: 1px solid #a0a096;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.125em;
   }
   
   .react-calendar--doubleView {
@@ -190,12 +201,8 @@ margin: 0px 0px auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75em;
-    font-weight: bold;
-  }
-  
-  .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
+    font-size: 14px;
+    font-weight: 400;
   }
   
   .react-calendar__month-view__days__day--neighboringMonth {
@@ -210,38 +217,32 @@ margin: 0px 0px auto;
   
   .react-calendar__tile {
     max-width: 100%;
-    padding: 10px 6.6667px;
+    padding: 8px;
     background: none;
     text-align: center;
-    line-height: 16px;
+    line-height: 125%;
+    transition: background-color .1s, color .1s, border-radius .1s;
   }
   
   .react-calendar__tile:disabled {
     background-color: #f0f0f0;
   }
   
-  .react-calendar__tile:enabled:hover,
-  .react-calendar__tile:enabled:focus {
-    background-color: #e6e6e6;
+  .react-calendar__tile:not(.react-calendar__tile--active):hover,
+  .react-calendar__tile:not(.react-calendar__tile--active):focus {
+    background-color: #1087ff;
+    color: #ffffff;
+    border-radius: 8px;
   }
   
-  .react-calendar__tile--hasActive {
-    background: #76baff;
+  .react-calendar__tile--hover{
+    background-color: #F5F5FA;
+    color: #232323;
   }
-  
-  .react-calendar__tile--hasActive:enabled:hover,
-  .react-calendar__tile--hasActive:enabled:focus {
-    background: #a9d4ff;
-  }
-  
-  .react-calendar__tile--active {
-    background: #006edc;
-    color: white;
-  }
-  
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: #1087ff;
+
+  .react-calendar__tile--active{
+    background-color: #F5F5FA;
+    color: #232323;
   }
 
   .react-calendar{
@@ -256,29 +257,14 @@ margin: 0px 0px auto;
     border-radius: 8px;
   }
 
-.react-calendar__month-view__weekdays__weekday{
-  display: none;
-}
-
-.react-daterange-picker__wrapper{ 
-  border-radius: 4px;
-  outline: unset;
-  border: 1px solid #C9C9C9;
-  color: #C9C9C9;
-
-  &:active,:hover,:focus{
-    border: 1px solid #3F3F3F;
-  }
-}
-  .react-calendar__tile--active{
-    background-color: #F5F5FA;
-    color: #232323 !important;
+  .react-calendar__month-view__weekdays__weekday{
+    display: none;
   }
 
   .react-calendar__tile--rangeEnd,
   .react-calendar__tile--rangeStart{
-    background-color: #006edc;
-    color: white !important;
+    background-color: #3719CA !important;
+    color: #fff;
   }
 
   .react-calendar__tile--rangeStart{
@@ -296,16 +282,16 @@ margin: 0px 0px auto;
     position: relative;
   
       &:after{
+        display: block;
         content: '•';
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%,0%);
         color:#3719CA;
-        margin: 4px 0 0 0;
+        margin-top: 2px;
       }
   }
-  
 `
 
 export default DatePickerContainer;

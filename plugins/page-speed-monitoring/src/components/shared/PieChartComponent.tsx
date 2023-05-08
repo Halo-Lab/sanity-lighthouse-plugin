@@ -1,4 +1,3 @@
-import React from 'react'
 import {PieChart} from 'react-minimal-pie-chart'
 import {COLORS, BG_COLORS} from '../../helpers/constants'
 

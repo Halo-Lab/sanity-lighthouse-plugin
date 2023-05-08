@@ -80,7 +80,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
       },
       tooltip: {
         backgroundColor: '#FFFFFF',
-        titleColor: '#02021E',
+        titleColor: '#8083A3',
         bodyColor: '#02021E',
         borderColor: 'rgba(228, 230, 232, 0.4)',
         borderWidth: 1,
@@ -165,6 +165,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
       if (tooltip._active.length > 0) {
         const xCoor = x.getPixelForValue(tooltip.dataPoints[0].dataIndex)
         const yCoor = y.getPixelForValue(tooltip.dataPoints[0].parsed.y)
+        console.log(tooltip)
 
         ctx.save()
         ctx.beginPath()
