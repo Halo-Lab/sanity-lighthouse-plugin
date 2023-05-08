@@ -12,20 +12,6 @@ export const MainContainer = styled.div`
     font-family: 'Inter', sans-serif;
   }
 `
-// const theme = {
-//   colors: {
-//     mB: '#E4E6E8', //main border color
-//     accent: '#3719CA',
-//     textBlack: '#2B2B2B',
-//     green: '#4BBD7E',
-//     yellow: '#F4BE5E',
-//     chGreen: '#5CC971',
-//     chOrange: '#F3AE4E',
-//     chRed: '#EB483F',
-//     lineGray: '#4E809F',
-//     lineOrange: 'D1684D',
-//   },
-// }
 
 const PageSpeedInsightsContainer = (props: any) => {
   return (

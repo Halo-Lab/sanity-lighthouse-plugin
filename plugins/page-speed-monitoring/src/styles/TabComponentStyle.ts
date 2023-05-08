@@ -1,5 +1,5 @@
-import styled, {keyframes} from 'styled-components'
-import {ButtonResetAll} from './PageSpeedInsightsGuiStyles'
+import styled, { keyframes } from 'styled-components'
+import { ButtonResetAll } from './PageSpeedInsightsGuiStyles'
 
 const fadeIn = keyframes`
   from {
@@ -56,7 +56,7 @@ export const TabButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: ${({active, theme}: {active: boolean; theme: any}) =>
+  color: ${({ active }: { active: boolean }) =>
     active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
   background-color: unset;
   border: unset;
@@ -72,20 +72,20 @@ export const TabButton = styled.button`
 
   transition: all 0.3s ease-in-out;
   svg > path {
-    stroke: ${({active, theme}: {active: boolean; theme: any}) =>
-      active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
+    stroke: ${({ active }: { active: boolean }) =>
+    active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
     transition: stroke 0.3s ease-in-out;
   }
 `
 
 export const TabLine = styled.span`
   height: 3px;
-  background-color: ${({theme}) => '#3719CA'};
+  background-color: #3719CA;
   border-radius: 5px 5px 0 0;
   width: 100%;
 `
 export const TabContent = styled.div`
-  display: ${({active}: {active: boolean}) => (active ? 'flex' : 'none')};
+  display: ${({ active }: { active: boolean }) => (active ? 'flex' : 'none')};
   animation: ${fadeIn} 0.5s ease-in-out;
   flex-direction: column;
   padding: 32px 40px 24px;
@@ -118,7 +118,7 @@ export const Link = styled.a`
   color: #121212;
 
   :hover {
-    color: ${({theme}) => '#3719CA'};
+    color: #3719CA;
   }
 `
 export const LinkDetails = styled(Link)`
@@ -130,7 +130,7 @@ export const LinkDetails = styled(Link)`
   white-space: nowrap;
   :hover {
     svg > path {
-      stroke: ${({theme}) => '#3719CA'};
+      stroke: #3719CA;
     }
   }
 `
@@ -147,10 +147,8 @@ export const DescriptItem = styled.span`
   justify-content: center;
   white-space: nowrap;
   gap: 8px;
-
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-
   color: #121212;
 `

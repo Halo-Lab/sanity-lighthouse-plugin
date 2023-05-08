@@ -48,7 +48,6 @@ var require_dist = __commonJS({
     var _templateObject128;
     var _templateObject129;
     var _templateObject130;
-    var _templateObject131;
     function _taggedTemplateLiteral2(strings, raw) {
       if (!raw) {
         raw = strings.slice(0);
@@ -66,6 +65,7 @@ var require_dist = __commonJS({
     var chart_js = require("chart.js");
     var reactChartjs2 = require("react-chartjs-2");
     var DateRangePicker = require("@wojtekmaj/react-daterange-picker");
+    var reactHelmet = require("react-helmet");
     function _interopDefaultCompat(e) {
       return e && typeof e === "object" && "default" in e ? e : { default: e };
     }
@@ -1095,7 +1095,7 @@ var require_dist = __commonJS({
                         break;
                       }
                     default:
-                      58 !== f.charCodeAt(t - 1) && (p += P2(f, q2, g2, f.charCodeAt(2)));
+                      58 !== f.charCodeAt(t - 1) && (p += P(f, q2, g2, f.charCodeAt(2)));
                   }
                 I2 = r = u = q2 = 0;
                 f = "";
@@ -1268,7 +1268,7 @@ var require_dist = __commonJS({
         }
         return d + c;
       }
-      function P2(d, c, e, h2) {
+      function P(d, c, e, h2) {
         var a = d + ";", m2 = 2 * c + 3 * e + 4 * h2;
         if (944 === m2) {
           d = a.indexOf(":", 9) + 1;
@@ -1375,7 +1375,7 @@ var require_dist = __commonJS({
           case 931:
           case 953:
             if (true === la.test(d))
-              return 115 === (b2 = d.substring(d.indexOf(":") + 1)).charCodeAt(0) ? P2(d.replace("stretch", "fill-available"), c, e, h2).replace(":fill-available", ":stretch") : a.replace(b2, "-webkit-" + b2) + a.replace(b2, "-moz-" + b2.replace("fill-", "")) + a;
+              return 115 === (b2 = d.substring(d.indexOf(":") + 1)).charCodeAt(0) ? P(d.replace("stretch", "fill-available"), c, e, h2).replace(":fill-available", ":stretch") : a.replace(b2, "-webkit-" + b2) + a.replace(b2, "-moz-" + b2.replace("fill-", "")) + a;
             break;
           case 962:
             if (a = "-webkit-" + a + (102 === a.charCodeAt(5) ? "-ms-" + a : "") + a, 211 === e + h2 && 105 === a.charCodeAt(13) && 0 < a.indexOf("transform", 10))
@@ -1389,7 +1389,7 @@ var require_dist = __commonJS({
         return R2(2 !== c ? h2 : h2.replace(na, "$1"), e, c);
       }
       function ea(d, c) {
-        var e = P2(c, c.charCodeAt(0), c.charCodeAt(1), c.charCodeAt(2));
+        var e = P(c, c.charCodeAt(0), c.charCodeAt(1), c.charCodeAt(2));
         return e !== c + ";" ? e.replace(oa, " or ($1)").substring(4) : "(" + c + ")";
       }
       function H2(d, c, e, h2, a, m2, b2, v2, n, q2) {
@@ -1854,7 +1854,6 @@ var require_dist = __commonJS({
     var N = "undefined" != typeof process && void 0 !== process.env && (process.env.REACT_APP_SC_ATTR || process.env.SC_ATTR) || "data-styled";
     var C = "undefined" != typeof window && "HTMLElement" in window;
     var I = Boolean("boolean" == typeof SC_DISABLE_SPEEDY ? SC_DISABLE_SPEEDY : "undefined" != typeof process && void 0 !== process.env && (void 0 !== process.env.REACT_APP_SC_DISABLE_SPEEDY && "" !== process.env.REACT_APP_SC_DISABLE_SPEEDY ? "false" !== process.env.REACT_APP_SC_DISABLE_SPEEDY && process.env.REACT_APP_SC_DISABLE_SPEEDY : void 0 !== process.env.SC_DISABLE_SPEEDY && "" !== process.env.SC_DISABLE_SPEEDY ? "false" !== process.env.SC_DISABLE_SPEEDY && process.env.SC_DISABLE_SPEEDY : "production" !== process.env.NODE_ENV));
-    var P = {};
     var O = "production" !== process.env.NODE_ENV ? { 1: "Cannot create styled-component for component: %s.\n\n", 2: "Can't collect styles once you've consumed a `ServerStyleSheet`'s styles! `ServerStyleSheet` is a one off instance for each server-side render cycle.\n\n- Are you trying to reuse it across renders?\n- Are you accidentally calling collectStyles twice?\n\n", 3: "Streaming SSR is only supported in a Node.js environment; Please do not try to call this method in the browser.\n\n", 4: "The `StyleSheetManager` expects a valid target or sheet prop!\n\n- Does this error occur on the client and is your target falsy?\n- Does this error occur on the server and is the sheet falsy?\n\n", 5: "The clone method cannot be used on the client!\n\n- Are you running in a client-like environment on the server?\n- Are you trying to run SSR on the client?\n\n", 6: "Trying to insert a new style tag, but the given Node is unmounted!\n\n- Are you using a custom target that isn't mounted?\n- Does your document not have a valid head element?\n- Have you accidentally removed a style tag manually?\n\n", 7: 'ThemeProvider: Please return an object from your "theme" prop function, e.g.\n\n```js\ntheme={() => ({})}\n```\n\n', 8: 'ThemeProvider: Please make your "theme" prop an object.\n\n', 9: "Missing document `<head>`\n\n", 10: "Cannot find a StyleSheet instance. Usually this happens if there are multiple copies of styled-components loaded at once. Check out this issue for how to troubleshoot and fix the common cases where this situation can happen: https://github.com/styled-components/styled-components/issues/1941#issuecomment-417862021\n\n", 11: "_This error was replaced with a dev-time warning, it will be deleted for v4 final._ [createGlobalStyle] received children which will not be rendered. Please use the component without passing children elements.\n\n", 12: "It seems you are interpolating a keyframe declaration (%s) into an untagged string. This was supported in styled-components v3, but is not longer supported in v4 as keyframes are now injected on-demand. Please wrap your string in the css\\`\\` helper which ensures the styles are injected correctly. See https://www.styled-components.com/docs/api#css\n\n", 13: "%s is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.\n\n", 14: 'ThemeProvider: "theme" prop is required.\n\n', 15: "A stylis plugin has been supplied that is not named. We need a name for each plugin to be able to prevent styling collisions between different stylis configurations within the same app. Before you pass your plugin to `<StyleSheetManager stylisPlugins={[]}>`, please make sure each plugin is uniquely-named, e.g.\n\n```js\nObject.defineProperty(importedPlugin, 'name', { value: 'some-unique-name' });\n```\n\n", 16: "Reached the limit of how many styled components may be created at group %s.\nYou may only create up to 1,073,741,824 components. If you're creating components dynamically,\nas for instance in your render method then you may be running into this limitation.\n\n", 17: "CSSStyleSheet could not be found on HTMLStyleElement.\nHas styled-components' style tag been unmounted or altered by another script?\n" } : {};
     function R() {
       for (var e = arguments.length <= 0 ? void 0 : arguments[0], t = [], n = 1, r = arguments.length; n < r; n += 1)
@@ -2345,7 +2344,7 @@ var require_dist = __commonJS({
       o && e.shouldForwardProp && (A = t.shouldForwardProp ? function(n2, r, o2) {
         return e.shouldForwardProp(n2, r, o2) && t.shouldForwardProp(n2, r, o2);
       } : e.shouldForwardProp);
-      var C2, I2 = new oe(n, g2, o ? e.componentStyle : void 0), P2 = I2.isStatic && 0 === c.length, O2 = function(e2, t2) {
+      var C2, I2 = new oe(n, g2, o ? e.componentStyle : void 0), P = I2.isStatic && 0 === c.length, O2 = function(e2, t2) {
         return function(e3, t3, n2, r) {
           var o2 = e3.attrs, i2 = e3.componentStyle, a2 = e3.defaultProps, c2 = e3.foldedComponentIds, d2 = e3.shouldForwardProp, h3 = e3.styledComponentId, p2 = e3.target;
           "production" !== process.env.NODE_ENV && React$2.useDebugValue(h3);
@@ -2364,7 +2363,7 @@ var require_dist = __commonJS({
           for (var I3 in A2)
             "$" !== I3[0] && "as" !== I3 && ("forwardedAs" === I3 ? C3.as = A2[I3] : (d2 ? d2(I3, isPropValid, _2) : !N3 || isPropValid(I3)) && (C3[I3] = A2[I3]));
           return t3.style && g3.style !== t3.style && (C3.style = v({}, t3.style, {}, g3.style)), C3.className = Array.prototype.concat(c2, h3, S2 !== h3 ? S2 : null, t3.className, g3.className).filter(Boolean).join(" "), C3.ref = b2, React$2.createElement(_2, C3);
-        }(C2, e2, t2, P2);
+        }(C2, e2, t2, P);
       };
       return O2.displayName = y2, (C2 = React__namespace.default.forwardRef(O2)).attrs = N2, C2.componentStyle = I2, C2.displayName = y2, C2.shouldForwardProp = A, C2.foldedComponentIds = o ? Array.prototype.concat(e.foldedComponentIds, e.styledComponentId) : S, C2.styledComponentId = g2, C2.target = o ? e.target : e, C2.withComponent = function(e2) {
         var r = t.componentId, o2 = function(e3, t2) {
@@ -2409,40 +2408,6 @@ var require_dist = __commonJS({
     ["a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "big", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "marquee", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "picture", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", "section", "select", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "u", "ul", "var", "video", "wbr", "circle", "clipPath", "defs", "ellipse", "foreignObject", "g", "image", "line", "linearGradient", "marker", "mask", "path", "pattern", "polygon", "polyline", "radialGradient", "rect", "stop", "svg", "text", "textPath", "tspan"].forEach(function(e) {
       qe[e] = qe(e);
     });
-    var He = function() {
-      function e(e2, t2) {
-        this.rules = e2, this.componentId = t2, this.isStatic = ne$1(e2), X.registerId(this.componentId + 1);
-      }
-      var t = e.prototype;
-      return t.createStyles = function(e2, t2, n, r) {
-        var o = r(_e(this.rules, t2, n, r).join(""), ""), s = this.componentId + e2;
-        n.insertRules(s, s, o);
-      }, t.removeStyles = function(e2, t2) {
-        t2.clearRules(this.componentId + e2);
-      }, t.renderStyles = function(e2, t2, n, r) {
-        e2 > 2 && X.registerId(this.componentId + e2), this.removeStyles(e2, n), this.createStyles(e2, t2, n, r);
-      }, e;
-    }();
-    function $e(e) {
-      for (var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), o = 1; o < t; o++)
-        n[o - 1] = arguments[o];
-      var i = Ae.apply(void 0, [e].concat(n)), a = "sc-global-" + Te(JSON.stringify(i)), u = new He(i, a);
-      function l2(e2) {
-        var t2 = pe(), n2 = fe(), o2 = React$2.useContext(Me), u2 = React$2.useRef(t2.allocateGSInstance(a)).current;
-        return "production" !== process.env.NODE_ENV && React__namespace.default.Children.count(e2.children) && console.warn("The global style component " + a + " was given child JSX. createGlobalStyle does not render children."), "production" !== process.env.NODE_ENV && i.some(function(e3) {
-          return "string" == typeof e3 && -1 !== e3.indexOf("@import");
-        }) && console.warn("Please do not use @import CSS syntax in createGlobalStyle at this time, as the CSSOM APIs we use in production do not handle it well. Instead, we recommend using a library such as react-helmet to inject a typical <link> meta tag to the stylesheet, or simply embedding it manually in your index.html <head> section for a simpler app."), t2.server && d(u2, e2, t2, o2, n2), null;
-      }
-      function d(e2, t2, n2, r, o2) {
-        if (u.isStatic)
-          u.renderStyles(e2, P, n2, o2);
-        else {
-          var s = v({}, t2, { theme: Oe(t2, r, l2.defaultProps) });
-          u.renderStyles(e2, s, n2, o2);
-        }
-      }
-      return "production" !== process.env.NODE_ENV && Pe(a), React__namespace.default.memo(l2);
-    }
     function We(e) {
       "production" !== process.env.NODE_ENV && "undefined" != typeof navigator && "ReactNative" === navigator.product && console.warn("`keyframes` cannot be used on ReactNative, only on the web. To do animation in ReactNative please use Animated.");
       for (var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1; r < t; r++)
@@ -9760,9 +9725,9 @@ var require_dist = __commonJS({
             v2 = null, y2 = c, z2 = false;
           }
         }
-        var N2 = false, O2 = null, L2 = -1, P2 = 5, Q2 = -1;
+        var N2 = false, O2 = null, L2 = -1, P = 5, Q2 = -1;
         function M2() {
-          return exports2.unstable_now() - Q2 < P2 ? false : true;
+          return exports2.unstable_now() - Q2 < P ? false : true;
         }
         function R2() {
           if (null !== O2) {
@@ -9814,7 +9779,7 @@ var require_dist = __commonJS({
           A || z2 || (A = true, I2(J2));
         };
         exports2.unstable_forceFrameRate = function(a) {
-          0 > a || 125 < a ? console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported") : P2 = 0 < a ? Math.floor(1e3 / a) : 5;
+          0 > a || 125 < a ? console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported") : P = 0 < a ? Math.floor(1e3 / a) : 5;
         };
         exports2.unstable_getCurrentPriorityLevel = function() {
           return y2;
@@ -11855,9 +11820,9 @@ var require_dist = __commonJS({
       function Ge(a, b2) {
         return a === b2 && (0 !== a || 1 / a === 1 / b2) || a !== a && b2 !== b2;
       }
-      var He2 = "function" === typeof Object.is ? Object.is : Ge;
+      var He = "function" === typeof Object.is ? Object.is : Ge;
       function Ie2(a, b2) {
-        if (He2(a, b2))
+        if (He(a, b2))
           return true;
         if ("object" !== typeof a || null === a || "object" !== typeof b2 || null === b2)
           return false;
@@ -11866,7 +11831,7 @@ var require_dist = __commonJS({
           return false;
         for (d = 0; d < c.length; d++) {
           var e = c[d];
-          if (!ja.call(b2, e) || !He2(a[e], b2[e]))
+          if (!ja.call(b2, e) || !He(a[e], b2[e]))
             return false;
         }
         return true;
@@ -11970,7 +11935,7 @@ var require_dist = __commonJS({
             return Xe[a] = b2[c];
         return a;
       }
-      var $e2 = Ze2("animationend"), af2 = Ze2("animationiteration"), bf = Ze2("animationstart"), cf = Ze2("transitionend"), df = /* @__PURE__ */ new Map(), ef = "abort auxClick cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(" ");
+      var $e = Ze2("animationend"), af2 = Ze2("animationiteration"), bf = Ze2("animationstart"), cf = Ze2("transitionend"), df = /* @__PURE__ */ new Map(), ef = "abort auxClick cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel".split(" ");
       function ff(a, b2) {
         df.set(a, b2);
         fa(b2, [a]);
@@ -11979,7 +11944,7 @@ var require_dist = __commonJS({
         var hf = ef[gf], jf = hf.toLowerCase(), kf = hf[0].toUpperCase() + hf.slice(1);
         ff(jf, "on" + kf);
       }
-      ff($e2, "onAnimationEnd");
+      ff($e, "onAnimationEnd");
       ff(af2, "onAnimationIteration");
       ff(bf, "onAnimationStart");
       ff("dblclick", "onDoubleClick");
@@ -12163,7 +12128,7 @@ var require_dist = __commonJS({
                 case "touchstart":
                   k3 = Vd;
                   break;
-                case $e2:
+                case $e:
                 case af2:
                 case bf:
                   k3 = Hd;
@@ -13359,7 +13324,7 @@ var require_dist = __commonJS({
           Nh[a]._workInProgressVersionPrimary = null;
         Nh.length = 0;
       }
-      var Ph = ua.ReactCurrentDispatcher, Qh = ua.ReactCurrentBatchConfig, Rh = 0, N2 = null, O2 = null, P2 = null, Sh = false, Th = false, Uh = 0, Vh = 0;
+      var Ph = ua.ReactCurrentDispatcher, Qh = ua.ReactCurrentBatchConfig, Rh = 0, N2 = null, O2 = null, P = null, Sh = false, Th = false, Uh = 0, Vh = 0;
       function Q2() {
         throw Error(p(321));
       }
@@ -13367,7 +13332,7 @@ var require_dist = __commonJS({
         if (null === b2)
           return false;
         for (var c = 0; c < b2.length && c < a.length; c++)
-          if (!He2(a[c], b2[c]))
+          if (!He(a[c], b2[c]))
             return false;
         return true;
       }
@@ -13387,7 +13352,7 @@ var require_dist = __commonJS({
             if (25 <= f)
               throw Error(p(301));
             f += 1;
-            P2 = O2 = null;
+            P = O2 = null;
             b2.updateQueue = null;
             Ph.current = $h;
             a = c(d, e);
@@ -13396,7 +13361,7 @@ var require_dist = __commonJS({
         Ph.current = ai;
         b2 = null !== O2 && null !== O2.next;
         Rh = 0;
-        P2 = O2 = N2 = null;
+        P = O2 = N2 = null;
         Sh = false;
         if (b2)
           throw Error(p(300));
@@ -13409,8 +13374,8 @@ var require_dist = __commonJS({
       }
       function ci() {
         var a = { memoizedState: null, baseState: null, baseQueue: null, queue: null, next: null };
-        null === P2 ? N2.memoizedState = P2 = a : P2 = P2.next = a;
-        return P2;
+        null === P ? N2.memoizedState = P = a : P = P.next = a;
+        return P;
       }
       function di() {
         if (null === O2) {
@@ -13418,17 +13383,17 @@ var require_dist = __commonJS({
           a = null !== a ? a.memoizedState : null;
         } else
           a = O2.next;
-        var b2 = null === P2 ? N2.memoizedState : P2.next;
+        var b2 = null === P ? N2.memoizedState : P.next;
         if (null !== b2)
-          P2 = b2, O2 = a;
+          P = b2, O2 = a;
         else {
           if (null === a)
             throw Error(p(310));
           O2 = a;
           a = { memoizedState: O2.memoizedState, baseState: O2.baseState, baseQueue: O2.baseQueue, queue: O2.queue, next: null };
-          null === P2 ? N2.memoizedState = P2 = a : P2 = P2.next = a;
+          null === P ? N2.memoizedState = P = a : P = P.next = a;
         }
-        return P2;
+        return P;
       }
       function ei(a, b2) {
         return "function" === typeof b2 ? b2(a) : b2;
@@ -13465,7 +13430,7 @@ var require_dist = __commonJS({
             l2 = l2.next;
           } while (null !== l2 && l2 !== f);
           null === k2 ? g2 = d : k2.next = h2;
-          He2(d, b2.memoizedState) || (Ug = true);
+          He(d, b2.memoizedState) || (Ug = true);
           b2.memoizedState = d;
           b2.baseState = g2;
           b2.baseQueue = k2;
@@ -13493,7 +13458,7 @@ var require_dist = __commonJS({
           do
             f = a(f, g2.action), g2 = g2.next;
           while (g2 !== e);
-          He2(f, b2.memoizedState) || (Ug = true);
+          He(f, b2.memoizedState) || (Ug = true);
           b2.memoizedState = f;
           null === b2.baseQueue && (b2.baseState = f);
           c.lastRenderedState = f;
@@ -13503,11 +13468,11 @@ var require_dist = __commonJS({
       function hi() {
       }
       function ii2(a, b2) {
-        var c = N2, d = di(), e = b2(), f = !He2(d.memoizedState, e);
+        var c = N2, d = di(), e = b2(), f = !He(d.memoizedState, e);
         f && (d.memoizedState = e, Ug = true);
         d = d.queue;
         ji(ki.bind(null, c, d, a), [a]);
-        if (d.getSnapshot !== b2 || f || null !== P2 && P2.memoizedState.tag & 1) {
+        if (d.getSnapshot !== b2 || f || null !== P && P.memoizedState.tag & 1) {
           c.flags |= 2048;
           li(9, mi.bind(null, c, d, e, b2), void 0, null);
           if (null === R2)
@@ -13537,7 +13502,7 @@ var require_dist = __commonJS({
         a = a.value;
         try {
           var c = b2();
-          return !He2(a, c);
+          return !He(a, c);
         } catch (d) {
           return true;
         }
@@ -13634,7 +13599,7 @@ var require_dist = __commonJS({
       function Di(a, b2, c) {
         if (0 === (Rh & 21))
           return a.baseState && (a.baseState = false, Ug = true), a.memoizedState = c;
-        He2(c, b2) || (c = yc(), N2.lanes |= c, hh |= c, a.baseState = true);
+        He(c, b2) || (c = yc(), N2.lanes |= c, hh |= c, a.baseState = true);
         return b2;
       }
       function Ei(a, b2) {
@@ -13674,7 +13639,7 @@ var require_dist = __commonJS({
               var g2 = b2.lastRenderedState, h2 = f(g2, c);
               e.hasEagerState = true;
               e.eagerState = h2;
-              if (He2(h2, g2)) {
+              if (He(h2, g2)) {
                 var k2 = b2.interleaved;
                 null === k2 ? (e.next = e, Xg(b2)) : (e.next = k2.next, k2.next = e);
                 b2.interleaved = e;
@@ -15788,7 +15753,7 @@ var require_dist = __commonJS({
                 var e = c[d], f = e.getSnapshot;
                 e = e.value;
                 try {
-                  if (!He2(f(), e))
+                  if (!He(f(), e))
                     return false;
                 } catch (g2) {
                   return false;
@@ -15949,7 +15914,7 @@ var require_dist = __commonJS({
               Sh = false;
             }
             Rh = 0;
-            P2 = O2 = N2 = null;
+            P = O2 = N2 = null;
             Th = false;
             Uh = 0;
             ok2.current = null;
@@ -16509,7 +16474,7 @@ var require_dist = __commonJS({
               G2(Mg, d._currentValue);
               d._currentValue = g2;
               if (null !== f)
-                if (He2(f.value, g2)) {
+                if (He(f.value, g2)) {
                   if (f.children === e.children && !Wf.current) {
                     b2 = $i(a, b2, c);
                     break a;
@@ -39524,7 +39489,7 @@ var require_dist = __commonJS({
       return _responsive(media, props.$width, (val) => ({ maxWidth: val === "auto" ? "none" : rem(container[val]) }));
     }
     var Root$r = styled(Box)(containerBaseStyle, responsiveContainerWidthStyle);
-    var Container$5 = React$2.forwardRef(function Container2(props, ref) {
+    var Container$3 = React$2.forwardRef(function Container2(props, ref) {
       const { as, width = 2, ...restProps } = props;
       return /* @__PURE__ */ jsxRuntime.jsx(Root$r, { "data-ui": "Container", ...restProps, $width: useArrayProp(width), forwardedAs: as, ref });
     });
@@ -39990,7 +39955,7 @@ var require_dist = __commonJS({
       return { "&:not([hidden])": { display: "flex" }, flexDirection: "column", width: "max-content", minWidth: "min-content", maxWidth: typeof $boundaryWidth === "number" ? "".concat($boundaryWidth - DEFAULT_POPOVER_PADDING * 2, "px") : void 0 };
     }
     var Root$i = React$2.memo(styled(Card)(popoverCardStyle));
-    var PopoverContainer = React$2.memo(styled(Container$5)(_templateObject35 || (_templateObject35 = _taggedTemplateLiteral(["\n  max-height: inherit;\n  max-width: inherit;\n"]))));
+    var PopoverContainer = React$2.memo(styled(Container$3)(_templateObject35 || (_templateObject35 = _taggedTemplateLiteral(["\n  max-height: inherit;\n  max-width: inherit;\n"]))));
     var PopoverCard = React$2.memo(React$2.forwardRef(function PopoverCard2(props, ref) {
       const { __unstable_margins: marginsProp, arrow: arrow2, arrowRef, arrowX, arrowY, boundaryWidth, children, padding, placement, overflow, radius, scheme, shadow, strategy, style: style2, tone, width = "auto", x: xProp, y: yProp, ...restProps } = props;
       const { zIndex } = useLayer();
@@ -40719,7 +40684,7 @@ var require_dist = __commonJS({
       return containsOrEqualsElement(boundaryElement, target2) || containsOrEqualsElement(portalElement, target2);
     }
     var Root$7 = styled(Layer)(responsivePaddingStyle, dialogStyle, responsiveDialogPositionStyle);
-    var DialogContainer = styled(Container$5)(_templateObject66 || (_templateObject66 = _taggedTemplateLiteral(["\n  &:not([hidden]) {\n    display: flex;\n  }\n  width: 100%;\n  height: 100%;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n"])));
+    var DialogContainer = styled(Container$3)(_templateObject66 || (_templateObject66 = _taggedTemplateLiteral(["\n  &:not([hidden]) {\n    display: flex;\n  }\n  width: 100%;\n  height: 100%;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n"])));
     var DialogCardRoot = styled(Card)(_templateObject67 || (_templateObject67 = _taggedTemplateLiteral(["\n  &:not([hidden]) {\n    display: flex;\n  }\n  width: 100%;\n  min-height: 0;\n  max-height: 100%;\n  overflow: hidden;\n  overflow: clip;\n"])));
     var DialogLayout = styled(Flex$1)(_templateObject68 || (_templateObject68 = _taggedTemplateLiteral(["\n  flex: 1;\n  min-height: 0;\n  width: 100%;\n"])));
     var DialogHeader = styled(Card)(_templateObject69 || (_templateObject69 = _taggedTemplateLiteral(["\n  position: relative;\n  z-index: 2;\n\n  &:after {\n    content: '';\n    display: block;\n    position: absolute;\n    left: 0;\n    right: 0;\n    bottom: -1px;\n    border-bottom: 1px solid var(--card-hairline-soft-color);\n  }\n"])));
@@ -41630,7 +41595,7 @@ var require_dist = __commonJS({
     var BG_COLORS = ["rgba(92, 201, 113, 0.1)", "rgba(243, 174, 78, 0.1)", "rgba(235, 72, 63, 0.1)"];
     var TABS = [{ id: LIST_DEVICES.desktop, label: LIST_DEVICES.desktop }, { id: LIST_DEVICES.mobile, label: LIST_DEVICES.mobile }];
     var COLORS_BAR = ["#E1B53E", "#4190AF", "#D9632B", "#733EE4", "#73A132"];
-    var Container$4 = styled.div(_templateObject90 || (_templateObject90 = _taggedTemplateLiteral2(["\n  display: grid;\n  grid-template-columns: 364px 1fr;\n  width: 100%;\n  max-width: 1440px;\n  margin: 0 auto;\n"])));
+    var Container$2 = styled.div(_templateObject90 || (_templateObject90 = _taggedTemplateLiteral2(["\n  display: grid;\n  grid-template-columns: 364px 1fr;\n  width: 100%;\n  max-width: 1440px;\n  margin: 0 auto;\n"])));
     var ButtonResetAll = styled.button(_templateObject91 || (_templateObject91 = _taggedTemplateLiteral2(["\n  cursor: pointer;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 100%;\n  padding: 11.5px 0;\n  gap: 9px;\n  background-color: ", ";\n\n  font-weight: 600;\n  font-size: 14px;\n  line-height: 1.2;\n\n  color: ", ";\n\n  border: 1px solid ", ";\n  border-radius: 4px;\n  svg > path {\n    stroke: ", ";\n  }\n  &:hover,\n  :focus {\n    background: ", ";\n    border: 1px solid ", ";\n    border-radius: 4px;\n    color: ", ";\n    svg > path {\n      stroke: ", ";\n    }\n  }\n  &:active {\n    background: ", ";\n    border: 1px solid ", ";\n    border-radius: 4px;\n    color: ", ";\n    svg > path {\n      stroke: ", ";\n    }\n  }\n"])), (_ref3) => {
       let { disabled } = _ref3;
       return disabled ? "#DFDFE3" : "transparent";
@@ -41650,10 +41615,10 @@ var require_dist = __commonJS({
       let { disabled } = _ref31;
       return disabled ? "inherit" : "#3719ca";
     }, (_ref32) => {
-      let { theme, disabled } = _ref32;
+      let { disabled } = _ref32;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref33) => {
-      let { theme, disabled } = _ref33;
+      let { disabled } = _ref33;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref34) => {
       let { disabled } = _ref34;
@@ -41662,10 +41627,10 @@ var require_dist = __commonJS({
       let { disabled } = _ref35;
       return disabled ? "inherit" : "#3719ca";
     }, (_ref36) => {
-      let { theme, disabled } = _ref36;
+      let { disabled } = _ref36;
       return disabled ? "#fff" : "#3719CA";
     }, (_ref37) => {
-      let { theme, disabled } = _ref37;
+      let { disabled } = _ref37;
       return disabled ? "#fff" : "#3719CA";
     });
     var ButtonAddPage = styled.button(_templateObject92 || (_templateObject92 = _taggedTemplateLiteral2(["\n  cursor: pointer;\n  width: 100%;\n  max-width: 92px;\n\n  font-weight: 600;\n  font-size: 14px;\n  line-height: 1.2;\n\n  display: flex;\n  align-items: center;\n  text-align: center;\n  justify-content: center;\n\n  color: #ffffff;\n  background: ", ";\n  border: 1px solid transparent;\n  border-radius: 4px;\n  padding: 11.5px 0;\n\n  &:hover,\n  :focus {\n    background: ", ";\n  }\n  &:active {\n    background: ", ";\n  }\n"])), (_ref38) => {
@@ -41747,7 +41712,7 @@ var require_dist = __commonJS({
         return target2.value === "" ? setErrorMessage("") : validate(target2.value);
       }, value: url, placeholder: "Specify page URL", disabled: isDisable, error: Boolean(errorMessage) }), state === STATE_TYPE.loading && /* @__PURE__ */ jsxRuntime.jsx(InputSpinner, { children: /* @__PURE__ */ jsxRuntime.jsx(SpinnerComponent, {}) })] }), /* @__PURE__ */ jsxRuntime.jsx(ButtonAddPage, { type: "button", onClick: handelRequest, disabled: isDisable || !Boolean(device.length), children: "Add page" })] }), /* @__PURE__ */ jsxRuntime.jsx(ErorrMessage, { children: url !== "" && errorMessage })] }), /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { style: { gap: "16px" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(CheckboxContainer, { children: [/* @__PURE__ */ jsxRuntime.jsx(CheckboxIconContainer, { checked: device.includes(LIST_DEVICES.desktop), id: "desktop", "data-disabled": isDisable, onClick: handleChange, children: /* @__PURE__ */ jsxRuntime.jsx(TickIcon, {}) }), /* @__PURE__ */ jsxRuntime.jsx(CheckboxLabel, { children: LIST_DEVICES.desktop })] }), /* @__PURE__ */ jsxRuntime.jsxs(CheckboxContainer, { children: [/* @__PURE__ */ jsxRuntime.jsx(CheckboxIconContainer, { checked: device.includes(LIST_DEVICES.mobile), id: "mobile", "data-disabled": isDisable, onClick: handleChange, children: /* @__PURE__ */ jsxRuntime.jsx(TickIcon, {}) }), /* @__PURE__ */ jsxRuntime.jsx(CheckboxLabel, { children: LIST_DEVICES.mobile })] })] })] }) });
     };
-    var Container$3 = styled.div(_templateObject101 || (_templateObject101 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  gap: 20px;\n  margin: 32px 0 16px;\n  overflow-y: scroll;\n  /* Scrollbar Styling */\n  ::-webkit-scrollbar {\n    width: 5px;\n  }\n\n  ::-webkit-scrollbar-track {\n    background-color: transparent;\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  ::-webkit-scrollbar-thumb {\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n    background: #ebebeb;\n  }\n"])));
+    var Container$1 = styled.div(_templateObject101 || (_templateObject101 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  width: 100%;\n  gap: 20px;\n  margin: 32px 0 16px;\n  overflow-y: scroll;\n  /* Scrollbar Styling */\n  ::-webkit-scrollbar {\n    width: 5px;\n  }\n\n  ::-webkit-scrollbar-track {\n    background-color: transparent;\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  ::-webkit-scrollbar-thumb {\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n    background: #ebebeb;\n  }\n"])));
     var CustomButton = styled.button(_templateObject102 || (_templateObject102 = _taggedTemplateLiteral2(["\n  display: flex;\n  width: 24px;\n  height: 24px;\n\n  align-items: center;\n\n  border: 1px solid ", ";\n  border-radius: 3px;\n  background-color: transparent;\n  cursor: pointer;\n\n  svg > path {\n    stroke: ", ";\n  }\n\n  &:hover,\n  :focus {\n    border: 1px solid ", ";\n    svg > path {\n      stroke: ", ";\n    }\n  }\n  &:active {\n    border: 1px solid ", ";\n    svg > path {\n      stroke: ", ";\n    }\n  }\n"])), (_ref50) => {
       let { disabled } = _ref50;
       return disabled ? "#DFDFE3" : "#c1c1c1";
@@ -41774,7 +41739,7 @@ var require_dist = __commonJS({
     var Flex = styled.div(_templateObject104 || (_templateObject104 = _taggedTemplateLiteral2(["\n  display: flex;\n  gap: 8px;\n  justify-content: space-between;\n  align-items: center;\n"])));
     var DateText = styled.p(_templateObject105 || (_templateObject105 = _taggedTemplateLiteral2(["\n  font-style: normal;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 1.2;\n\n  color: #2b2b2b;\n  margin: 0;\n"])));
     var LinkText = styled.h3(_templateObject106 || (_templateObject106 = _taggedTemplateLiteral2(["\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 1.5;\n\n  color: #2b2b2b;\n  margin: 0;\n"])));
-    var BadgeComponent = styled.div(_templateObject107 || (_templateObject107 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 58px;\n  padding: 3px 12px;\n\n  font-family: 'Poppins';\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 1.4;\n\n  text-align: center;\n  text-transform: capitalize;\n"])), (_ref57) => {
+    var BadgeComponent = styled.div(_templateObject107 || (_templateObject107 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  border: 1px solid ", ";\n  color: ", ";\n  border-radius: 58px;\n  padding: 3px 12px;\n\n  font-family: 'Poppins' !important;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 1.4;\n\n  text-align: center;\n  text-transform: capitalize;\n"])), (_ref57) => {
       let { tone } = _ref57;
       return tone;
     }, (_ref58) => {
@@ -41800,7 +41765,7 @@ var require_dist = __commonJS({
         const showSecondTag = Boolean((_b = (_a2 = categoryList[0]) == null ? void 0 : _a2.mobile) == null ? void 0 : _b.length) && Boolean((_d = (_c = categoryList[0]) == null ? void 0 : _c.desktop) == null ? void 0 : _d.length);
         return /* @__PURE__ */ jsxRuntime.jsxs(Item, { onClick: (e) => handelItem(e, i), active: i === activeItem && true, children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex, { children: [/* @__PURE__ */ jsxRuntime.jsx(Flex, { children: /* @__PURE__ */ jsxRuntime.jsxs(LinkText, { children: [mainInfo.linkReq.slice(0, 22), mainInfo.linkReq.length > 22 && "..."] }) }), /* @__PURE__ */ jsxRuntime.jsx(CustomButton, { disabled: isDisable, id: "deleteButton", type: "button", onClick: (e) => deleteCardByID(mainInfo.linkReq, i), children: /* @__PURE__ */ jsxRuntime.jsx(TrashIcon, {}) })] }), /* @__PURE__ */ jsxRuntime.jsxs(Flex, { children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex, { children: [/* @__PURE__ */ jsxRuntime.jsx(BadgeComponent, { tone: mainInfo.device === LIST_DEVICES.desktop ? "#4BBD7E" : "#F4BE5E", children: mainInfo.device }), showSecondTag && /* @__PURE__ */ jsxRuntime.jsx(BadgeComponent, { tone: mainInfo.device === LIST_DEVICES.desktop ? "#F4BE5E" : "#4BBD7E", children: mainInfo.device === LIST_DEVICES.desktop ? LIST_DEVICES.mobile : LIST_DEVICES.desktop })] }), /* @__PURE__ */ jsxRuntime.jsx(DateText, { children: mainInfo.date.split(",")[0] })] })] }, "".concat(mainInfo.linkReq.slice(0, 10), "-").concat(Math.random()));
       });
-      return /* @__PURE__ */ jsxRuntime.jsx(Container$3, { children: renderItems(data2) });
+      return /* @__PURE__ */ jsxRuntime.jsx(Container$1, { children: renderItems(data2) });
     };
     var _a;
     var endpoint = "https://pagespeedonline.googleapis.com/pagespeedonline/v5/runPagespeed";
@@ -41886,60 +41851,51 @@ var require_dist = __commonJS({
     };
     var fadeIn = We(_templateObject108 || (_templateObject108 = _taggedTemplateLiteral2(["\n  from {\n    opacity: 0;\n    transform: translateY(-10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n"])));
     var TitleContainer = styled.div(_templateObject109 || (_templateObject109 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  gap: 6px;\n\n  font-size: 24px;\n  line-height: 1.21;\n  color: #121212;\n"])));
-    var Container$2 = styled.div(_templateObject110 || (_templateObject110 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  padding: 40px 0 24px;\n  overflow: scroll;\n  /* Scrollbar Styling */\n  ::-webkit-scrollbar {\n    width: 5px;\n  }\n\n  ::-webkit-scrollbar-track {\n    background-color: transparent;\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  ::-webkit-scrollbar-thumb {\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n    background: #ebebeb;\n  }\n"])));
+    var Container = styled.div(_templateObject110 || (_templateObject110 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  padding: 40px 0 24px;\n  overflow: scroll;\n  /* Scrollbar Styling */\n  ::-webkit-scrollbar {\n    width: 5px;\n  }\n\n  ::-webkit-scrollbar-track {\n    background-color: transparent;\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  ::-webkit-scrollbar-thumb {\n    -webkit-border-radius: 5px;\n    border-radius: 5px;\n    background: #ebebeb;\n  }\n"])));
     var TabContainer = styled.div(_templateObject111 || (_templateObject111 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n  padding: 0 40px;\n  animation: ", " 0.5s ease-in-out;\n  border-bottom: 1px solid #E4E6E8;\n"])), fadeIn);
     var TabButton = styled.button(_templateObject112 || (_templateObject112 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  gap: 0.25rem;\n  color: ", ";\n  background-color: unset;\n  border: unset;\n\n  font-weight: 500;\n  font-size: 16px;\n  line-height: 1.19;\n  text-align: center;\n  text-transform: capitalize;\n\n  padding: 0px 9px 16px;\n  cursor: pointer;\n\n  transition: all 0.3s ease-in-out;\n  svg > path {\n    stroke: ", ";\n    transition: stroke 0.3s ease-in-out;\n  }\n"])), (_ref63) => {
-      let { active, theme } = _ref63;
+      let { active } = _ref63;
       return active ? "#3719CA" : "rgba(18, 18, 18, 0.4)";
     }, (_ref64) => {
-      let { active, theme } = _ref64;
+      let { active } = _ref64;
       return active ? "#3719CA" : "rgba(18, 18, 18, 0.4)";
     });
-    var TabLine = styled.span(_templateObject113 || (_templateObject113 = _taggedTemplateLiteral2(["\n  height: 3px;\n  background-color: ", ";\n  border-radius: 5px 5px 0 0;\n  width: 100%;\n"])), (_ref65) => {
-      let { theme } = _ref65;
-      return "#3719CA";
-    });
-    var TabContent = styled.div(_templateObject114 || (_templateObject114 = _taggedTemplateLiteral2(["\n  display: ", ";\n  animation: ", " 0.5s ease-in-out;\n  flex-direction: column;\n  padding: 32px 40px 24px;\n"])), (_ref66) => {
-      let { active } = _ref66;
+    var TabLine = styled.span(_templateObject113 || (_templateObject113 = _taggedTemplateLiteral2(["\n  height: 3px;\n  background-color: #3719CA;\n  border-radius: 5px 5px 0 0;\n  width: 100%;\n"])));
+    var TabContent = styled.div(_templateObject114 || (_templateObject114 = _taggedTemplateLiteral2(["\n  display: ", ";\n  animation: ", " 0.5s ease-in-out;\n  flex-direction: column;\n  padding: 32px 40px 24px;\n"])), (_ref65) => {
+      let { active } = _ref65;
       return active ? "flex" : "none";
     }, fadeIn);
     var FirstSectionContainer = styled.div(_templateObject115 || (_templateObject115 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 40px;\n  border: 1px solid #e4e6e8;\n  border-radius: 4px;\n  padding: 32px;\n  overflow: hidden;\n"])));
     var RenderContainer = styled.div(_templateObject116 || (_templateObject116 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 3%;\n"])));
     var RetestButton = styled(ButtonResetAll)(_templateObject117 || (_templateObject117 = _taggedTemplateLiteral2(["\n  padding: 12px 32px;\n"])));
-    var Link = styled.a(_templateObject118 || (_templateObject118 = _taggedTemplateLiteral2(["\n  text-decoration: underline;\n  font-weight: 600;\n  font-size: 24px;\n  line-height: 1.21;\n  color: #121212;\n\n  :hover {\n    color: ", ";\n  }\n"])), (_ref67) => {
-      let { theme } = _ref67;
-      return "#3719CA";
-    });
-    var LinkDetails = styled(Link)(_templateObject119 || (_templateObject119 = _taggedTemplateLiteral2(["\n  font-size: 14px;\n  line-height: 1.21;\n  text-decoration: unset;\n  display: flex;\n  align-items: center;\n  white-space: nowrap;\n  :hover {\n    svg > path {\n      stroke: ", ";\n    }\n  }\n"])), (_ref68) => {
-      let { theme } = _ref68;
-      return "#3719CA";
-    });
+    var Link = styled.a(_templateObject118 || (_templateObject118 = _taggedTemplateLiteral2(["\n  text-decoration: underline;\n  font-weight: 600;\n  font-size: 24px;\n  line-height: 1.21;\n  color: #121212;\n\n  :hover {\n    color: #3719CA;\n  }\n"])));
+    var LinkDetails = styled(Link)(_templateObject119 || (_templateObject119 = _taggedTemplateLiteral2(["\n  font-size: 14px;\n  line-height: 1.21;\n  text-decoration: unset;\n  display: flex;\n  align-items: center;\n  white-space: nowrap;\n  :hover {\n    svg > path {\n      stroke: #3719CA;\n    }\n  }\n"])));
     var DescriptContainer = styled.div(_templateObject120 || (_templateObject120 = _taggedTemplateLiteral2(["\n  display: flex;\n  gap: 1.25rem;\n  justify-content: center;\n  align-items: flex-start;\n"])));
-    var DescriptItem = styled.span(_templateObject121 || (_templateObject121 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  white-space: nowrap;\n  gap: 8px;\n\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 1.5;\n\n  color: #121212;\n"])));
-    var PieChartComponent = (_ref69) => {
-      let { title, score } = _ref69;
+    var DescriptItem = styled.span(_templateObject121 || (_templateObject121 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  white-space: nowrap;\n  gap: 8px;\n  font-weight: 400;\n  font-size: 14px;\n  line-height: 1.5;\n  color: #121212;\n"])));
+    var PieChartComponent = (_ref66) => {
+      let { title, score } = _ref66;
       const colorChart = score <= 100 ? score < 90 ? score >= 50 ? COLORS[1] : COLORS[2] : COLORS[0] : COLORS[0];
       const colorChartBg = score <= 100 ? score < 90 ? score >= 50 ? BG_COLORS[1] : BG_COLORS[2] : BG_COLORS[0] : BG_COLORS[0];
-      return /* @__PURE__ */ jsxRuntime.jsx("div", { style: { width: "140px" }, children: /* @__PURE__ */ jsxRuntime.jsx(reactMinimalPieChart.PieChart, { data: [{ title, value: score, color: "".concat(colorChart) }], lineWidth: 10, totalValue: 100, labelPosition: 0, label: (_ref70) => {
-        let { dataEntry } = _ref70;
+      return /* @__PURE__ */ jsxRuntime.jsx("div", { style: { width: "140px" }, children: /* @__PURE__ */ jsxRuntime.jsx(reactMinimalPieChart.PieChart, { data: [{ title, value: score, color: "".concat(colorChart) }], lineWidth: 10, totalValue: 100, labelPosition: 0, label: (_ref67) => {
+        let { dataEntry } = _ref67;
         return "".concat(Math.round(dataEntry.percentage));
       }, labelStyle: { fontSize: "25px", fontWeight: "bold", fontFamily: "sans-serif", fill: "".concat(colorChart) }, rounded: true, style: { borderRadius: "50%", backgroundColor: "".concat(colorChartBg) } }) });
     };
     var PieContainer = styled.div(_templateObject122 || (_templateObject122 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 1.5rem;\n  align-items: center;\n"])));
     var Title = styled.h3(_templateObject123 || (_templateObject123 = _taggedTemplateLiteral2(["\n  font-weight: 500;\n  font-size: 18px;\n  line-height: 1.4;\n\n  color: #3e3e3e;\n\n  display: flex;\n  align-items: center;\n  margin: 0;\n"])));
-    var RenderCategories = (_ref71) => {
-      let { item } = _ref71;
+    var RenderCategories = (_ref68) => {
+      let { item } = _ref68;
       const { categories, score, title } = item;
       return /* @__PURE__ */ jsxRuntime.jsxs(PieContainer, { children: [/* @__PURE__ */ jsxRuntime.jsx(PieChartComponent, { title, score }), /* @__PURE__ */ jsxRuntime.jsx(Title, { children: title })] });
     };
     var CalendarIcon = () => {
       return /* @__PURE__ */ jsxRuntime.jsxs("svg", { xmlns: "http://www.w3.org/2000/svg", width: "18", height: "18", viewBox: "0 0 18 18", fill: "none", children: [/* @__PURE__ */ jsxRuntime.jsx("path", { d: "M14.25 3H3.75C2.92157 3 2.25 3.67157 2.25 4.5V15C2.25 15.8284 2.92157 16.5 3.75 16.5H14.25C15.0784 16.5 15.75 15.8284 15.75 15V4.5C15.75 3.67157 15.0784 3 14.25 3Z", stroke: "#8181A5", strokeLinecap: "round", strokeLinejoin: "round" }), /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M12 1.5V4.5", stroke: "#8181A5", strokeLinecap: "round", strokeLinejoin: "round" }), /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M6 1.5V4.5", stroke: "#8181A5", strokeLinecap: "round", strokeLinejoin: "round" }), /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M2.25 7.5H15.75", stroke: "#8181A5", strokeLinecap: "round", strokeLinejoin: "round" })] });
     };
-    var Container$1 = styled.div(_templateObject124 || (_templateObject124 = _taggedTemplateLiteral2(["\n  display: flex;\n  margin: 0px 0px auto;\n"])));
-    var DatePickerComponent = (_ref72) => {
-      let { value, onChange, markDateList } = _ref72;
-      return /* @__PURE__ */ jsxRuntime.jsx(Container$1, { children: /* @__PURE__ */ jsxRuntime.jsx(DateRangePicker__default.default, { onChange, value, tileClassName: (_ref73) => {
-        let { date, view } = _ref73;
+    var DatePickerContainer = styled.div(_templateObject124 || (_templateObject124 = _taggedTemplateLiteral2(["\ndisplay: flex;\nmargin: 0px 0px auto;\n\n.react-daterange-picker {\n    display: inline-flex;\n    position: relative;\n  }\n  \n  .react-daterange-picker,\n  .react-daterange-picker *,\n  .react-daterange-picker *:before,\n  .react-daterange-picker *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n  }\n  \n  .react-daterange-picker--disabled {\n    background-color: #f0f0f0;\n    color: #6d6d6d;\n  }\n  \n  .react-daterange-picker__wrapper {\n    display: flex;\n    flex-grow: 1;\n    flex-shrink: 0;\n    align-items: center;\n    border: thin solid gray;\n  }\n  \n  .react-daterange-picker__inputGroup {\n    min-width: calc((4px * 3) + 0.54em * 8 + 0.217em * 2);\n    height: 100%;\n    flex-grow: 1;\n    padding: 0 2px;\n    box-sizing: content-box;\n  }\n  \n  .react-daterange-picker__inputGroup__divider {\n    padding: 1px 0;\n    white-space: pre;\n  }\n  \n  .react-daterange-picker__inputGroup__divider,\n  .react-daterange-picker__inputGroup__leadingZero {\n    display: inline-block;\n  }\n  \n  .react-daterange-picker__inputGroup__input {\n    min-width: 0.54em;\n    height: 100%;\n    position: relative;\n    padding: 0 1px;\n    border: 0;\n    background: none;\n    color: currentColor;\n    font: inherit;\n    box-sizing: content-box;\n    -webkit-appearance: textfield;\n    -moz-appearance: textfield;\n    appearance: textfield;\n  }\n  \n  .react-daterange-picker__inputGroup__input::-webkit-outer-spin-button,\n  .react-daterange-picker__inputGroup__input::-webkit-inner-spin-button {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n    margin: 0;\n  }\n  \n  .react-daterange-picker__inputGroup__input:invalid {\n    background: rgba(255, 0, 0, 0.1);\n  }\n  \n  .react-daterange-picker__inputGroup__input--hasLeadingZero {\n    margin-left: -0.54em;\n    padding-left: calc(1px + 0.54em);\n  }\n  \n  .react-daterange-picker__button {\n    border: 0;\n    background: transparent;\n    padding: 4px 6px;\n  }\n  \n  .react-daterange-picker__button:enabled {\n    cursor: pointer;\n  }\n  \n  .react-daterange-picker__button:enabled:hover .react-daterange-picker__button__icon,\n  .react-daterange-picker__button:enabled:focus .react-daterange-picker__button__icon {\n    stroke: #0078d7;\n  }\n  \n  .react-daterange-picker__button:disabled .react-daterange-picker__button__icon {\n    stroke: #6d6d6d;\n  }\n  \n  .react-daterange-picker__button svg {\n    display: inherit;\n  }\n  \n  .react-daterange-picker__calendar {\n    width: 350px;\n    max-width: 100vw;\n    z-index: 1;\n  }\n  \n  .react-daterange-picker__calendar--closed {\n    display: none;\n  }\n  .react-calendar {\n    width: 350px;\n    max-width: 100%;\n    background: white;\n    border: 1px solid #a0a096;\n    font-family: Arial, Helvetica, sans-serif;\n    line-height: 1.125em;\n  }\n  \n  .react-calendar--doubleView {\n    width: 700px;\n  }\n  \n  .react-calendar--doubleView .react-calendar__viewContainer {\n    display: flex;\n    margin: -0.5em;\n  }\n  \n  .react-calendar--doubleView .react-calendar__viewContainer > * {\n    width: 50%;\n    margin: 0.5em;\n  }\n  \n  .react-calendar,\n  .react-calendar *,\n  .react-calendar *:before,\n  .react-calendar *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n  }\n  \n  .react-calendar button {\n    margin: 0;\n    border: 0;\n    outline: none;\n  }\n  \n  .react-calendar button:enabled:hover {\n    cursor: pointer;\n  }\n  \n  .react-calendar__navigation {\n    display: flex;\n    height: 44px;\n    margin-bottom: 1em;\n  }\n  \n  .react-calendar__navigation button {\n    min-width: 44px;\n    background: none;\n  }\n  \n  .react-calendar__navigation button:disabled {\n    background-color: #f0f0f0;\n  }\n  \n  .react-calendar__navigation button:enabled:hover,\n  .react-calendar__navigation button:enabled:focus {\n    background-color: #e6e6e6;\n  }\n  \n  .react-calendar__month-view__weekdays {\n    text-align: center;\n    text-transform: uppercase;\n    font-weight: bold;\n    font-size: 0.75em;\n  }\n  \n  .react-calendar__month-view__weekdays__weekday {\n    padding: 0.5em;\n  }\n  \n  .react-calendar__month-view__weekNumbers .react-calendar__tile {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    font-size: 0.75em;\n    font-weight: bold;\n  }\n  \n  .react-calendar__month-view__days__day--weekend {\n    color: #d10000;\n  }\n  \n  .react-calendar__month-view__days__day--neighboringMonth {\n    color: #757575;\n  }\n  \n  .react-calendar__year-view .react-calendar__tile,\n  .react-calendar__decade-view .react-calendar__tile,\n  .react-calendar__century-view .react-calendar__tile {\n    padding: 2em 0.5em;\n  }\n  \n  .react-calendar__tile {\n    max-width: 100%;\n    padding: 10px 6.6667px;\n    background: none;\n    text-align: center;\n    line-height: 16px;\n  }\n  \n  .react-calendar__tile:disabled {\n    background-color: #f0f0f0;\n  }\n  \n  .react-calendar__tile:enabled:hover,\n  .react-calendar__tile:enabled:focus {\n    background-color: #e6e6e6;\n  }\n  \n  .react-calendar__tile--hasActive {\n    background: #76baff;\n  }\n  \n  .react-calendar__tile--hasActive:enabled:hover,\n  .react-calendar__tile--hasActive:enabled:focus {\n    background: #a9d4ff;\n  }\n  \n  .react-calendar__tile--active {\n    background: #006edc;\n    color: white;\n  }\n  \n  .react-calendar__tile--active:enabled:hover,\n  .react-calendar__tile--active:enabled:focus {\n    background: #1087ff;\n  }\n\n  .react-calendar{\n    border : none;\n    font-family: inherit;\n  }\n\n  .calendar{\n    padding: 24px;\n    background: #FFFFFF;\n    box-shadow: 0px 2px 40px rgba(96, 93, 97, 0.15);\n    border-radius: 8px;\n  }\n\n.react-calendar__month-view__weekdays__weekday{\n  display: none;\n}\n\n.react-daterange-picker__wrapper{ \n  border-radius: 4px;\n  outline: unset;\n  border: 1px solid #C9C9C9;\n  color: #C9C9C9;\n\n  &:active,:hover,:focus{\n    border: 1px solid #3F3F3F;\n  }\n}\n  .react-calendar__tile--active{\n    background-color: #F5F5FA;\n    color: #232323 !important;\n  }\n\n  .react-calendar__tile--rangeEnd,\n  .react-calendar__tile--rangeStart{\n    background-color: #006edc;\n    color: white !important;\n  }\n\n  .react-calendar__tile--rangeStart{\n    border-top-left-radius: 8px;\n    border-bottom-left-radius: 8px;\n  }\n\n  .react-calendar__tile--rangeEnd{\n    border-top-right-radius: 8px;\n    border-bottom-right-radius: 8px;\n  }\n\n  .doted {\n    width: inherit;\n    position: relative;\n    color: #232323 !important;\n  \n      &:after{\n        content: '\u2022';\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%,0%);\n        color:#3719CA;\n        margin: 4px 0 0 0;\n      }\n  }\n  \n"])));
+    var DatePickerComponent = (_ref69) => {
+      let { value, onChange, markDateList } = _ref69;
+      return /* @__PURE__ */ jsxRuntime.jsx(DatePickerContainer, { children: /* @__PURE__ */ jsxRuntime.jsx(DateRangePicker__default.default, { onChange, value, tileClassName: (_ref70) => {
+        let { date } = _ref70;
         const classesList = [];
         if (markDateList.find((x2) => x2 === formatDate(date).split(",")[0])) {
           classesList.push("doted");
@@ -41949,15 +41905,15 @@ var require_dist = __commonJS({
       }, calendarClassName: "calendar", clearIcon: value ? void 0 : null, calendarIcon: CalendarIcon, className: "calendarContainer" }) });
     };
     var DatePickerComponentMemo = React$2.memo(DatePickerComponent);
-    var CustomCheckBox = (_ref74) => {
-      let { checked, isDisable = false, handleChange, label = "", id } = _ref74;
+    var CustomCheckBox = (_ref71) => {
+      let { checked, isDisable = false, handleChange, label = "", id } = _ref71;
       return /* @__PURE__ */ jsxRuntime.jsxs(CheckboxContainer, { children: [/* @__PURE__ */ jsxRuntime.jsx(CheckboxIconContainer, { checked, id, "data-disabled": isDisable, onClick: handleChange, children: /* @__PURE__ */ jsxRuntime.jsx(TickIcon, {}) }), /* @__PURE__ */ jsxRuntime.jsx(CheckboxLabel, { children: label })] });
     };
     var TitleSection = styled.h2(_templateObject125 || (_templateObject125 = _taggedTemplateLiteral2(["\n  font-weight: 600;\n  font-size: 24px;\n  line-height: 1.21;\n  color: #121212;\n  margin: 0;\n"])));
     var ContainerChartLine = styled.div(_templateObject126 || (_templateObject126 = _taggedTemplateLiteral2(["\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n\n  mix-blend-mode: normal;\n  border: 1px solid #e4e6e8;\n  border-radius: 4px;\n  padding: 32px;\n"])));
     chart_js.Chart.register(chart_js.CategoryScale, chart_js.LinearScale, chart_js.BarElement, chart_js.Title, chart_js.Tooltip, chart_js.Legend, chart_js.LineElement, chart_js.PointElement);
-    var ChartComponent = (_ref75) => {
-      let { history, markDatesList = [] } = _ref75;
+    var ChartComponent = (_ref72) => {
+      let { history, markDatesList = [] } = _ref72;
       const chartRef = React$2.useRef(null);
       const [value, onChange] = React$2.useState(null);
       const [isCheckedList, setIsCheckedList] = React$2.useState([]);
@@ -41996,8 +41952,8 @@ var require_dist = __commonJS({
           }
         };
         return CATEGORIES_TITLE.map((item, idx) => {
-          return /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { align: "center", children: /* @__PURE__ */ jsxRuntime.jsx(CustomCheckBox, { label: item, checked: !Boolean(isCheckedList == null ? void 0 : isCheckedList.includes(item)), handleChange: (_ref76) => {
-            let { currentTarget } = _ref76;
+          return /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { align: "center", children: /* @__PURE__ */ jsxRuntime.jsx(CustomCheckBox, { label: item, checked: !Boolean(isCheckedList == null ? void 0 : isCheckedList.includes(item)), handleChange: (_ref73) => {
+            let { currentTarget } = _ref73;
             return updateChart(currentTarget.id, chartRef.current, item);
           }, id: idx }) }, "".concat(item, "-").concat(idx));
         });
@@ -42045,8 +42001,8 @@ var require_dist = __commonJS({
     var CircleIcon = () => {
       return /* @__PURE__ */ jsxRuntime.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", width: "17", height: "17", viewBox: "0 0 17 17", fill: "none", children: /* @__PURE__ */ jsxRuntime.jsx("rect", { width: "17", height: "17", rx: "8.5", fill: "#5CC971" }) });
     };
-    var Tab = (_ref77) => {
-      let { data: data2, handleRefresh, setActiveTab, activeTab, state, activeRefreshID, activeRefreshDevice } = _ref77;
+    var Tab = (_ref74) => {
+      let { data: data2, handleRefresh, setActiveTab, activeTab, state, activeRefreshID, activeRefreshDevice } = _ref74;
       const renderDataByDevice = React$2.useCallback((data22) => {
         var _a2;
         if (!Boolean((_a2 = data22.categoryList[0][activeTab]) == null ? void 0 : _a2.length)) {
@@ -42064,25 +42020,25 @@ var require_dist = __commonJS({
           return Boolean((_c = (_b = data2 == null ? void 0 : data2.history) == null ? void 0 : _b.mobile) == null ? void 0 : _c.length) && /* @__PURE__ */ jsxRuntime.jsx(ChartComponentMemo, { history: data2.history[activeTab], markDatesList: [...data2.history[activeTab].map((item) => item[0].split(",")[0])] });
         }
       }, [activeTab, data2.history]);
-      return /* @__PURE__ */ jsxRuntime.jsxs(Container$2, { children: [/* @__PURE__ */ jsxRuntime.jsxs(TabContainer, { children: [/* @__PURE__ */ jsxRuntime.jsxs(TitleContainer, { children: ["Page tested:", /* @__PURE__ */ jsxRuntime.jsx(Link, { href: data2.mainInfo.linkReq, target: "_blank", rel: "noreferrer", children: data2.mainInfo.linkReq })] }), /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { justify: "space-between", children: [/* @__PURE__ */ jsxRuntime.jsx(Flex$1, { style: { margin: "auto 0 0 0" }, children: TABS.map((tab2) => /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", children: [/* @__PURE__ */ jsxRuntime.jsxs(TabButton, { active: activeTab === tab2.id, onClick: () => setActiveTab(tab2.id), children: [tab2.label === LIST_DEVICES.desktop ? /* @__PURE__ */ jsxRuntime.jsx(DesktopIcon, {}) : /* @__PURE__ */ jsxRuntime.jsx(MobileIcon, {}), " ", tab2.label] }), activeTab === tab2.id && /* @__PURE__ */ jsxRuntime.jsx(TabLine, {})] }, tab2.id)) }), /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { style: { paddingBottom: "16px", gap: "24px" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(LinkDetails, { href: "https://developers.google.com/speed/pagespeed/insights/?url=".concat(data2.mainInfo.linkReq.replace(":", "%3A").replaceAll("/", "%2F")), target: "_blank", rel: "noreferrer", children: ["Open PageSpeed details ", /* @__PURE__ */ jsxRuntime.jsx(ArrowUpRightIcon, {})] }), /* @__PURE__ */ jsxRuntime.jsxs(RetestButton, { type: "button", onClick: handleRefresh, disabled: state === STATE_TYPE.loading, children: [/* @__PURE__ */ jsxRuntime.jsx(RefreshIcon, {}), "Retest"] })] })] })] }), activeRefreshID === data2.mainInfo.linkReq && state === STATE_TYPE.loading && activeRefreshDevice === activeTab ? /* @__PURE__ */ jsxRuntime.jsx(CustomSpinner, {}) : TABS.map((tab2) => {
+      return /* @__PURE__ */ jsxRuntime.jsxs(Container, { children: [/* @__PURE__ */ jsxRuntime.jsxs(TabContainer, { children: [/* @__PURE__ */ jsxRuntime.jsxs(TitleContainer, { children: ["Page tested:", /* @__PURE__ */ jsxRuntime.jsx(Link, { href: data2.mainInfo.linkReq, target: "_blank", rel: "noreferrer", children: data2.mainInfo.linkReq })] }), /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { justify: "space-between", children: [/* @__PURE__ */ jsxRuntime.jsx(Flex$1, { style: { margin: "auto 0 0 0" }, children: TABS.map((tab2) => /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", children: [/* @__PURE__ */ jsxRuntime.jsxs(TabButton, { active: activeTab === tab2.id, onClick: () => setActiveTab(tab2.id), children: [tab2.label === LIST_DEVICES.desktop ? /* @__PURE__ */ jsxRuntime.jsx(DesktopIcon, {}) : /* @__PURE__ */ jsxRuntime.jsx(MobileIcon, {}), " ", tab2.label] }), activeTab === tab2.id && /* @__PURE__ */ jsxRuntime.jsx(TabLine, {})] }, tab2.id)) }), /* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { style: { paddingBottom: "16px", gap: "24px" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(LinkDetails, { href: "https://developers.google.com/speed/pagespeed/insights/?url=".concat(data2.mainInfo.linkReq.replace(":", "%3A").replaceAll("/", "%2F")), target: "_blank", rel: "noreferrer", children: ["Open PageSpeed details ", /* @__PURE__ */ jsxRuntime.jsx(ArrowUpRightIcon, {})] }), /* @__PURE__ */ jsxRuntime.jsxs(RetestButton, { type: "button", onClick: handleRefresh, disabled: state === STATE_TYPE.loading, children: [/* @__PURE__ */ jsxRuntime.jsx(RefreshIcon, {}), "Retest"] })] })] })] }), activeRefreshID === data2.mainInfo.linkReq && state === STATE_TYPE.loading && activeRefreshDevice === activeTab ? /* @__PURE__ */ jsxRuntime.jsx(CustomSpinner, {}) : TABS.map((tab2) => {
         var _a2, _b;
         return /* @__PURE__ */ jsxRuntime.jsxs(TabContent, { active: activeTab === tab2.id, children: [Boolean((_a2 = data2 == null ? void 0 : data2.categoryList) == null ? void 0 : _a2.length) && /* @__PURE__ */ jsxRuntime.jsxs(FirstSectionContainer, { children: [/* @__PURE__ */ jsxRuntime.jsx(Flex$1, { align: "center", justify: "flex-end", gap: 5, children: Boolean((_b = data2 == null ? void 0 : data2.categoryList[0][activeTab]) == null ? void 0 : _b.length) && /* @__PURE__ */ jsxRuntime.jsxs(DescriptContainer, { children: [/* @__PURE__ */ jsxRuntime.jsxs(DescriptItem, { children: [/* @__PURE__ */ jsxRuntime.jsx(TriangleIcon, {}), "0\u201349"] }), " ", /* @__PURE__ */ jsxRuntime.jsxs(DescriptItem, { children: [/* @__PURE__ */ jsxRuntime.jsx(SquareIcon, {}), "50\u201389"] }), " ", /* @__PURE__ */ jsxRuntime.jsxs(DescriptItem, { children: [/* @__PURE__ */ jsxRuntime.jsx(CircleIcon, {}), "90\u2013100"] }), " "] }) }), /* @__PURE__ */ jsxRuntime.jsx(RenderContainer, { children: renderDataByDevice(data2) })] }), renderHistoryComponent()] }, tab2.id);
       })] });
     };
-    var LoadingWrapper = styled.div(_templateObject127 || (_templateObject127 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  height: ", ";\n  overflow: hidden;\n  animation: ", ";\n"])), (_ref78) => {
-      let { active } = _ref78;
+    var LoadingWrapper = styled.div(_templateObject127 || (_templateObject127 = _taggedTemplateLiteral2(["\n  display: flex;\n  align-items: flex-end;\n  justify-content: center;\n  height: ", ";\n  overflow: hidden;\n  animation: ", ";\n"])), (_ref75) => {
+      let { active } = _ref75;
       return active ? "12px" : "0";
-    }, (_ref79) => {
-      let { active } = _ref79;
+    }, (_ref76) => {
+      let { active } = _ref76;
       return active ? "height 0.25s ease-in" : "height 0.15s ease-out";
     });
     var BounceAnimation = We(_templateObject128 || (_templateObject128 = _taggedTemplateLiteral2(["\n  0% { \n    margin-bottom: 0; \n  }\n\n  50% { \n    margin-bottom: 0.5rem;\n  }\n\n  100% { \n    margin-bottom: 0;\n  }\n"])));
-    var Dot = styled.div(_templateObject129 || (_templateObject129 = _taggedTemplateLiteral2(["\n  background-color: black;\n  border-radius: 50%;\n  width: 0.2rem;\n  height: 0.2rem;\n  margin: 0 0.25rem;\n  /*Animation*/\n  animation: ", " 0.5s linear infinite;\n  animation-delay: ", ";\n"])), BounceAnimation, (_ref80) => {
-      let { delay } = _ref80;
+    var Dot = styled.div(_templateObject129 || (_templateObject129 = _taggedTemplateLiteral2(["\n  background-color: black;\n  border-radius: 50%;\n  width: 0.2rem;\n  height: 0.2rem;\n  margin: 0 0.25rem;\n  /*Animation*/\n  animation: ", " 0.5s linear infinite;\n  animation-delay: ", ";\n"])), BounceAnimation, (_ref77) => {
+      let { delay } = _ref77;
       return delay;
     });
-    function Loading(_ref81) {
-      let { active } = _ref81;
+    function Loading(_ref78) {
+      let { active } = _ref78;
       return /* @__PURE__ */ jsxRuntime.jsxs(LoadingWrapper, { active, children: [/* @__PURE__ */ jsxRuntime.jsx(Dot, { delay: "0s" }), /* @__PURE__ */ jsxRuntime.jsx(Dot, { delay: "0.1s" }), /* @__PURE__ */ jsxRuntime.jsx(Dot, { delay: "0.2s" })] });
     }
     var errorMassageText = "Server error. Please try again later.";
@@ -42228,12 +42184,11 @@ var require_dist = __commonJS({
           setState(STATE_TYPE.error);
         }
       };
-      return /* @__PURE__ */ jsxRuntime.jsxs(Container$4, { children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { borderRight: "1px solid #E4E6E8" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { padding: "40px 24px 24px" }, children: [/* @__PURE__ */ jsxRuntime.jsx(InputComponent, { device, setDevice, state, url, setUrl, data: data2, handelRequest }), Boolean(data2.length) ? /* @__PURE__ */ jsxRuntime.jsx(HistoryMenu, { data: data2, setActiveItem, activeItem, state, deleteCardByID }) : state === STATE_TYPE.loading ? /* @__PURE__ */ jsxRuntime.jsx("div", { style: { minHeight: "16px", padding: "20px 0 0 0" }, children: /* @__PURE__ */ jsxRuntime.jsx(Loading, { active: state === STATE_TYPE.loading }) }) : /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", padding: 4, children: /* @__PURE__ */ jsxRuntime.jsx(Text, { children: "Your history will show up here." }) })] }), Boolean(data2.length > 1) && /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", style: { padding: "24px", margin: "auto 0 0 0", borderTop: "1px solid #E4E6E8" }, children: /* @__PURE__ */ jsxRuntime.jsxs(ButtonResetAll, { type: "button", onClick: handelRefreshAll, disabled: state === STATE_TYPE.loading, children: [/* @__PURE__ */ jsxRuntime.jsx(RefreshIcon, {}), "Retest all"] }) })] }), Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(Tab, { data: data2[activeItem], activeTab, setActiveTab, handleRefresh, state, activeRefreshID, activeRefreshDevice }), state === STATE_TYPE.loading && !Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(CustomSpinner, {})] });
+      return /* @__PURE__ */ jsxRuntime.jsxs(Container$2, { children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { borderRight: "1px solid #E4E6E8" }, children: [/* @__PURE__ */ jsxRuntime.jsxs(Flex$1, { direction: "column", style: { padding: "40px 24px 24px" }, children: [/* @__PURE__ */ jsxRuntime.jsx(InputComponent, { device, setDevice, state, url, setUrl, data: data2, handelRequest }), Boolean(data2.length) ? /* @__PURE__ */ jsxRuntime.jsx(HistoryMenu, { data: data2, setActiveItem, activeItem, state, deleteCardByID }) : state === STATE_TYPE.loading ? /* @__PURE__ */ jsxRuntime.jsx("div", { style: { minHeight: "16px", padding: "20px 0 0 0" }, children: /* @__PURE__ */ jsxRuntime.jsx(Loading, { active: state === STATE_TYPE.loading }) }) : /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", padding: 4, children: /* @__PURE__ */ jsxRuntime.jsx(Text, { children: "Your history will show up here." }) })] }), Boolean(data2.length > 1) && /* @__PURE__ */ jsxRuntime.jsx(Flex$1, { justify: "center", style: { padding: "24px", margin: "auto 0 0 0", borderTop: "1px solid #E4E6E8" }, children: /* @__PURE__ */ jsxRuntime.jsxs(ButtonResetAll, { type: "button", onClick: handelRefreshAll, disabled: state === STATE_TYPE.loading, children: [/* @__PURE__ */ jsxRuntime.jsx(RefreshIcon, {}), "Retest all"] }) })] }), Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(Tab, { data: data2[activeItem], activeTab, setActiveTab, handleRefresh, state, activeRefreshID, activeRefreshDevice }), state === STATE_TYPE.loading && !Boolean(data2.length) && /* @__PURE__ */ jsxRuntime.jsx(CustomSpinner, {})] });
     };
-    var GlobalStyle = $e(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral2(["  \n  body {\n    height: 100%;\n  }\n\n  .test{\n    border: 5px solid red;\n  \n  *{\n    font-family: 'Inter', sans-serif;\n    font-size: 14px;\n  }\n}\n\n.titleStyle{\n  font-weight: 400;\n  line-height: 1.25;\n  color: #232323;\n}  \n\n.doted {\n  width: inherit;\n  position: relative;\n  color: #232323 !important;\n\n    &:after{\n      content: '\u2022';\n      position: absolute;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%,0%);\n      color:#3719CA;\n      margin: 4px 0 0 0;\n    }\n}\n\n  .customInput{\n    display: flex;\n    justify-content:center;\n    align-items: center;\n    padding: 12px;\n  }\n\n  .react-calendar{\n    border : none;\n    font-family: inherit;\n  }\n\n  .calendar{\n    padding: 24px;\n    background: #FFFFFF;\n    box-shadow: 0px 2px 40px rgba(96, 93, 97, 0.15);\n    border-radius: 8px;\n  }\n\n.react-calendar__month-view__weekdays__weekday{\n  display: none;\n}\n\n.react-daterange-picker__wrapper{ \n  border-radius: 4px;\n  outline: unset;\n  border: 1px solid #C9C9C9;\n  color: #C9C9C9;\n\n  &:active,:hover,:focus{\n    border: 1px solid #3F3F3F;\n  }\n}\n  .react-calendar__tile--active{\n    background-color: #F5F5FA;\n    color: #232323 !important;\n  }\n\n  .react-calendar__tile--rangeEnd,\n  .react-calendar__tile--rangeStart{\n    background-color: #006edc;\n    color: white !important;\n  }\n\n  .react-calendar__tile--rangeStart{\n    border-top-left-radius: 8px;\n    border-bottom-left-radius: 8px;\n  }\n\n  .react-calendar__tile--rangeEnd{\n    border-top-right-radius: 8px;\n    border-bottom-right-radius: 8px;\n  }\n"])));
-    var Container = styled.div(_templateObject131 || (_templateObject131 = _taggedTemplateLiteral2(["\n  width: 100%;\n  height: 100%;\n  display: flex;\n\n  * {\n    font-family: 'Inter', sans-serif;\n  }\n"])));
+    var MainContainer = styled.div(_templateObject130 || (_templateObject130 = _taggedTemplateLiteral2(["\n  width: 100%;\n  height: 100%;\n  display: flex;\n\n  * {\n    font-family: 'Inter', sans-serif;\n  }\n"])));
     var PageSpeedInsightsContainer = (props) => {
-      return /* @__PURE__ */ jsxRuntime.jsxs(ThemeProvider, { theme: studioTheme, children: [/* @__PURE__ */ jsxRuntime.jsx(GlobalStyle, {}), /* @__PURE__ */ jsxRuntime.jsx(Container, { children: /* @__PURE__ */ jsxRuntime.jsx(PageSpeedInsightsGui, { ...props }) })] });
+      return /* @__PURE__ */ jsxRuntime.jsxs(ThemeProvider, { theme: studioTheme, children: [/* @__PURE__ */ jsxRuntime.jsx(reactHelmet.Helmet, { children: /* @__PURE__ */ jsxRuntime.jsx("link", { href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins&display=swap", rel: "stylesheet" }) }), /* @__PURE__ */ jsxRuntime.jsx(MainContainer, { children: /* @__PURE__ */ jsxRuntime.jsx(PageSpeedInsightsGui, { ...props }) })] });
     };
     function PageSpeedPlugin(props) {
       const client = sanity.useClient({ apiVersion: "2023-01-24" });
@@ -42242,7 +42197,6 @@ var require_dist = __commonJS({
       return /* @__PURE__ */ jsxRuntime.jsx(PageSpeedInsightsContainer, { client, ...props });
     }
     var pageSpeedMonitoringPlugin = sanity.definePlugin((options) => {
-      console.log("hello from sanity-plugin-page-speed-monitoring", options);
       return { name: "sanity-plugin-page-speed-monitoring", tools: [{ name: "sanity-plugin-page-speed-monitoring", title: "Sanity PageSpeed Monitoring", icon: ApiIcon$1, component: PageSpeedPlugin, route: router.route.create("/*"), options }] };
     });
     exports.pageSpeedMonitoringPlugin = pageSpeedMonitoringPlugin;

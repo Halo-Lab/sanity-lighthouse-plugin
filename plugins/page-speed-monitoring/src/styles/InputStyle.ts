@@ -15,17 +15,17 @@ export const ButtonAddPage = styled.button`
   justify-content: center;
 
   color: #ffffff;
-  background: ${({disabled}) => (disabled ? '#DFDFE3' : '#3719ca')};
+  background: ${({ disabled }) => (disabled ? '#DFDFE3' : '#3719ca')};
   border: 1px solid transparent;
   border-radius: 4px;
   padding: 11.5px 0;
 
   &:hover,
   :focus {
-    background: ${({disabled}) => (disabled ? '#DFDFE3' : '#5f44e6')};
+    background: ${({ disabled }) => (disabled ? '#DFDFE3' : '#5f44e6')};
   }
   &:active {
-    background: ${({disabled}) => (disabled ? '#DFDFE3' : '#250ba3')};
+    background: ${({ disabled }) => (disabled ? '#DFDFE3' : '#250ba3')};
   }
 `
 export const InputIcon = styled.div`
@@ -37,7 +37,7 @@ export const InputIcon = styled.div`
   display: flex;
   align-items: center;
   svg > path {
-    stroke: ${({error}: {error: any}) => (error ? '#EF3340' : '#888')};
+    stroke: ${({ error }: { error: any }) => (error ? '#EF3340' : '#888')};
   }
 `
 
@@ -90,8 +90,8 @@ export const CheckboxIconContainer = styled.div`
     border: 1px solid #3f3f3f;
   }
 
-  background-color: ${(props: {checked: boolean}) => (props.checked ? '#3719ca' : '#fff')};
-  ${({checked}) =>
+  background-color: ${(props: { checked: boolean }) => (props.checked ? '#3719ca' : '#fff')};
+  ${({ checked }) =>
     checked &&
     `
   &:hover {
@@ -102,7 +102,7 @@ export const CheckboxIconContainer = styled.div`
 
 export const CustomInput = styled.input`
   width: 100%;
-  border: 1px solid ${({error}: {error: any}) => (error ? '#EF3340' : '#c9c9c9')};
+  border: 1px solid ${({ error }: { error: any }) => (error ? '#EF3340' : '#c9c9c9')};
   border-radius: 4px;
   padding: 12px 32px 12px 38px;
   outline: unset;
@@ -112,7 +112,7 @@ export const CustomInput = styled.input`
   font-size: 14px;
   line-height: 17px;
 
-  color: ${({error}) => (error ? '#EF3340' : '#3f3f3f')};
+  color: ${({ error }) => (error ? '#EF3340' : '#3f3f3f')};
 
   &::placeholder {
     font-weight: 500;
@@ -123,7 +123,7 @@ export const CustomInput = styled.input`
   &:hover,
   :focus,
   :active {
-    border: 1px solid ${({error}) => (error ? '#EF3340' : '#3f3f3f')};
+    border: 1px solid ${({ error }) => (error ? '#EF3340' : '#3f3f3f')};
   }
 
   &:disabled {

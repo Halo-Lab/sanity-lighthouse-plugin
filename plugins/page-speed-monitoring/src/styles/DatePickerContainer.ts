@@ -294,7 +294,6 @@ margin: 0px 0px auto;
   .doted {
     width: inherit;
     position: relative;
-    color: #232323 !important;
   
       &:after{
         content: '•';
