@@ -7,11 +7,24 @@ import {
   BadgeComponent,
   Flex,
 } from '../styles/HistoryMenuStyle'
-// import {Flex} from '@sanity/ui'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 import {TrashIcon} from '../assets/icons/TrashIcon'
 
-const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}: any) => {
+type HistoryPropsType = {
+  activeItem: number
+  data: Object[]
+  state: string
+  setActiveItem: Function
+  deleteCardByID: (link: any, idx: number) => void
+}
+
+const HistoryMenu = ({
+  data,
+  activeItem,
+  setActiveItem,
+  state,
+  deleteCardByID,
+}: HistoryPropsType) => {
   const isDisable = state === STATE_TYPE.loading
 
   const handelItem = ({target}: any, i: number) => {
@@ -70,12 +83,7 @@ const HistoryMenu = ({data, activeItem, setActiveItem, state, deleteCardByID}: a
         </Item>
       )
     })
-  return (
-    <Container>
-      {/* {<Loading active={state === STATE_TYPE.loading && true} />} */}
-      {renderItems(data)}
-    </Container>
-  )
+  return <Container>{renderItems(data)}</Container>
 }
 
 export default HistoryMenu

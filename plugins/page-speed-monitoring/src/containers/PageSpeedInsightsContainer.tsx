@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {ThemeProvider as SanityThemeProvider, studioTheme} from '@sanity/ui'
 import PageSpeedInsightsGui from '../components/PageSpeedInsightsGui'
 import {Helmet} from 'react-helmet'
+import {SanityClient} from 'sanity'
 
 export const MainContainer = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ export const MainContainer = styled.div`
   }
 `
 
-const PageSpeedInsightsContainer = (props: any) => {
+const PageSpeedInsightsContainer = (props: {client: SanityClient}) => {
   return (
     <SanityThemeProvider theme={studioTheme}>
       <Helmet>

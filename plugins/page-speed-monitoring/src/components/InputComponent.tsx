@@ -1,5 +1,5 @@
 import {useState, useCallback} from 'react'
-import {Stack, Flex, Box} from '@sanity/ui'
+import {Flex, Box} from '@sanity/ui'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
 import {
@@ -16,6 +16,16 @@ import {TickIcon} from '../assets/icons/TickIcon.js'
 import {LinkIcon} from '../assets/icons/LinkIcon.js'
 import SpinnerComponent from './shared/CustomSpinner.jsx'
 
+type InputPropsType = {
+  device: string[]
+  data: Object[]
+  state: string
+  url: string
+  setUrl: Function
+  setDevice: Function
+  handleRequest: () => {}
+}
+
 export const InputComponent = ({
   setUrl,
   device,
@@ -23,8 +33,8 @@ export const InputComponent = ({
   state,
   url,
   data,
-  handelRequest,
-}: any) => {
+  handleRequest,
+}: InputPropsType) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
@@ -41,7 +51,7 @@ export const InputComponent = ({
     [device, setDevice]
   )
 
-  const validate = (value: any) => {
+  const validate = (value: string) => {
     if (validator.isURL(value)) {
       setErrorMessage('')
     } else {
@@ -58,7 +68,6 @@ export const InputComponent = ({
 
   return (
     <Box>
-      {/* <Stack> */}
       <Flex justify={'space-between'} direction={'column'}>
         <Flex direction={'column'}>
           <Flex gap={2}>
@@ -84,7 +93,7 @@ export const InputComponent = ({
             </Flex>
             <ButtonAddPage
               type="button"
-              onClick={handelRequest}
+              onClick={handleRequest}
               disabled={isDisable || !Boolean(device.length)}
             >
               Add page
@@ -118,7 +127,6 @@ export const InputComponent = ({
           </CheckboxContainer>
         </Flex>
       </Flex>
-      {/* </Stack> */}
     </Box>
   )
 }

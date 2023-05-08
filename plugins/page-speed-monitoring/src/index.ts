@@ -4,7 +4,7 @@ import { route } from 'sanity/router'
 import PageSpeedPlugin from './PageSpeedPlugin'
 
 interface MyPluginConfig {
-  /* nothing here yet */
+  API_KEY: string
 }
 
 export const pageSpeedMonitoringPlugin = definePlugin<MyPluginConfig | void>((options) => {
@@ -14,7 +14,7 @@ export const pageSpeedMonitoringPlugin = definePlugin<MyPluginConfig | void>((op
     tools: [
       {
         name: 'sanity-plugin-page-speed-monitoring',
-        title: 'Sanity PageSpeed Monitoring',
+        title: 'PageSpeed Monitoring',
         icon: ApiIcon,
         component: PageSpeedPlugin,
         route: route.create('/*'),
