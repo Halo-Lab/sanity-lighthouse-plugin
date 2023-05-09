@@ -28,8 +28,8 @@ const PieChartComponent = ({title, score}: PieChartPropsType) => {
         label={({dataEntry}) => `${Math.round(dataEntry.percentage)}`}
         labelStyle={{
           fontSize: '25px',
-          fontWeight: 'bold',
-          fontFamily: 'sans-serif',
+          fontWeight: '500',
+          fontFamily: 'Inter',
           fill: `${colorChart}`,
         }}
         rounded
