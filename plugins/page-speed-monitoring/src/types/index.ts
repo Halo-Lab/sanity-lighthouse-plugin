@@ -15,5 +15,32 @@ export interface ITool {
     options: IPluginOptions
 }
 
+export interface IPluginData {
+    mainInfo: IMainInfo,
+    history: IDataHistory,
+    categoryList: ICategoryItem[]
+}
+
+interface IMainInfo {
+    date: string,
+    device: string,
+    linkReq: string
+}
+interface ICategoryItem {
+    desktop: IPerfomanceItem[],
+    mobile: IPerfomanceItem[]
+}
+
+interface IDataHistory {
+    desktop: string | number[],
+    mobile: string | number[]
+}
+
+interface IPerfomanceItem {
+    title: string,
+    score: number,
+    categories: string[]
+}
+
 
 export default IPageSpeedPlugin

@@ -133,8 +133,9 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
       })
   }
 
-  const deleteCardByID = (link: any, idx: number) => {
+  const deleteCardByID = (link: string, idx: number) => {
     setState(STATE_TYPE.loading)
+    console.log(link)
     client
       .patch('performance')
       .unset([`data[${idx}]`])
