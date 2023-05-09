@@ -1,9 +1,20 @@
-export interface IPageSpeedPlugin {
-    tool: ITool
-}
-
 interface IPluginOptions {
     API_KEY: string
+}
+interface IMainInfo {
+    date: string,
+    device: string,
+    linkReq: string
+}
+interface IDataHistory {
+    desktop: (string | number[])[],
+    mobile: (string | number[])[]
+}
+
+interface IPerfomanceItem {
+    title: string,
+    score: number,
+    categories: string[]
 }
 
 export interface ITool {
@@ -21,26 +32,11 @@ export interface IPluginData {
     categoryList: ICategoryItem[]
 }
 
-interface IMainInfo {
-    date: string,
-    device: string,
-    linkReq: string
-}
-interface ICategoryItem {
+export interface ICategoryItem {
     desktop: IPerfomanceItem[],
     mobile: IPerfomanceItem[]
 }
 
-interface IDataHistory {
-    desktop: string | number[],
-    mobile: string | number[]
+export interface IPageSpeedPlugin {
+    tool: ITool
 }
-
-interface IPerfomanceItem {
-    title: string,
-    score: number,
-    categories: string[]
-}
-
-
-export default IPageSpeedPlugin

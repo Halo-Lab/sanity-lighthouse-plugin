@@ -1,6 +1,7 @@
 import {Card, Text, Flex, Spinner} from '@sanity/ui'
+import styled from 'styled-components'
 
-export const CustomSpinner = ({text = 'Loading some content…'}) => {
+export const CustomSpinner = ({text = 'Loading some content…'}: {text?: string}) => {
   return (
     <Card padding={4} height="fill">
       <Flex align="center" direction="row" gap={3} height="fill" justify="center">
@@ -12,8 +13,6 @@ export const CustomSpinner = ({text = 'Loading some content…'}) => {
     </Card>
   )
 }
-
-import styled from 'styled-components'
 
 const SpinnerComponent = () => (
   <StyledSpinner viewBox="0 0 50 50">

@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {Dispatch, SetStateAction, useCallback} from 'react'
 import {
   DescriptItem,
   DescriptContainer,
@@ -26,6 +26,19 @@ import {RefreshIcon} from '../assets/icons/RefreshIcon'
 import {TriangleIcon} from '../assets/icons/TriangleIcon'
 import {SquareIcon} from '../assets/icons/SquareIcon'
 import {CircleIcon} from '../assets/icons/CircleIcon'
+import {ICategoryItem, IPluginData} from '../types'
+
+type TabPropsType = {
+  data: IPluginData
+  activeTab: string
+  state: string
+  activeRefreshID: string
+  activeRefreshDevice: string
+  handleRefresh: () => void
+  setActiveTab: Dispatch<SetStateAction<string>>
+}
+
+type TabType = {id: string; label: string}
 
 const Tab = ({
   data,
@@ -35,15 +48,15 @@ const Tab = ({
   state,
   activeRefreshID,
   activeRefreshDevice,
-}: any) => {
+}: TabPropsType) => {
   const renderDataByDevice = useCallback(
-    (data: any) => {
+    (data: IPluginData) => {
       if (!Boolean(data.categoryList[0][activeTab]?.length)) {
         return (
           <div style={{padding: '20px'}}>
             <RetestButton
               type="button"
-              onClick={(e) => handleRefresh(e)}
+              onClick={handleRefresh}
               disabled={state === STATE_TYPE.loading}
             >
               <RefreshIcon />
@@ -52,7 +65,7 @@ const Tab = ({
           </div>
         )
       }
-      return data.categoryList.map((item: any, i: number) => {
+      return data.categoryList.map((item: ICategoryItem) => {
         return (
           <div key={`${item[activeTab].score}-${Math.random()}`}>
             <RenderCategories item={item[activeTab][0]} />
@@ -68,7 +81,9 @@ const Tab = ({
         Boolean(data?.history?.desktop.length) && (
           <ChartComponentMemo
             history={data.history[activeTab]}
-            markDatesList={[...data.history[activeTab].map((item: any) => item[0].split(',')[0])]}
+            markDatesList={[
+              ...data.history[activeTab].map((item: string[]) => item[0].split(',')[0]),
+            ]}
           />
         )
       )
@@ -77,7 +92,9 @@ const Tab = ({
         Boolean(data?.history?.mobile?.length) && (
           <ChartComponentMemo
             history={data.history[activeTab]}
-            markDatesList={[...data.history[activeTab].map((item: any) => item[0].split(',')[0])]}
+            markDatesList={[
+              ...data.history[activeTab].map((item: string[]) => item[0].split(',')[0]),
+            ]}
           />
         )
       )
@@ -95,7 +112,7 @@ const Tab = ({
         </TitleContainer>
         <Flex justify={'space-between'}>
           <Flex style={{margin: 'auto 0 0 0'}}>
-            {TABS.map((tab: any) => (
+            {TABS.map((tab: TabType) => (
               <Flex key={tab.id} direction={'column'}>
                 <TabButton active={activeTab === tab.id} onClick={() => setActiveTab(tab.id)}>
                   {tab.label === LIST_DEVICES.desktop ? <DesktopIcon /> : <MobileIcon />}{' '}
@@ -132,7 +149,7 @@ const Tab = ({
       activeRefreshDevice === activeTab ? (
         <CustomSpinner />
       ) : (
-        TABS.map((tab: any) => (
+        TABS.map((tab: TabType) => (
           <TabContent key={tab.id} active={activeTab === tab.id}>
             {Boolean(data?.categoryList?.length) && (
               <FirstSectionContainer>

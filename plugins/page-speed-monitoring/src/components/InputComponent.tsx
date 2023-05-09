@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import {useState, useCallback, ChangeEvent, MouseEvent} from 'react'
 import {Flex, Box} from '@sanity/ui'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
@@ -15,10 +15,11 @@ import {
 import {TickIcon} from '../assets/icons/TickIcon.js'
 import {LinkIcon} from '../assets/icons/LinkIcon.js'
 import SpinnerComponent from './shared/CustomSpinner.jsx'
+import {IPluginData} from '../types'
 
 type InputPropsType = {
   device: string[]
-  data: Object[]
+  data: IPluginData[]
   state: string
   url: string
   setUrl: Function
@@ -38,12 +39,12 @@ export const InputComponent = ({
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = useCallback(
-    (event: any) => {
+    (event: ChangeEvent<HTMLInputElement> | any) => {
       if (event.currentTarget.dataset.disabled === 'true') return
       const check = event.currentTarget.id
 
       if (device.includes(check)) {
-        setDevice([...device.filter((dev: any) => dev !== check)])
+        setDevice([...device.filter((dev: string) => dev !== check)])
       } else {
         setDevice([...device, check])
       }
@@ -58,7 +59,7 @@ export const InputComponent = ({
       setErrorMessage('Is not valid URL.')
     }
     if (data.length) {
-      data.map((item: any) => {
+      data.map((item: IPluginData) => {
         return item.mainInfo.linkReq == value ? setErrorMessage('This link already exist') : null
       })
     }

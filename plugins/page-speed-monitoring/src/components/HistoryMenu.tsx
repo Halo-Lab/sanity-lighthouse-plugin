@@ -1,3 +1,4 @@
+import {MouseEvent} from 'react'
 import {
   Container,
   CustomButton,
@@ -28,7 +29,7 @@ const HistoryMenu = ({
 }: HistoryPropsType) => {
   const isDisable = state === STATE_TYPE.loading
 
-  const handelItem = (target: any, i: number) => {
+  const handelItem = (target: MouseEvent<HTMLDivElement, MouseEvent> | any, i: number) => {
     if (target.id === 'deleteButton' && state !== STATE_TYPE.loading) {
       return
     }

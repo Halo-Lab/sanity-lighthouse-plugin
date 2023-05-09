@@ -1,6 +1,6 @@
 import {useClient} from 'sanity'
 import PageSpeedInsightsContainer from './containers/PageSpeedInsightsContainer'
-import IPageSpeedPlugin from './types'
+import {IPageSpeedPlugin} from './types'
 
 function PageSpeedPlugin(props: IPageSpeedPlugin) {
   const client = useClient({apiVersion: '2023-01-24'})

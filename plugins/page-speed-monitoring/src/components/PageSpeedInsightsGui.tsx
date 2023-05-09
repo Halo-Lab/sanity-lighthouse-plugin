@@ -12,17 +12,17 @@ import {CustomSpinner} from './shared/CustomSpinner'
 import {getMonthByIdx} from '../helpers/functions'
 import {RefreshIcon} from '../assets/icons/RefreshIcon'
 import {SanityClient} from 'sanity'
-import {ITool} from '../types'
+import {ICategoryItem, IPluginData, ITool} from '../types'
 
 const errorMassageText = 'Server error. Please try again later.'
 
 const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: ITool}) => {
   const [state, setState] = useState(STATE_TYPE.idle)
-  const [url, setUrl] = useState('')
+  const [url, setUrl] = useState<string>('')
   const [device, setDevice] = useState([])
-  const [data, setData] = useState<any[]>([])
+  const [data, setData] = useState<IPluginData[]>([])
   const [activeItem, setActiveItem] = useState(0)
-  const [activeTab, setActiveTab] = useState(LIST_DEVICES.desktop)
+  const [activeTab, setActiveTab] = useState<string>(LIST_DEVICES.desktop)
   const [activeRefreshID, setActiveRefreshID] = useState('')
   const [activeRefreshDevice, setActiveRefreshDevice] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -56,12 +56,12 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
 
         const newResult2 = [formatDataList(result.slice(5))]
 
-        newResult1[0].categoryList.map((category: any, idx: number) => {
+        newResult1[0].categoryList.map((category: ICategoryItem, idx: number) => {
           category.mobile = newResult2[0].categoryList[idx].mobile
         })
         newResult1[0].history.mobile.push([
           newResult2[0].mainInfo.date,
-          ...newResult2[0].categoryList.map((sc: any) => sc.mobile[0].score),
+          ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
           getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
         ])
         newData = [...newResult1, ...data]
@@ -83,7 +83,7 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
     }
   }
 
-  const handleRefresh = async (e: any) => {
+  const handleRefresh = async () => {
     try {
       setState(STATE_TYPE.loading)
       setActiveRefreshID(data[activeItem].mainInfo.linkReq)
@@ -98,12 +98,12 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
       const newData = [...data].map((item, i) => {
         if (i === activeItem) {
           item.mainInfo.date = newResult[0].mainInfo.date
-          item.categoryList.map((category: any, idx: number) => {
+          item.categoryList.map((category: ICategoryItem, idx: number) => {
             category[activeTab] = newResult[0].categoryList[idx][activeTab]
           })
           item.history[activeTab].push([
             newResult[0].mainInfo.date,
-            ...newResult[0].categoryList.map((it: any) => it[activeTab][0].score),
+            ...newResult[0].categoryList.map((it) => it[activeTab][0].score),
             getMonthByIdx(new Date(newResult[0].mainInfo.date).getMonth()),
           ])
         }
@@ -122,20 +122,19 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
     }
   }
 
-  const patchSanityDocument = (newData: any) => {
+  const patchSanityDocument = (newData: IPluginData[]) => {
     if (!Boolean(newData.length)) return
     client
       .patch('performance')
       .set({data: newData})
       .commit()
-      .catch((err: any) => {
+      .catch((err: Error) => {
         console.error('Oh no, the update failed: ', err.message)
       })
   }
 
   const deleteCardByID = (link: string, idx: number) => {
     setState(STATE_TYPE.loading)
-    console.log(link)
     client
       .patch('performance')
       .unset([`data[${idx}]`])
@@ -149,7 +148,7 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
     try {
       setState(STATE_TYPE.loading)
       let numberOfReq = 0
-      const newDataArr: any = []
+      const newDataArr: IPluginData[] = []
 
       while (numberOfReq < data.length) {
         try {
@@ -164,22 +163,21 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
 
           if (Boolean(result.length > 5)) {
             const newResult1 = [formatDataList(result.slice(0, 5))]
-
             const newResult2 = [formatDataList(result.slice(5))]
 
             newData.mainInfo.date = newResult1[0].mainInfo.date
-            newData.categoryList.map((category: any, idx: number) => {
+            newData.categoryList.map((category: ICategoryItem, idx: number) => {
               category.mobile = newResult2[0].categoryList[idx].mobile
               category.desktop = newResult1[0].categoryList[idx].desktop
             })
             newData.history.mobile.push([
               newResult2[0].mainInfo.date,
-              ...newResult2[0].categoryList.map((sc: any) => sc.mobile[0].score),
+              ...newResult2[0].categoryList.map((sc) => sc.mobile[0].score),
               getMonthByIdx(new Date(newResult2[0].mainInfo.date).getMonth()),
             ])
             newData.history.desktop.push([
               newResult1[0].mainInfo.date,
-              ...newResult1[0].categoryList.map((sc: any) => sc.desktop[0].score),
+              ...newResult1[0].categoryList.map((sc) => sc.desktop[0].score),
               getMonthByIdx(new Date(newResult1[0].mainInfo.date).getMonth()),
             ])
           } else {
@@ -188,12 +186,12 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
             const forDevice = newResult[0].mainInfo.device
 
             newData.mainInfo.date = newResult[0].mainInfo.date
-            newData.categoryList.map((category: any, idx: number) => {
+            newData.categoryList.map((category: ICategoryItem, idx: number) => {
               category[forDevice] = newResult[0].categoryList[idx][forDevice]
             })
             newData.history[forDevice].push([
               newResult[0].mainInfo.date,
-              ...newResult[0].categoryList.map((sc: any) => sc[forDevice][0].score),
+              ...newResult[0].categoryList.map((sc) => sc[forDevice][0].score),
               getMonthByIdx(new Date(newResult[0].mainInfo.date)),
             ])
           }

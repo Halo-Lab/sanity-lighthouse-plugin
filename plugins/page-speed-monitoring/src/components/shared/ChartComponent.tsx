@@ -29,10 +29,15 @@ ChartJS.register(
   PointElement
 )
 
-const ChartComponent = ({history, markDatesList = []}: any) => {
+type ChartPropsType = {
+  history: (string | number[])[]
+  markDatesList: string[]
+}
+
+const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
   const chartRef = useRef(null)
-  const [value, onChange] = useState(null)
-  const [isCheckedList, setIsCheckedList] = useState<any[]>([])
+  const [value, onChange] = useState<Date | null>(null)
+  const [isCheckedList, setIsCheckedList] = useState<string[]>([])
   const labelList = Boolean(history?.length)
     ? history.length > 1
       ? [...history.map((dateReq) => dateReq[0])]
@@ -42,7 +47,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
   const dataSetList = Boolean(history?.length)
     ? history.length > 1
       ? [
-          ...CATEGORIES.map((category, idx) => {
+          ...CATEGORIES.map((category: string, idx: number) => {
             return {
               type: 'line',
               label: category,
@@ -55,7 +60,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
           }),
         ]
       : [
-          ...CATEGORIES.map((category, idx) => {
+          ...CATEGORIES.map((category: string, idx: number) => {
             return {
               type: 'line',
               label: category,
@@ -99,14 +104,14 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
           borderDash: [8, 4],
         },
         ticks: {
-          callback: function (value, index, values) {
+          callback: function (index, values) {
             if (labelList.length === 3) {
               return Boolean(index === 0 || index === values.length - 1)
-                ? labelList[1].split(',')[0]
+                ? (labelList[1] as string).split(',')[0]
                 : ''
             }
             if (index === 0 || index === values.length - 1) {
-              const valueText = labelList[index].split(',')[0]
+              const valueText = (labelList[index] as string).split(',')[0]
               return valueText
             }
             return ''
@@ -123,7 +128,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
   }, [markDatesList, value])
 
   const renderCustomCheckBox = useCallback(() => {
-    const updateChart = (target, chart, name) => {
+    const updateChart = (target: number, chart: any, name: string) => {
       const isDataShow = chart.isDatasetVisible(target)
 
       if (isDataShow === false) {
@@ -154,7 +159,7 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
 
   const hoverLine = {
     id: 'hoverLine',
-    afterDatasetsDraw(chart, args, plugins) {
+    afterDatasetsDraw(chart) {
       const {
         ctx,
         tooltip,
@@ -165,7 +170,6 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
       if (tooltip._active.length > 0) {
         const xCoor = x.getPixelForValue(tooltip.dataPoints[0].dataIndex)
         const yCoor = y.getPixelForValue(tooltip.dataPoints[0].parsed.y)
-        console.log(tooltip)
 
         ctx.save()
         ctx.beginPath()
@@ -181,30 +185,6 @@ const ChartComponent = ({history, markDatesList = []}: any) => {
         ctx.stroke()
         ctx.closePath()
       }
-    },
-  }
-
-  const dashedBorders = {
-    id: 'dashedBorders',
-    beforeDatasetsDraw(chart, args, plugins) {
-      const {
-        ctx,
-        tooltip,
-        chartArea: {top, left, right, bottom, width, height},
-        scales: {x, y},
-      } = chart
-
-      ctx.save()
-      ctx.beginPath()
-      ctx.strokeStyle = 'gray'
-      ctx.lineWidth = 1
-      ctx.setLineDash([6, 6])
-      ctx.moveTo(left, top)
-      ctx.lineTo(right, top)
-      ctx.lineTo(right, bottom)
-      ctx.lineTo(left, bottom)
-      ctx.closePath()
-      ctx.stroke()
     },
   }
 

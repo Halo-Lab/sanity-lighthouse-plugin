@@ -1,7 +1,12 @@
 import {PieChart} from 'react-minimal-pie-chart'
 import {COLORS, BG_COLORS} from '../../helpers/constants'
 
-const PieChartComponent = ({title, score}: any) => {
+type PieChartPropsType = {
+  title: string
+  score: number
+}
+
+const PieChartComponent = ({title, score}: PieChartPropsType) => {
   const colorChart =
     score <= 100 ? (score < 90 ? (score >= 50 ? COLORS[1] : COLORS[2]) : COLORS[0]) : COLORS[0]
   const colorChartBg =
