@@ -6,7 +6,7 @@ type CheckboxPropsType = {
   isDisable?: boolean
   label?: string
   id: string
-  handleChange: Function
+  handleChange: () => void
 }
 
 export const CustomCheckBox = ({
@@ -22,7 +22,7 @@ export const CustomCheckBox = ({
         checked={checked}
         id={id}
         data-disabled={isDisable}
-        onClick={() => handleChange()}
+        onClick={handleChange}
       >
         <TickIcon />
       </CheckboxIconContainer>
