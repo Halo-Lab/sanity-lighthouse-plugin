@@ -2,11 +2,11 @@ import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
-import {theme} from './theme'
 import {structure, singletonPlugin} from './plugins/desk'
 import {SINGLETON_TYPES_LIST} from './helpers/constants'
 import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
+// import {pageSpeedMonitoringPlugin} from 'sanity-plugin-page-speed-monitoring-test'
 import {pageSpeedMonitoringPlugin} from './plugins/page-speed-monitoring/src'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID
@@ -19,7 +19,6 @@ export default defineConfig({
   title: 'Sanity Performance plugin',
   projectId: projectId,
   dataset: dataset,
-  theme,
 
   plugins: [
     deskTool(structure),

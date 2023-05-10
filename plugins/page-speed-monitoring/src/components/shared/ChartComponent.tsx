@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions,
 } from 'chart.js'
 import {Line} from 'react-chartjs-2'
 import {CATEGORIES, CATEGORIES_TITLE, COLORS_BAR} from '../../helpers/constants'
@@ -52,7 +53,7 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
               type: 'line',
               label: category,
               data: [...history.map((it) => it[idx + 1])],
-              borderWidth: 3,
+              borderWidth: 2,
               backgroundColor: COLORS_BAR[idx],
               borderColor: COLORS_BAR[idx],
               tension: 0.1,
@@ -84,11 +85,19 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
         text: 'Request History',
       },
       tooltip: {
-        backgroundColor: '#FFFFFF',
+        padding: 8,
+        boxPadding: 4,
+        backgroundColor: '#fff',
         titleColor: '#8083A3',
+        titleFont: {weight: '400', size: 14, height: 21},
+        titleMarginBottom: 2,
         bodyColor: '#02021E',
+        bodyFont: {weight: '600', size: 14, height: 21},
         borderColor: 'rgba(228, 230, 232, 0.4)',
         borderWidth: 1,
+        usePointStyle: true,
+        caretPadding: 5,
+        caretSize: 7,
       },
     },
     scales: {
@@ -157,36 +166,36 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
     })
   }, [isCheckedList])
 
-  const hoverLine = {
-    id: 'hoverLine',
-    afterDatasetsDraw(chart) {
-      const {
-        ctx,
-        tooltip,
-        chartArea: {top, left, right, bottom, width, height},
-        scales: {x, y},
-      } = chart
+  // const hoverLine = {
+  //   id: 'hoverLine',
+  //   afterDatasetsDraw(chart) {
+  //     const {
+  //       ctx,
+  //       tooltip,
+  //       chartArea: {top, left, right, bottom, width, height},
+  //       scales: {x, y},
+  //     } = chart
 
-      if (tooltip._active.length > 0) {
-        const xCoor = x.getPixelForValue(tooltip.dataPoints[0].dataIndex)
-        const yCoor = y.getPixelForValue(tooltip.dataPoints[0].parsed.y)
+  //     if (tooltip._active.length > 0) {
+  //       const xCoor = x.getPixelForValue(tooltip.dataPoints[0].dataIndex)
+  //       const yCoor = y.getPixelForValue(tooltip.dataPoints[0].parsed.y)
 
-        ctx.save()
-        ctx.beginPath()
-        const gradientLine = ctx.createLinearGradient(0, top, 0, bottom)
-        gradientLine.addColorStop(0, 'rgba(129, 129, 165, 1)')
-        gradientLine.addColorStop(1, 'rgba(130, 130, 166, 0)')
+  //       ctx.save()
+  //       ctx.beginPath()
+  //       const gradientLine = ctx.createLinearGradient(0, top, 0, bottom)
+  //       gradientLine.addColorStop(0, 'rgba(129, 129, 165, 1)')
+  //       gradientLine.addColorStop(1, 'rgba(130, 130, 166, 0)')
 
-        ctx.lineWidth = 3
-        ctx.strokeStyle = gradientLine
-        ctx.setLineDash([6, 6])
-        ctx.moveTo(xCoor, yCoor)
-        ctx.lineTo(xCoor, bottom)
-        ctx.stroke()
-        ctx.closePath()
-      }
-    },
-  }
+  //       ctx.lineWidth = 3
+  //       ctx.strokeStyle = gradientLine
+  //       ctx.setLineDash([6, 6])
+  //       ctx.moveTo(xCoor, yCoor)
+  //       ctx.lineTo(xCoor, bottom)
+  //       ctx.stroke()
+  //       ctx.closePath()
+  //     }
+  //   },
+  // }
 
   return (
     <div
@@ -211,7 +220,6 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
             datasets: dataSetList,
           }}
           ref={chartRef}
-          plugins={hoverLine as any}
         />
       </ContainerChartLine>
     </div>
