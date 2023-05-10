@@ -6,7 +6,7 @@ type CheckboxPropsType = {
   isDisable?: boolean
   label?: string
   id: string
-  handleChange: () => void
+  handleChange: (() => void) | any
 }
 
 export const CustomCheckBox = ({
