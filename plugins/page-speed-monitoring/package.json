@@ -77,14 +77,16 @@
   },
   "peerDependencies": {
     "react": "^18",
-    "sanity": "^3"
+    "sanity": "^3",
+    "styled-components": ">= 3"
   },
   "engines": {
     "node": ">=14"
   },
   "sanityPlugin": {
     "verifyPackage": {
-      "tsc": false
+      "tsc": false,
+      "packageName": false
     }
   }
 }
