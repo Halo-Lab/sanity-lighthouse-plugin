@@ -28,8 +28,10 @@
     "react-google-charts": "^4.0.0",
     "react-is": "^18.2.0",
     "react-minimal-pie-chart": "^8.4.0",
-    "sanity": "^3.9.0",
-    "styled-components": "^5.3.6",
+    "sanity": "^3.10.1",
+    "sanity-lighthouse-plugin": "^1.0.0",
+    "sanity-plugin-page-speed-monitoring-test": "^1.0.5",
+    "styled-components": "^5.3.10",
     "validator": "^13.9.0"
   },
   "devDependencies": {

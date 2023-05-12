@@ -2,12 +2,13 @@ import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
-import {theme} from './theme'
 import {structure, singletonPlugin} from './plugins/desk'
 import {SINGLETON_TYPES_LIST} from './helpers/constants'
 import Logo from './components/Logo'
 import {dashboardTool, projectInfoWidget, projectUsersWidget} from '@sanity/dashboard'
-import {pageSpeedPlugin} from './plugins/page-speed-insights'
+// import {lighthousePlugin} from 'sanity-plugin-page-speed-monitoring-test'
+// import {lighthousePlugin} from './plugins/page-speed-monitoring/src'
+import {lighthousePlugin} from 'sanity-lighthouse-plugin'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID
 const dataset = process.env.SANITY_STUDIO_DATASET
@@ -15,11 +16,9 @@ const API_KEY = process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
 
 export default defineConfig({
   name: 'default',
-
-  title: 'Sanity Performance plugin',
+  title: 'Sanity Lighthouse plugin',
   projectId: projectId,
   dataset: dataset,
-  theme,
 
   plugins: [
     deskTool(structure),
@@ -28,7 +27,7 @@ export default defineConfig({
       widgets: [projectInfoWidget(), projectUsersWidget()],
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
-    pageSpeedPlugin({API_KEY}),
+    lighthousePlugin({API_KEY}),
   ],
 
   schema: {

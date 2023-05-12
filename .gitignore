@@ -25,4 +25,10 @@
 # Typescript
 *.tsbuildinfo
 .vscode
+
+# environment variables
 .env
+
+# Yalc
+/.yalc
+yalc.lock
