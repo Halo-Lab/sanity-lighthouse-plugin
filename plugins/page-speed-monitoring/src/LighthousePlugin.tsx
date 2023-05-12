@@ -2,7 +2,7 @@ import {useClient} from 'sanity'
 import PageSpeedInsightsContainer from './containers/PageSpeedInsightsContainer'
 import {IPageSpeedPlugin} from './types'
 
-function PageSpeedPlugin(props: IPageSpeedPlugin) {
+function LighthousePlugin(props: IPageSpeedPlugin) {
   const client = useClient({apiVersion: '2023-01-24'})
 
   const doc = {
@@ -15,4 +15,4 @@ function PageSpeedPlugin(props: IPageSpeedPlugin) {
   return <PageSpeedInsightsContainer client={client} {...props} />
 }
 
-export default PageSpeedPlugin
+export default LighthousePlugin

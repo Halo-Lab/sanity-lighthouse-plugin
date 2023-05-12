@@ -1,22 +1,22 @@
 import { definePlugin } from 'sanity'
 import { ApiIcon } from '@sanity/icons'
 import { route } from 'sanity/router'
-import PageSpeedPlugin from './PageSpeedPlugin'
+import LighthousePlugin from './LighthousePlugin'
 
 interface MyPluginConfig {
   API_KEY: string
 }
 
-export const pageSpeedMonitoringPlugin = definePlugin<MyPluginConfig | void>((options) => {
+export const lighthousePlugin = definePlugin<MyPluginConfig | void>((options) => {
 
   return {
-    name: 'sanity-plugin-page-speed-monitoring',
+    name: 'sanity-lighthouse',
     tools: [
       {
-        name: 'sanity-plugin-page-speed-monitoring',
-        title: 'PageSpeed Monitoring',
+        name: 'sanity-lighthouse',
+        title: 'Sanity Lighthouse',
         icon: ApiIcon,
-        component: PageSpeedPlugin,
+        component: LighthousePlugin,
         route: route.create('/*'),
         options,
       },

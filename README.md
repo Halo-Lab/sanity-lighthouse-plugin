@@ -30,13 +30,13 @@ npm install sanity-page-speed-monitoring-plugin
 
 ```ts
 import {defineConfig} from 'sanity'
-import {pageSpeedMonitoringPlugin} from 'sanity-page-speed-monitoring-plugin'
+import {lighthousePlugin} from 'sanity-page-speed-monitoring-plugin'
 //import your key from .env file
 const API_KEY = `${process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY}`
 
 export default defineConfig({
   // ...
-  plugins: [pageSpeedMonitoringPlugin({API_KEY})],
+  plugins: [lighthousePlugin({API_KEY})],
 })
 ```
 

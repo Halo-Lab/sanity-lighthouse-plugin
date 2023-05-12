@@ -1,4 +1,4 @@
-# Sanity PageSpeed Monitoring Plugin (for Sanity Studio v3)
+# Sanity Lighthouse Plugin (for Sanity Studio v3)
 
 > This plugin is for Sanity Studio v3 and uses the [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v5/about) to provide insights into the speed and performance of your website. To use this plugin, you will need to have an API key for the PageSpeed Insights API.
 
@@ -21,7 +21,7 @@ This will allow the Sanity Page Speed plugin to access the PageSpeed Insights AP
 > To install this plugin, use the following command:
 
 ```sh
-npm install sanity-page-speed-monitoring-plugin
+npm install sanity-lighthouse-plugin
 ```
 
 ## Usage
@@ -30,13 +30,14 @@ npm install sanity-page-speed-monitoring-plugin
 
 ```ts
 import {defineConfig} from 'sanity'
-import {pageSpeedMonitoringPlugin} from 'sanity-page-speed-monitoring-plugin'
+import {lighthousePlugin} from 'sanity-lighthouse-plugin'
+
 //import your key from .env file
 const API_KEY = `${process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY}`
 
 export default defineConfig({
   // ...
-  plugins: [pageSpeedMonitoringPlugin({API_KEY})],
+  plugins: [lighthousePlugin({API_KEY})],
 })
 ```
 
