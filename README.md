@@ -23,7 +23,7 @@ This will allow the Sanity Page Speed plugin to access the PageSpeed Insights AP
 > To install this plugin, use the following command:
 
 ```sh
-npm install sanity-page-speed-monitoring-plugin
+npm install sanity-lighthouse-plugin
 ```
 
 ## Usage
@@ -32,7 +32,8 @@ npm install sanity-page-speed-monitoring-plugin
 
 ```ts
 import {defineConfig} from 'sanity'
-import {lighthousePlugin} from 'sanity-page-speed-monitoring-plugin'
+import {lighthousePlugin} from 'sanity-lighthouse-plugin'
+
 //import your key from .env file
 const API_KEY = `${process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY}`
 
