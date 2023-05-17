@@ -1,8 +1,13 @@
-# Sanity PageSpeed Monitoring Plugin (for Sanity Studio v3)
+# Sanity Lighthouse Plugin (for Sanity Studio v3)
 
-<img width="1295" alt="Sanity Lighthouse in use" src="https://github.com/Halo-Lab/sanity-lighthouse-plugin/assets/342951/4fa7137b-0e35-4370-9f5f-68de77cd99bc">
+<br />
+<img width="350" alt="Sanity Lighthouse logo" src="https://github.com/Halo-Lab/sanity-lighthouse-plugin/assets/342951/82ea7822-ac0b-476f-9982-234cb097a5a8">
+<br />
+<br />
 
 > This plugin is for Sanity Studio v3 and uses the [PageSpeed Insights API](https://developers.google.com/speed/docs/insights/v5/about) to provide insights into the speed and performance of your website. To use this plugin, you will need to have an API key for the PageSpeed Insights API.
+
+<img width="1295" alt="Sanity Lighthouse in use" src="https://github.com/Halo-Lab/sanity-lighthouse-plugin/assets/342951/4fa7137b-0e35-4370-9f5f-68de77cd99bc">
 
 ## Get your credentials here
 
