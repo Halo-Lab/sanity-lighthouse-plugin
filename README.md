@@ -1,7 +1,7 @@
 # Sanity Lighthouse Plugin (for Sanity Studio v3)
 
 <br />
-<img width="350" alt="Sanity Lighthouse logo" src="https://github.com/Halo-Lab/sanity-lighthouse-plugin/assets/342951/82ea7822-ac0b-476f-9982-234cb097a5a8">
+<img width="350" alt="Sanity Lighthouse logo" src="https://github.com/Halo-Lab/sanity-lighthouse-plugin/assets/342951/fbaf0ace-7553-42af-9735-1226ffd869d3">
 <br />
 <br />
 
