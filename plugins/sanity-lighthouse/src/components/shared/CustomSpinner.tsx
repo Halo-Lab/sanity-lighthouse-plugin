@@ -14,12 +14,6 @@ export const CustomSpinner = ({text = 'Loading some content…'}: {text?: string
   )
 }
 
-const SpinnerComponent = () => (
-  <StyledSpinner viewBox="0 0 50 50">
-    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="4" />
-  </StyledSpinner>
-)
-
 const StyledSpinner = styled.svg`
   animation: rotate 2s linear infinite;
   margin: -25px 0 0 -25px;
@@ -52,5 +46,11 @@ const StyledSpinner = styled.svg`
     }
   }
 `
+
+const SpinnerComponent = () => (
+  <StyledSpinner viewBox="0 0 50 50">
+    <circle className="path" cx="25" cy="25" r="20" fill="none" strokeWidth="4" />
+  </StyledSpinner>
+)
 
 export default SpinnerComponent

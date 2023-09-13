@@ -1,14 +1,9 @@
-import { definePlugin } from 'sanity'
-import { ApiIcon } from '@sanity/icons'
-import { route } from 'sanity/router'
+import {definePlugin} from 'sanity'
+import {ApiIcon} from '@sanity/icons'
+import {route} from 'sanity/router'
 import LighthousePlugin from './LighthousePlugin'
 
-interface MyPluginConfig {
-  API_KEY: string
-}
-
-export const lighthousePlugin = definePlugin<MyPluginConfig | void>((options) => {
-
+export const lighthousePlugin = definePlugin(() => {
   return {
     name: 'sanity-lighthouse',
     tools: [
@@ -18,7 +13,6 @@ export const lighthousePlugin = definePlugin<MyPluginConfig | void>((options) =>
         icon: ApiIcon,
         component: LighthousePlugin,
         route: route.create('/*'),
-        options,
       },
     ],
   }

@@ -51,7 +51,7 @@ const Tab = ({
 }: TabPropsType) => {
   const renderDataByDevice = useCallback(
     (data: IPluginData) => {
-      if (!Boolean(data.categoryList[0][activeTab]?.length)) {
+      if (!data.categoryList[0][activeTab]?.length) {
         return (
           <div style={{padding: '20px'}}>
             <RetestButton
@@ -87,18 +87,17 @@ const Tab = ({
           />
         )
       )
-    } else {
-      return (
-        Boolean(data?.history?.mobile?.length) && (
-          <ChartComponentMemo
-            history={data.history[activeTab]}
-            markDatesList={[
-              ...data.history[activeTab].map((item: string[]) => item[0].split(',')[0]),
-            ]}
-          />
-        )
-      )
     }
+    return (
+      Boolean(data?.history?.mobile?.length) && (
+        <ChartComponentMemo
+          history={data.history[activeTab]}
+          markDatesList={[
+            ...data.history[activeTab].map((item: string[]) => item[0].split(',')[0]),
+          ]}
+        />
+      )
+    )
   }, [activeTab, data.history])
 
   return (

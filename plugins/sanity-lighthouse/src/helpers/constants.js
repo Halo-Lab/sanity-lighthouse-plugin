@@ -1,3 +1,12 @@
+export const SECRETS_NAMESPACE = 'lighthouse'
+
+export const SECRETS_PLUGIN_CONFIG_KEYS = [
+  {
+    key: 'apiKey',
+    title: 'Your secret API key',
+  }
+]
+
 export const STATE_TYPE = {idle: 'idle', loading: 'loading', success: 'success', error: 'error'}
 
 export const CATEGORIES = ['PERFORMANCE', 'PWA', 'SEO', 'BEST_PRACTICES', 'ACCESSIBILITY']

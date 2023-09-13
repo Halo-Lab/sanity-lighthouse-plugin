@@ -9,7 +9,6 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartOptions,
 } from 'chart.js'
 import {Line} from 'react-chartjs-2'
 import {CATEGORIES, CATEGORIES_TITLE, COLORS_BAR} from '../../helpers/constants'
@@ -39,13 +38,13 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
   const chartRef = useRef(null)
   const [value, onChange] = useState<Date | null>(null)
   const [isCheckedList, setIsCheckedList] = useState<string[]>([])
-  const labelList = Boolean(history?.length)
+  const labelList = history?.length
     ? history.length > 1
       ? [...history.map((dateReq) => dateReq[0])]
       : ['', ...history.map((dataReq) => dataReq[0]), '']
     : []
 
-  const dataSetList = Boolean(history?.length)
+  const dataSetList = history?.length
     ? history.length > 1
       ? [
           ...CATEGORIES.map((category: string, idx: number) => {
@@ -113,9 +112,9 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
           borderDash: [8, 4],
         },
         ticks: {
-          callback: function (index, values) {
+          callback(index, values) {
             if (labelList.length === 3) {
-              return Boolean(index === 0 || index === values.length - 1)
+              return index === 0 || index === values.length - 1
                 ? (labelList[1] as string).split(',')[0]
                 : ''
             }
@@ -155,7 +154,7 @@ const ChartComponent = ({history, markDatesList = []}: ChartPropsType) => {
         <Flex key={`${item}-${idx}`} align="center">
           <CustomCheckBox
             label={item}
-            checked={!Boolean(isCheckedList?.includes(item))}
+            checked={!isCheckedList?.includes(item)}
             handleChange={({currentTarget}) =>
               updateChart(currentTarget.id, chartRef.current, item)
             }

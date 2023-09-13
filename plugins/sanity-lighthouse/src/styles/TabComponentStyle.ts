@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-import { ButtonResetAll } from './PageSpeedInsightsGuiStyles'
+import styled, {keyframes} from 'styled-components'
+import {ButtonResetAll} from './PageSpeedInsightsGuiStyles'
 
 const fadeIn = keyframes`
   from {
@@ -49,15 +49,14 @@ export const TabContainer = styled.div`
   gap: 32px;
   padding: 0 40px;
   animation: ${fadeIn} 0.5s ease-in-out;
-  border-bottom: 1px solid #E4E6E8;
+  border-bottom: 1px solid #e4e6e8;
 `
 
 export const TabButton = styled.button`
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: ${({ active }: { active: boolean }) =>
-    active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
+  color: ${({active}: {active: boolean}) => (active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)')};
   background-color: unset;
   border: unset;
 
@@ -72,20 +71,19 @@ export const TabButton = styled.button`
 
   transition: all 0.3s ease-in-out;
   svg > path {
-    stroke: ${({ active }: { active: boolean }) =>
-    active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)'};
+    stroke: ${({active}: {active: boolean}) => (active ? '#3719CA' : 'rgba(18, 18, 18, 0.4)')};
     transition: stroke 0.3s ease-in-out;
   }
 `
 
 export const TabLine = styled.span`
   height: 3px;
-  background-color: #3719CA;
+  background-color: #3719ca;
   border-radius: 5px 5px 0 0;
   width: 100%;
 `
 export const TabContent = styled.div`
-  display: ${({ active }: { active: boolean }) => (active ? 'flex' : 'none')};
+  display: ${({active}: {active: boolean}) => (active ? 'flex' : 'none')};
   animation: ${fadeIn} 0.5s ease-in-out;
   flex-direction: column;
   padding: 32px 40px 24px;
@@ -118,7 +116,7 @@ export const Link = styled.a`
   color: #121212;
 
   :hover {
-    color: #3719CA;
+    color: #3719ca;
   }
 `
 export const LinkDetails = styled(Link)`
@@ -130,7 +128,7 @@ export const LinkDetails = styled(Link)`
   white-space: nowrap;
   :hover {
     svg > path {
-      stroke: #3719CA;
+      stroke: #3719ca;
     }
   }
 `
