@@ -24,7 +24,12 @@
 
 # Typescript
 *.tsbuildinfo
+
+# VS Code settings
 .vscode
+
+# IntelliJ
+.idea
 
 # environment variables
 .env

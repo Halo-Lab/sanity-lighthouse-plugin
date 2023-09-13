@@ -6,8 +6,8 @@ function LighthousePlugin(props: IPageSpeedPlugin) {
   const client = useClient({apiVersion: '2023-01-24'})
 
   const doc = {
-    _id: 'performance',
-    _type: 'document',
+    _id: 'lighthouse.performance',
+    _type: 'lighthouse.settings',
     name: 'Sanity Performance Data',
     data: [],
   }
