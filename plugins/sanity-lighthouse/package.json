@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@sanity/incompatible-plugin": "^1.0.4",
+    "@sanity/studio-secrets": "^2.0.2",
     "@wojtekmaj/react-daterange-picker": "^5.0.2",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",

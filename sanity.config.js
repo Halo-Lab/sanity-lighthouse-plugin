@@ -12,7 +12,6 @@ import {lighthousePlugin} from 'sanity-lighthouse-plugin'
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID
 const dataset = process.env.SANITY_STUDIO_DATASET
-const API_KEY = process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY
 
 export default defineConfig({
   name: 'default',
@@ -27,7 +26,7 @@ export default defineConfig({
       widgets: [projectInfoWidget(), projectUsersWidget()],
     }),
     singletonPlugin(SINGLETON_TYPES_LIST),
-    lighthousePlugin({API_KEY}),
+    lighthousePlugin(),
   ],
 
   schema: {

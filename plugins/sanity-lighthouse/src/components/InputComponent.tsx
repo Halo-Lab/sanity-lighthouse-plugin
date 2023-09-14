@@ -1,4 +1,4 @@
-import {useState, useCallback, ChangeEvent, MouseEvent} from 'react'
+import {useState, useCallback, ChangeEvent} from 'react'
 import {Flex, Box} from '@sanity/ui'
 import validator from 'validator'
 import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants.js'
@@ -95,7 +95,7 @@ export const InputComponent = ({
             <ButtonAddPage
               type="button"
               onClick={handleRequest}
-              disabled={isDisable || !Boolean(device.length)}
+              disabled={isDisable || !device.length}
             >
               Add page
             </ButtonAddPage>

@@ -1,22 +1,31 @@
-import {useState, useEffect} from 'react'
-import {LIST_DEVICES, STATE_TYPE} from '../helpers/constants'
-import {ButtonResetAll, Container} from '../styles/PageSpeedInsightsGuiStyles'
-import {InputComponent} from './InputComponent'
-import HistoryMenu from './HistoryMenu'
-import {Flex, Text} from '@sanity/ui'
-import {apiReqByAllDevice, apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
-import {formatDataList} from '../helpers/formatedData'
-import Tab from './TabComponent'
-import Loading from './shared/LoadingComponent'
-import {CustomSpinner} from './shared/CustomSpinner'
-import {getMonthByIdx} from '../helpers/functions'
-import {RefreshIcon} from '../assets/icons/RefreshIcon'
 import {SanityClient} from 'sanity'
-import {ICategoryItem, IPluginData, ITool} from '../types'
+import {Flex, Text} from '@sanity/ui'
+import {useState, useEffect} from 'react'
+import {SettingsView, useSecrets} from '@sanity/studio-secrets'
+
+import Tab from './TabComponent'
+import HistoryMenu from './HistoryMenu'
+import {InputComponent} from './InputComponent'
+import Loading from './shared/LoadingComponent'
+import {getMonthByIdx} from '../helpers/functions'
+import {CustomSpinner} from './shared/CustomSpinner'
+import {formatDataList} from '../helpers/formatedData'
+import {RefreshIcon} from '../assets/icons/RefreshIcon'
+import {ICategoryItem, IPluginData} from '../types'
+import {ButtonResetAll, Container} from '../styles/PageSpeedInsightsGuiStyles'
+import {apiReqByAllDevice, apiRequestByDeviceAllCategories} from '../helpers/apiRequest'
+import {
+  STATE_TYPE,
+  LIST_DEVICES,
+  SECRETS_NAMESPACE,
+  SECRETS_PLUGIN_CONFIG_KEYS,
+} from '../helpers/constants'
 
 const errorMassageText = 'Server error. Please try again later.'
 
-const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: ITool}) => {
+const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
+  const {secrets, loading} = useSecrets<Record<string, string>>(SECRETS_NAMESPACE)
+
   const [state, setState] = useState(STATE_TYPE.idle)
   const [url, setUrl] = useState<string>('')
   const [device, setDevice] = useState([])
@@ -26,11 +35,25 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
   const [activeRefreshID, setActiveRefreshID] = useState('')
   const [activeRefreshDevice, setActiveRefreshDevice] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [apiKey, setApiKey] = useState('')
+  const [showSecretsModal, setShowSecretsModal] = useState(false)
+
+  useEffect(() => {
+    if (!loading) {
+      const secretKey = secrets ? secrets[SECRETS_PLUGIN_CONFIG_KEYS[0].key] : apiKey
+
+      setShowSecretsModal(!secretKey)
+
+      if (secretKey !== apiKey) {
+        setApiKey(secretKey)
+      }
+    }
+  }, [secrets, loading])
 
   useEffect(() => {
     const getDocumentById = async () => {
       const doc = await client.getDocument('performance')
-      if (Boolean(doc?.data.length)) {
+      if (doc?.data.length) {
         setData(doc?.data)
       }
     }
@@ -45,12 +68,24 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
     }
   }, [errorMessage])
 
+  const patchSanityDocument = (newData: IPluginData[]) => {
+    if (!newData.length) return
+    client
+      .patch('performance')
+      .set({data: newData})
+      .commit()
+      .catch((err: Error) => {
+        console.error('Oh no, the update failed: ', err.message)
+      })
+  }
+
   const handleRequest = async () => {
     try {
       setState(STATE_TYPE.loading)
-      let result, newData
+      let result
+      let newData
       if (device.length > 1) {
-        result = await apiReqByAllDevice(url, true, true, tool?.options.API_KEY)
+        result = await apiReqByAllDevice(url, true, true, apiKey)
 
         const newResult1 = [formatDataList(result.slice(0, 5))]
 
@@ -66,7 +101,7 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
         ])
         newData = [...newResult1, ...data]
       } else {
-        result = await apiRequestByDeviceAllCategories(url, device[0], tool?.options.API_KEY)
+        result = await apiRequestByDeviceAllCategories(url, device[0], apiKey)
         newData = [formatDataList(result), ...data]
       }
 
@@ -91,7 +126,7 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
       const result = await apiRequestByDeviceAllCategories(
         data[activeItem]?.mainInfo?.linkReq,
         activeTab,
-        tool?.options.API_KEY
+        apiKey
       )
       const newResult = [formatDataList(result)]
 
@@ -122,17 +157,6 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
     }
   }
 
-  const patchSanityDocument = (newData: IPluginData[]) => {
-    if (!Boolean(newData.length)) return
-    client
-      .patch('performance')
-      .set({data: newData})
-      .commit()
-      .catch((err: Error) => {
-        console.error('Oh no, the update failed: ', err.message)
-      })
-  }
-
   const deleteCardByID = (link: string, idx: number) => {
     setState(STATE_TYPE.loading)
     client
@@ -152,16 +176,16 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
 
       while (numberOfReq < data.length) {
         try {
-          let newData = [...data][numberOfReq]
+          const newData = [...data][numberOfReq]
           const reqFor = data[numberOfReq].categoryList[0]
           const result = await apiReqByAllDevice(
             data[numberOfReq].mainInfo.linkReq,
             Boolean(reqFor.desktop.length),
             Boolean(reqFor.mobile.length),
-            tool?.options.API_KEY
+            apiKey
           )
 
-          if (Boolean(result.length > 5)) {
+          if (result.length > 5) {
             const newResult1 = [formatDataList(result.slice(0, 5))]
             const newResult2 = [formatDataList(result.slice(5))]
 
@@ -215,68 +239,89 @@ const PageSpeedInsightsGui = ({client, tool}: {client: SanityClient; tool?: IToo
 
   return (
     <Container>
-      <Flex
-        direction={'column'}
-        style={{
-          borderRight: '1px solid #E4E6E8',
-        }}
-      >
-        <Flex direction={'column'} style={{padding: '40px 24px 24px'}}>
-          <InputComponent
-            device={device}
-            setDevice={setDevice}
-            state={state}
-            url={url}
-            setUrl={setUrl}
-            data={data}
-            handleRequest={handleRequest}
-          />
-          {Boolean(data.length) ? (
-            <HistoryMenu
-              data={data}
-              setActiveItem={setActiveItem}
-              activeItem={activeItem}
-              state={state}
-              deleteCardByID={deleteCardByID}
-            />
-          ) : state === STATE_TYPE.loading ? (
-            <div style={{minHeight: '16px', padding: '20px 0 0 0'}}>
-              <Loading active={state === STATE_TYPE.loading} />
-            </div>
-          ) : (
-            <Flex justify="center" padding={4}>
-              <Text>Your history will show up here.</Text>
-            </Flex>
-          )}
-        </Flex>
-        {Boolean(data.length > 1) && (
+      {apiKey && (
+        <>
           <Flex
-            justify={'center'}
-            style={{padding: '24px', margin: 'auto 0 0 0', borderTop: '1px solid #E4E6E8'}}
+            direction={'column'}
+            style={{
+              borderRight: '1px solid #E4E6E8',
+            }}
           >
             <ButtonResetAll
+              style={{marginTop: '5px'}}
               type="button"
-              onClick={handelRefreshAll}
+              onClick={() => setShowSecretsModal(true)}
               disabled={state === STATE_TYPE.loading}
             >
-              <RefreshIcon />
-              Retest all
+              Update API Key
             </ButtonResetAll>
+            <Flex direction={'column'} style={{padding: '30px 24px 40px 24px'}}>
+              <InputComponent
+                device={device}
+                setDevice={setDevice}
+                state={state}
+                url={url}
+                setUrl={setUrl}
+                data={data}
+                handleRequest={handleRequest}
+              />
+              {data.length ? (
+                <HistoryMenu
+                  data={data}
+                  setActiveItem={setActiveItem}
+                  activeItem={activeItem}
+                  state={state}
+                  deleteCardByID={deleteCardByID}
+                />
+              ) : state === STATE_TYPE.loading ? (
+                <div style={{minHeight: '16px', padding: '20px 0 0 0'}}>
+                  <Loading active={state === STATE_TYPE.loading} />
+                </div>
+              ) : (
+                <Flex justify="center" padding={4}>
+                  <Text>Your history will show up here.</Text>
+                </Flex>
+              )}
+            </Flex>
+            {Boolean(data.length > 1) && (
+              <Flex
+                gap={5}
+                justify={'center'}
+                style={{padding: '24px', margin: 'auto 0 0 0', borderTop: '1px solid #E4E6E8'}}
+              >
+                <ButtonResetAll
+                  type="button"
+                  onClick={handelRefreshAll}
+                  disabled={state === STATE_TYPE.loading}
+                >
+                  <RefreshIcon />
+                  Retest all
+                </ButtonResetAll>
+              </Flex>
+            )}
           </Flex>
-        )}
-      </Flex>
-      {Boolean(data.length) && (
-        <Tab
-          data={data[activeItem]}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          handleRefresh={handleRefresh}
-          state={state}
-          activeRefreshID={activeRefreshID}
-          activeRefreshDevice={activeRefreshDevice}
+          {Boolean(data.length) && (
+            <Tab
+              data={data[activeItem]}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              handleRefresh={handleRefresh}
+              state={state}
+              activeRefreshID={activeRefreshID}
+              activeRefreshDevice={activeRefreshDevice}
+            />
+          )}
+          {state === STATE_TYPE.loading && !data.length && <CustomSpinner />}
+        </>
+      )}
+      {showSecretsModal && (
+        <SettingsView
+          title={'API KEY'}
+          namespace={SECRETS_NAMESPACE}
+          keys={SECRETS_PLUGIN_CONFIG_KEYS}
+          onClose={() => setShowSecretsModal(false)}
         />
       )}
-      {state === STATE_TYPE.loading && !Boolean(data.length) && <CustomSpinner />}
     </Container>
   )
 }

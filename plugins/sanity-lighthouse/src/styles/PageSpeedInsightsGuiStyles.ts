@@ -15,36 +15,36 @@ export const ButtonResetAll = styled.button`
   width: 100%;
   padding: 11.5px 0;
   gap: 9px;
-  background-color: ${({ disabled }) => (disabled ? '#DFDFE3' : 'transparent')};
+  background-color: ${({disabled}) => (disabled ? '#DFDFE3' : 'transparent')};
 
   font-weight: 600;
   font-size: 14px;
   line-height: 1.2;
 
-  color: ${({ disabled }) => (disabled ? '#fff' : '#121212')};
+  color: ${({disabled}) => (disabled ? '#fff' : '#121212')};
 
-  border: 1px solid ${({ disabled }) => (disabled ? '#dfdfe3' : '#c9c9c9')};
+  border: 1px solid ${({disabled}) => (disabled ? '#dfdfe3' : '#c9c9c9')};
   border-radius: 4px;
   svg > path {
-    stroke: ${({ disabled }) => (disabled ? '#fff' : '#121212')};
+    stroke: ${({disabled}) => (disabled ? '#fff' : '#121212')};
   }
   &:hover,
   :focus {
-    background: ${({ disabled }) => (disabled ? '#DFDFE3' : '#efefff')};
-    border: 1px solid ${({ disabled }) => (disabled ? 'inherit' : '#3719ca')};
+    background: ${({disabled}) => (disabled ? '#DFDFE3' : '#efefff')};
+    border: 1px solid ${({disabled}) => (disabled ? 'inherit' : '#3719ca')};
     border-radius: 4px;
-    color: ${({ disabled }) => (disabled ? '#fff' : '#3719CA')};
+    color: ${({disabled}) => (disabled ? '#fff' : '#3719CA')};
     svg > path {
-      stroke: ${({ disabled }) => (disabled ? '#fff' : '#3719CA')};
+      stroke: ${({disabled}) => (disabled ? '#fff' : '#3719CA')};
     }
   }
   &:active {
-    background: ${({ disabled }) => (disabled ? '#DFDFE3' : '#efefff')};
-    border: 1px solid ${({ disabled }) => (disabled ? 'inherit' : '#3719ca')};
+    background: ${({disabled}) => (disabled ? '#DFDFE3' : '#efefff')};
+    border: 1px solid ${({disabled}) => (disabled ? 'inherit' : '#3719ca')};
     border-radius: 4px;
-    color: ${({ disabled }) => (disabled ? '#fff' : '#3719CA')};
+    color: ${({disabled}) => (disabled ? '#fff' : '#3719CA')};
     svg > path {
-      stroke: ${({ disabled }) => (disabled ? '#fff' : '#3719CA')};
+      stroke: ${({disabled}) => (disabled ? '#fff' : '#3719CA')};
     }
   }
 `
