@@ -253,7 +253,7 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
               onClick={() => setShowSecretsModal(true)}
               disabled={state === STATE_TYPE.loading}
             >
-              Change API Key
+              Update API Key
             </ButtonResetAll>
             <Flex direction={'column'} style={{padding: '30px 24px 40px 24px'}}>
               <InputComponent
