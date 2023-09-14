@@ -1,1 +1,0 @@
-export { pageSpeedPlugin } from './plugin';
