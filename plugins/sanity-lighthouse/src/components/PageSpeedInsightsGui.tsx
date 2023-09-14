@@ -40,11 +40,13 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
 
   useEffect(() => {
     if (!loading) {
-      const secretKey = secrets ? secrets[SECRETS_PLUGIN_CONFIG_KEYS[0].key] : ''
+      const secretKey = secrets ? secrets[SECRETS_PLUGIN_CONFIG_KEYS[0].key] : apiKey
 
       setShowSecretsModal(!secretKey)
 
-      setApiKey(secretKey)
+      if (secretKey !== apiKey) {
+        setApiKey(secretKey)
+      }
     }
   }, [secrets, loading])
 
