@@ -35,22 +35,18 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
   const [activeRefreshID, setActiveRefreshID] = useState('')
   const [activeRefreshDevice, setActiveRefreshDevice] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [secretsLoading, setSecretsLoading] = useState(true)
   const [apiKey, setApiKey] = useState('')
-
-  const handleSecrets = () => {
-    setApiKey(secrets ? secrets[SECRETS_PLUGIN_CONFIG_KEYS[0].key] : '')
-  }
+  const [showSecretsModal, setShowSecretsModal] = useState(false)
 
   useEffect(() => {
     if (!loading) {
-      handleSecrets()
-    }
-  }, [secrets])
+      const secretKey = secrets ? secrets[SECRETS_PLUGIN_CONFIG_KEYS[0].key] : ''
 
-  useEffect(() => {
-    setSecretsLoading(loading)
-  }, [loading])
+      setShowSecretsModal(!secretKey)
+
+      setApiKey(secretKey)
+    }
+  }, [secrets, loading])
 
   useEffect(() => {
     const getDocumentById = async () => {
@@ -241,7 +237,7 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
 
   return (
     <Container>
-      {apiKey ? (
+      {apiKey && (
         <>
           <Flex
             direction={'column'}
@@ -252,7 +248,7 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
             <ButtonResetAll
               style={{marginTop: '5px'}}
               type="button"
-              onClick={() => setApiKey('')}
+              onClick={() => setShowSecretsModal(true)}
               disabled={state === STATE_TYPE.loading}
             >
               Change API Key
@@ -315,14 +311,13 @@ const PageSpeedInsightsGui = ({client}: {client: SanityClient}) => {
           )}
           {state === STATE_TYPE.loading && !data.length && <CustomSpinner />}
         </>
-      ) : secretsLoading ? (
-        <CustomSpinner />
-      ) : (
+      )}
+      {showSecretsModal && (
         <SettingsView
           title={'API KEY'}
           namespace={SECRETS_NAMESPACE}
           keys={SECRETS_PLUGIN_CONFIG_KEYS}
-          onClose={handleSecrets}
+          onClose={() => setShowSecretsModal(false)}
         />
       )}
     </Container>
