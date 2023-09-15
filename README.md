@@ -15,13 +15,7 @@ To use the PageSpeed Insights API, you will need to obtain an API key. You can g
 
 Additionally, if you use Gmail for your Google account, you may need to generate an app password to use as your API key. Instructions for generating app passwords can be found in [Google's support documentation](https://support.google.com/accounts/answer/185833).
 
-Once you have obtained your API key, add it to your `.env` file as follows:
-
-```javascript
-SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY=<your API key here>
-```
-
-This will allow the Sanity Page Speed plugin to access the PageSpeed Insights API and provide speed and performance insights for your website.
+API key allow the Sanity Page Speed plugin to access the PageSpeed Insights API and provide speed and performance insights for your website.
 
 ## Installation
 
@@ -39,16 +33,15 @@ npm install sanity-lighthouse-plugin
 import {defineConfig} from 'sanity'
 import {lighthousePlugin} from 'sanity-lighthouse-plugin'
 
-//import your key from .env file
-const API_KEY = `${process.env.SANITY_STUDIO_PAGE_SPEED_INSIGHTS_API_KEY}`
-
 export default defineConfig({
   // ...
-  plugins: [lighthousePlugin({API_KEY})],
+  plugins: [lighthousePlugin()],
 })
 ```
 
-After adding the plugin, you can access it by opening the "Page Speed" tab in the Sanity Studio. From there, you can enter the URL of the page you want to analyze and click "Run Analysis" to get insights into the speed and performance of your website.
+After adding the plugin, you can access it by opening the "Page Speed" tab in the Sanity Studio.
+On this page, you'll need to enter the API key you generated (as described above) within the modal window.
+After that, you can enter the URL of the page you want to analyze and click "Run Analysis" to get insights into the speed and performance of your website.
 
 ## Acknowledgments
 
