@@ -4,14 +4,14 @@ export const SECRETS_PLUGIN_CONFIG_KEYS = [
   {
     key: 'apiKey',
     title: 'Your secret API key',
-  }
+  },
 ]
 
 export const STATE_TYPE = {idle: 'idle', loading: 'loading', success: 'success', error: 'error'}
 
-export const CATEGORIES = ['PERFORMANCE', 'PWA', 'SEO', 'BEST_PRACTICES', 'ACCESSIBILITY']
+export const CATEGORIES = ['PERFORMANCE', 'SEO', 'BEST_PRACTICES', 'ACCESSIBILITY']
 
-export const CATEGORIES_TITLE = ['Performance', 'PWA', 'SEO', 'Best Practices', 'Accessibility']
+export const CATEGORIES_TITLE = ['Performance', 'SEO', 'Best Practices', 'Accessibility']
 export const LIST_DEVICES = {mobile: 'mobile', desktop: 'desktop'}
 
 export const COLORS = ['#5CC971', '#F3AE4E', '#EB483F']

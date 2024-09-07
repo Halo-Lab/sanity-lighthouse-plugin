@@ -1,10 +1,10 @@
-import { defineConfig } from '@sanity/pkg-utils'
+import {defineConfig} from '@sanity/pkg-utils'
 
 export default defineConfig({
   legacyExports: true,
   dist: 'dist',
   tsconfig: 'tsconfig.dist.json',
-  external: ["styled-components", "@sanity/ui"],
+  external: ['styled-components', '@sanity/ui'],
 
   // Remove this block to enable strict export validation
   extract: {
