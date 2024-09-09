@@ -22,9 +22,11 @@ const Title = styled.h3`
 const RenderCategories = ({item}) => {
   const {score, title} = item
 
+  const validScore = isNaN(score) || score === undefined ? 0 : score
+
   return (
     <PieContainer>
-      <PieChartComponent title={title} score={score} />
+      <PieChartComponent title={title} score={validScore} />
       <Title>{title}</Title>
     </PieContainer>
   )

@@ -6,9 +6,7 @@ const endpoint = 'https://pagespeedonline.googleapis.com/pagespeedonline/v5/runP
 
 export const apiRequestByDeviceAllCategories = async (url, device = 'desktop', API_KEY) => {
   const req = CATEGORIES.map((category) => {
-    return axios(
-      `${endpoint}?url=${url}&strategy=${device}&key=${API_KEY}&category=${category}`
-    )
+    return axios(`${endpoint}?url=${url}&strategy=${device}&key=${API_KEY}&category=${category}`)
   })
   return Promise.all(req)
 }
